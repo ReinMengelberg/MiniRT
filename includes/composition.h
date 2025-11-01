@@ -1,6 +1,8 @@
 #ifndef COMPOSITION_H
 #define COMPOSITION_H
 
+#include "vector.h"
+
 typedef struct composition {
 	camera  camera;
 	ambient ambient;
@@ -59,12 +61,6 @@ typedef struct plane {
 	vector	direction;
 	color	color;
 } plane;
-
-typedef struct vector {
-	double	x;
-	double	y;
-	double	z;
-} vector;
 
 typedef struct color {
 	unsigned char	r;

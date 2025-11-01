@@ -9,6 +9,7 @@
 #include "fcntl.h"
 
 // STRUCTS
+#include "vector.h"
 #include "composition.h"
 #include "image.h"
 

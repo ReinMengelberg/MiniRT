@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 11:58:05 by theyn             #+#    #+#             */
-/*   Updated: 2024/10/19 14:40:02 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_strnstr.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/10 18:06:38 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/10/13 15:18:29 by rein          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	size_t	i;
-	size_t	j;
+	size_t	needle_len;
 
-	i = 0;
-	if (*little == '\0')
-		return ((char *)big);
-	while (i < len && big[i] != '\0')
+	if (*needle == '\0')
+		return ((char *)haystack);
+	needle_len = ft_strlen(needle);
+	while (*haystack != '\0' && len >= needle_len)
 	{
-		j = 0;
-		while (i + j < len && little[j] != '\0' && little[j] == big[i + j])
-		{
-			j++;
-			if (little[j] == '\0')
-				return ((char *)&big[i]);
-		}
-		i++;
+		i = 0;
+		while (haystack[i] == needle[i] && needle[i] != '\0')
+			i++;
+		if (needle[i] == '\0')
+			return ((char *)haystack);
+		haystack++;
+		len--;
 	}
 	return (NULL);
 }

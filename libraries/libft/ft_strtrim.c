@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 13:11:15 by theyn             #+#    #+#             */
-/*   Updated: 2024/10/16 15:20:17 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_strtrim.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rein <rein@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/09 20:37:22 by rein          #+#    #+#                 */
+/*   Updated: 2024/10/13 15:36:27 by rein          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,23 @@
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t			start;
-	size_t			end_position;
+	size_t	start;
+	size_t	end;
+	size_t	len;
+	char	*res;
 
 	if (!s1 || !set)
 		return (NULL);
 	start = 0;
-	end_position = ft_strlen(s1);
-	while (s1[start] != '\0' && ft_strchr(set, s1[start]))
+	while (s1[start] && ft_strchr(set, s1[start]))
 		start++;
-	while (end_position > start && ft_strrchr(set, s1[end_position - 1]))
-		end_position--;
-	if (start >= end_position)
-		return (ft_strdup(""));
-	return (ft_substr(s1, start, end_position - start));
+	end = ft_strlen(s1);
+	while (end > start && ft_strchr(set, s1[end - 1]))
+		end--;
+	len = end - start;
+	res = (char *)malloc(sizeof(char) * (len + 1));
+	if (!res)
+		return (NULL);
+	ft_strlcpy(res, &s1[start], len + 1);
+	return (res);
 }

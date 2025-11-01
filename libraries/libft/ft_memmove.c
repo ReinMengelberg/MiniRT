@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 12:48:42 by theyn             #+#    #+#             */
-/*   Updated: 2024/10/19 14:39:28 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_memmove.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/10 17:59:00 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/10/13 15:37:06 by rein          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	const unsigned char	*s;
-	unsigned char		*d;
+	char		*ptr_dest;
+	const char	*ptr_src;
 
-	if (n == 0 || dest == src)
-		return (dest);
-	s = (const unsigned char *)src;
-	d = (unsigned char *)dest;
-	if (d < s)
+	ptr_dest = dest;
+	ptr_src = src;
+	if (!dest && !src)
+		return (NULL);
+	if (ptr_dest > ptr_src && ptr_dest < ptr_src + n)
 	{
+		ptr_dest += n;
+		ptr_src += n;
 		while (n--)
-			*d++ = *s++;
+			*(--ptr_dest) = *(--ptr_src);
 	}
 	else
 	{
-		d += n;
-		s += n;
 		while (n--)
-			*(--d) = *(--s);
+			*ptr_dest++ = *ptr_src++;
 	}
 	return (dest);
 }

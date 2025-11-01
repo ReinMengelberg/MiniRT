@@ -1,105 +1,101 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/13 14:53:28 by theyn             #+#    #+#             */
-/*   Updated: 2025/06/20 11:18:34 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_split.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/10 17:14:24 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/10/13 17:07:25 by rein          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-static size_t	count_substrings(const char *s, char c)
+static size_t	ft_cntstr(char const *s, char c)
 {
-	size_t	count;
-	int		in_substring;
-
-	count = 0;
-	in_substring = 0;
-	while (*s)
-	{
-		if (*s != c && !in_substring)
-		{
-			in_substring = 1;
-			count++;
-		}
-		else if (*s == c)
-			in_substring = 0;
-		s++;
-	}
-	return (count);
-}
-
-static char	*allocate_substring(const char *start, size_t length)
-{
-	char	*substring;
 	size_t	i;
+	size_t	len;
+	int		flag;
 
-	substring = (char *)malloc((length + 1) * sizeof(char));
-	if (!substring)
-		return (NULL);
 	i = 0;
-	while (i < length)
+	len = 0;
+	flag = 0;
+	while (s[i] != '\0')
 	{
-		substring[i] = start[i];
+		if (s[i] != c && flag == 0)
+		{
+			len++;
+			flag = 1;
+		}
+		else if (s[i] == c)
+			flag = 0;
 		i++;
 	}
-	substring[i] = '\0';
-	return (substring);
+	return (len);
 }
 
-static int	extract_substrings(char const *s, char c, char **result)
+static char	**ft_free(char **res, size_t j)
 {
-	size_t		i;
-	const char	*substr_start;
-	size_t		substr_length;
+	while (j > 0)
+		free(res[--j]);
+	free(res);
+	return (NULL);
+}
 
+static size_t	ft_word_len(char const *s, char c)
+{
+	size_t	len;
+
+	len = 0;
+	while (s[len] != c && s[len] != '\0')
+		len++;
+	return (len);
+}
+
+static char	*ft_strndup(const char *s, size_t n)
+{
+	char	*res;
+	size_t	i;
+
+	res = malloc(sizeof(char) * (n + 1));
+	if (!res)
+		return (NULL);
 	i = 0;
-	while (*s)
+	while (i < n)
 	{
-		while (*s == c)
-			s++;
-		substr_start = s;
-		substr_length = 0;
-		while (*s && *s != c)
-		{
-			substr_length++;
-			s++;
-		}
-		if (substr_length > 0)
-		{
-			result[i] = allocate_substring(substr_start, substr_length);
-			if (!result[i++])
-				return (0);
-		}
+		res[i] = s[i];
+		i++;
 	}
-	result[i] = NULL;
-	return (1);
+	res[i] = '\0';
+	return (res);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	substr_count;
+	size_t	amount;
+	size_t	i;
 	size_t	j;
-	char	**result;
+	size_t	word_len;
+	char	**res;
 
-	if (!s)
+	i = 0;
+	j = 0;
+	amount = ft_cntstr(s, c);
+	res = malloc(sizeof(char *) * (amount + 1));
+	if (!res)
 		return (NULL);
-	substr_count = count_substrings(s, c);
-	result = (char **)malloc((substr_count + 1) * sizeof(char *));
-	if (!result)
-		return (NULL);
-	if (!extract_substrings(s, c, result))
+	while (j < amount)
 	{
-		j = 0;
-		while (result[j])
-			free (result[j++]);
-		free (result);
-		return (NULL);
+		while (s[i] == c)
+			i++;
+		word_len = ft_word_len(s + i, c);
+		res[j] = ft_strndup(s + i, word_len);
+		if (!res[j])
+			return (ft_free(res, j));
+		j++;
+		i += word_len;
 	}
-	return (result);
+	res[j] = NULL;
+	return (res);
 }

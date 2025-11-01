@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 15:54:44 by theyn             #+#    #+#             */
-/*   Updated: 2024/10/19 11:32:59 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_strmapi.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/11 14:37:06 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/10/13 15:35:56 by rein          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,20 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char			*new_string;
-	unsigned int	i;
-	unsigned int	length;
+	size_t	i;
+	char	*result;
 
+	i = 0;
 	if (!s || !f)
 		return (NULL);
-	length = ft_strlen (s);
-	new_string = (char *)malloc(sizeof(char) * (length + 1));
-	if (!new_string)
+	result = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!result)
 		return (NULL);
-	i = 0;
-	while (i < length)
+	while (s[i] != '\0')
 	{
-		if (s && f)
-			new_string[i] = f(i, s[i]);
+		result[i] = f(i, s[i]);
 		i++;
 	}
-	new_string[i] = '\0';
-	return (new_string);
+	result[i] = '\0';
+	return (result);
 }

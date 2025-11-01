@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 15:28:22 by theyn             #+#    #+#             */
-/*   Updated: 2024/10/20 14:05:23 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_calloc.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/11 13:48:54 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/10/13 17:01:43 by rein          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t count, size_t size)
 {
-	size_t			total_size;
-	size_t			i;
-	unsigned char	*ptr;
+	size_t	bytes;
+	char	*mem;
 
-	i = 0;
-	if (size > 0 && nmemb > ((size_t)-1) / size)
+	if (count == 0 || size == 0)
+		return (malloc(1));
+	if (count > SIZE_MAX / size)
 		return (NULL);
-	total_size = nmemb * size;
-	ptr = malloc(total_size);
-	if (ptr == NULL)
+	bytes = count * size;
+	mem = malloc(bytes);
+	if (!mem)
 		return (NULL);
-	while (i < total_size)
-	{
-		ptr[i] = 0;
-		i++;
-	}
-	return (ptr);
+	return (ft_memset(mem, 0, bytes));
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 18:58:13 by theyn             #+#    #+#             */
-/*   Updated: 2025/05/03 15:15:11 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_substr.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/11 13:50:53 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/10/13 15:35:11 by rein          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,26 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
+	char	*res;
 	size_t	i;
-	size_t	string_length;
-	char	*sub;
+	size_t	s_len;
 
-	i = 0;
-	string_length = 0;
 	if (!s)
 		return (NULL);
-	string_length = ft_strlen(s);
-	if (start >= string_length)
+	s_len = ft_strlen(s);
+	if (start >= s_len)
 		return (ft_strdup(""));
-	string_length -= start;
-	if (string_length > len)
-		string_length = len;
-	sub = (char *)malloc((string_length + 1) * sizeof(char));
-	if (!sub)
+	if (len > s_len - start)
+		len = s_len - start;
+	res = (char *)malloc(sizeof(char) * (len + 1));
+	if (!res)
 		return (NULL);
-	while (i < string_length)
+	i = 0;
+	while (i < len && s[start + i] != '\0')
 	{
-		sub[i] = s[start + i];
+		res[i] = s[start + i];
 		i++;
 	}
-	sub[i] = '\0';
-	return (sub);
+	res[i] = '\0';
+	return (res);
 }

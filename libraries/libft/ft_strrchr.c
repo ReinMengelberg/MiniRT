@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 18:19:17 by theyn             #+#    #+#             */
-/*   Updated: 2024/10/20 12:35:58 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_strrchr.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/10 18:04:40 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/10/13 16:06:52 by rein          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
+	int		i;
+	char	*last_occurrence;
 
+	last_occurrence = NULL;
 	i = 0;
 	while (s[i] != '\0')
-		i++;
-	while (i >= 0)
 	{
-		if ((unsigned char)s[i] == (unsigned char)c)
-			return ((char *)&s[i]);
-		i--;
+		if (s[i] == (char)c)
+			last_occurrence = (char *)(s + i);
+		i++;
 	}
-	return (NULL);
+	if (c == '\0')
+		return ((char *)(s + i));
+	return (last_occurrence);
 }

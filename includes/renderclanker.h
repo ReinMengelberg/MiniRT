@@ -1,8 +1,7 @@
 #ifndef RENDERCLANKER_H
 #   define RENDERCLANKER_H
 
-
-// LIB
+#include "libft.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "math.h"

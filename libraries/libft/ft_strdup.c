@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 17:17:14 by theyn             #+#    #+#             */
-/*   Updated: 2024/10/20 12:37:58 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_strdup.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/11 13:50:38 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/10/13 15:39:12 by rein          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(const char *s1)
 {
+	size_t	len;
 	size_t	i;
-	size_t	length;
-	char	*duplicate;	
+	char	*res;
 
 	i = 0;
-	length = 0;
-	while (s[length] != '\0')
-		length++;
-	duplicate = (char *)malloc((length + 1) * sizeof(char));
-	if (duplicate == NULL)
+	len = ft_strlen(s1);
+	res = malloc(sizeof(char) * (len + 1));
+	if (!res)
 		return (NULL);
-	while (i < length)
+	while (s1[i] != '\0')
 	{
-		duplicate[i] = s[i];
+		res[i] = s1[i];
 		i++;
 	}
-	duplicate[i] = '\0';
-	return (duplicate);
+	res[i] = '\0';
+	return (res);
 }

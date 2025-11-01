@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 19:19:56 by theyn             #+#    #+#             */
-/*   Updated: 2024/10/20 12:43:23 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_putnbr_fd.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/11 15:34:37 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/10/13 15:47:38 by rein          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,28 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	if (n == -2147483648)
+	long int	nb;
+	char		buf[12];
+	size_t		i;
+
+	nb = n;
+	i = 0;
+	if (nb == 0)
 	{
-		ft_putchar_fd('-', fd);
-		ft_putchar_fd('2', fd);
-		n = 147483648;
+		write(fd, "0", 1);
+		return ;
 	}
-	if (n < 0)
+	else if (nb < 0)
 	{
-		ft_putchar_fd('-', fd);
-		n *= -1;
+		write(fd, "-", 1);
+		nb = -nb;
 	}
-	if (n >= 10)
+	while (nb > 0)
 	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putnbr_fd(n % 10, fd);
+		buf[i] = nb % 10 + '0';
+		nb = nb / 10;
+		i++;
 	}
-	else
-		ft_putchar_fd(n + 48, fd);
+	while (i-- > 0)
+		write(fd, &buf[i], 1);
 }

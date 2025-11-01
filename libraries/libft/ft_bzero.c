@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 19:59:50 by theyn             #+#    #+#             */
-/*   Updated: 2024/10/19 14:39:03 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_bzero.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/10 17:57:56 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/10/13 15:27:28 by rein          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
 {
-	char	*str;
+	char	*ptr;
 
-	str = s;
-	while (n--)
+	ptr = s;
+	while (n > 0)
 	{
-		*str++ = 0;
+		*ptr = 0;
+		ptr++;
+		n--;
 	}
+	return ;
 }

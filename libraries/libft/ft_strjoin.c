@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 12:21:09 by theyn             #+#    #+#             */
-/*   Updated: 2024/10/16 15:19:42 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_strjoin.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rein <rein@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/09 20:02:34 by rein          #+#    #+#                 */
+/*   Updated: 2024/10/13 15:28:16 by rein          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int		i;
-	int		j;
 	char	*result;
+	size_t	i;
+	size_t	j;
 
-	i = ft_strlen (s1);
-	j = ft_strlen (s2);
-	result = (char *)malloc((i + j + 1) * sizeof(char));
-	if (!result)
-		return (NULL);
 	i = 0;
 	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	result = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!result)
+		return (NULL);
 	while (s1[i] != '\0')
 	{
 		result[i] = s1[i];

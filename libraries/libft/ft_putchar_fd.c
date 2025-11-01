@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 17:42:11 by theyn             #+#    #+#             */
-/*   Updated: 2024/10/19 14:35:59 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_putchar_fd.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/11 15:27:02 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/10/13 15:34:33 by rein          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
 void	ft_putchar_fd(char c, int fd)
 {
-	write (fd, &c, 1);
+	write(fd, &c, 1);
 }

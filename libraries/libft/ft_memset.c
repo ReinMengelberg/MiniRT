@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 19:17:04 by theyn             #+#    #+#             */
-/*   Updated: 2024/10/19 14:39:30 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_memset.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/10 17:57:29 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/10/13 15:34:42 by rein          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	char	*str;
+	unsigned char	*ptr;
 
-	str = s;
-	while (n--)
+	ptr = b;
+	while (len > 0)
 	{
-		*str++ = c;
+		*ptr = c;
+		ptr++;
+		len--;
 	}
-	return (s);
+	return (b);
 }

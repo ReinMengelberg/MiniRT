@@ -18,7 +18,7 @@ DEPS	= $(addprefix $(DEP_DIR)/, $(SRCS:.c=.d))
 
 # Libraries
 LIBFT_DIR	= libraries/libft
-LIBFT		= $(LIBFT_DIR)/libft.addprefix
+LIBFT		= $(LIBFT_DIR)/libft.a
 
 MLX_DIR		= minilibx-linux
 MLX			= $(MLX_DIR)/libmlx.a

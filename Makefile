@@ -5,7 +5,7 @@ CC		= cc
 CFLAGS	= -Wall -Werror -Wextra -g
 RM		= rm -f
 OBJ_DIR	= obj
-INC_DIR = include
+INC_DIR = includes
 DEP_DIR	= $(OBJ_DIR)
 
 SRCS	= \
@@ -18,16 +18,12 @@ DEPS	= $(addprefix $(DEP_DIR)/, $(SRCS:.c=.d))
 
 # Libraries
 LIBFT_DIR	= libraries/libft
-LIBFT		= $(LIBFT_DIR)/libft.a
-
-MLX_DIR		= minilibx-linux
+LIBFT		= $(LIBFT_DIR)/libft.addprefix
+MLX_DIR		= libraries/minilibx-linux
 MLX			= $(MLX_DIR)/libmlx.a
 
 # Includes
 INCLUDES	= -Iincludes -I$(INC_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
-
-# ASCII Big_Money Art
-ASCII_ART 	= ascii_art.txt
 
 all: $(OBJ_DIR) $(LIBFT) $(MLX) $(NAME)
 	@cat $(ASCII_ART) 2>dev/null || true

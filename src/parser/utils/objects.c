@@ -51,7 +51,7 @@ vector	*fill_direction(char *token) {
 	}
 	if (vec->x > 1 || vec->x < -1 ||vec->y > 1 || vec->y < -1 ||vec->z > 1 || vec->z < -1) {
 		free(vec);
-		return (perror("Error: direction vectors should be in range [-1.0,1.0]"), NULL);
+		return (perror("Error: direction vector values should be in range [-1.0,1.0]"), NULL);
 	}
 	return vec;
 }

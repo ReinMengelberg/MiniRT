@@ -9,7 +9,7 @@ bool add_camera(composition *comp, char *line) {
 	
 	tokens = ft_split(line, ' ');
 	if (!tokens) {
-		return (perror("Error: Failed to split tokens for camera definitions"), false);
+		return (perror("Error: Failed to split tokens for camera definition in .rt file"), false);
 	}
 	if (token_count(tokens) != 4 || !check_token(tokens[0], "C")) {
 		free_array(tokens);

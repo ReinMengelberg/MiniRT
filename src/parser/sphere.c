@@ -12,17 +12,28 @@ sphere *parse_sphere(char **tokens)
 
 	sphere = malloc(sizeof(sphere));
 	if (!sphere) {
-		return (perror("Failed ot allocate memory for a sphere"), NULL);
+		return (perror("Failed to allocate memory for a sphere"), NULL);
 	}
-	sphere->root = fill_vector(tokens[1]);
-	sphere->radius = ft_atod(tokens[2]) / 2;
-	sphere->color = fill_color(tokens[5]);
+	sphere->color = NULL;
+	sphere->root = NULL;
 
-	if (!sphere->root || !sphere->radius || !sphere->color) {
-		free_sphere(sphere);
-		return (perror("Incorrect sphere definition in .rt file"), NULL);
-	}
+
+	sphere->root = fill_vector(tokens[1]);
+	if (!sphere->root)
+		goto error;
+
+	if (!is_valid_float(tokens[2]))
+		goto error;
+	sphere->radius = ft_atod(tokens[2]) / 2;
+
+	sphere->color = fill_color(tokens[3]);
+	if (!sphere->color)
+		goto error;
 	return sphere;
+
+error:
+	free_sphere(sphere);
+	return (perror("Error: Incorrect sphere definition in .rt file"), NULL);
 }
 
 bool add_sphere(composition *comp, char *line)

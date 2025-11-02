@@ -37,6 +37,7 @@ void		free_camera(camera *camera);
 int			token_count(char **tokens);
 bool		check_token(char *token, char *expected);
 void		free_tokens(char **tokens);
+bool		is_valid_float(char *str);
 double		ft_atod(char *str);
 float		ft_atof(char *str);
 

@@ -33,7 +33,6 @@ bool add_cylinder(composition *comp, char *line) {
 		return (perror("Failed to parse cylinder"), false);
 	}
     
-
 	add_object_to_list(comp, new_obj);
     return (true);
 }

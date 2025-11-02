@@ -30,4 +30,34 @@ bool add_plane(composition *comp, char *line) {
 		free(new_obj);
 		return (perror("Failed to parse plane"), false);
 	}
+
+	add_object_to_list(comp, new_obj);
+	return (true);
+}
+
+plane	*parse_plane(char **tokens) {
+	plane	*plane;
+
+	plane = malloc(sizeof(plane));
+	if (!plane) {
+		return (perror("Failed to allocate memory for a plane"), NULL);
+	}
+	
+	plane->root = fill_vector(tokens[1]);
+	plane->direction = fill_direction(tokens[2]);
+	plane->color = fill_color(tokens[3]);
+
+	if (!plane->root || !plane->direction || !plane->color){
+		free_plane(plane);
+		return (perror("Incorrect plane definition in .rt file"), NULL);
+	}	
+
+	return plane;
+}
+
+void free_plane(cylinder *plane) {
+	if (plane->root) free(plane->root);
+	if (plane->direction) free(plane->direction);
+	if (plane->color) free(plane->color);
+	free(plane);
 }

@@ -27,7 +27,7 @@ bool add_sphere(composition *comp, char *line)
 
 	if (!new_obj->data) {
 		free(new_obj);
-		return (perror("Failed to parse cylinder"), false);
+		return (perror("Failed to parse sphere"), false);
 	}
 	add_object_to_list(comp, new_obj);
 	return (true);

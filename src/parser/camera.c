@@ -16,16 +16,20 @@ camera *parse_camera(char **tokens) {
 		return (perror("Error: Failed to allocate memory for a camera"), NULL);
 	}
 
-	cam->root = fill_vector(tokens[1]);
-	cam->direction = fill_direction(tokens[2]);
+	if (!is_valid_int(tokens[3]) || ft_atoi(tokens[3]) > 180 || ft_atoi(tokens[3] < 0)) goto error;
 	cam->fov = ft_atoi(tokens[3]);
 
-	if (!cam->root || !cam->direction || cam->fov > 180 || cam->fov < 0) {
-		free_camera(cam);
-		return (perror("Error: Incorrect camera definition in .rt file"), NULL);
-	}	
+	cam->root = fill_vector(tokens[1]);
+	if (!cam->root) goto error;
+
+	cam->direction = fill_direction(tokens[2]);
+	if (!cam->root) goto error;
 
 	return cam;
+
+error:
+	free_camera(cam);
+	return (perror("Error: Incorrect sphere definition in .rt file"), NULL);
 }
 
 bool add_camera(composition *comp, char *line) {

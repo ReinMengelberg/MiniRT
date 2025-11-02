@@ -14,21 +14,16 @@ sphere *parse_sphere(char **tokens)
 	if (!sphere) {
 		return (perror("Failed to allocate memory for a sphere"), NULL);
 	}
-	sphere->color = NULL;
-	sphere->root = NULL;
-
 
 	sphere->root = fill_vector(tokens[1]);
-	if (!sphere->root)
-		goto error;
+	if (!sphere->root) goto error;
 
-	if (!is_valid_float(tokens[2]))
-		goto error;
+	if (!is_valid_float(tokens[2])) goto error;
 	sphere->radius = ft_atod(tokens[2]) / 2;
 
 	sphere->color = fill_color(tokens[3]);
-	if (!sphere->color)
-		goto error;
+	if (!sphere->color) goto error;
+
 	return sphere;
 
 error:

@@ -6,6 +6,9 @@ bool add_cylinder(composition *comp, char *line) {
     object  *current;
     
     tokens = ft_split(line, ' ');
+	if (!tokens) {
+		return (perror("Error: Failed to split tokens for cylinder definition in .rt file"), false);
+	}
     if (token_count(tokens) != 6 || !check_token(tokens[0], "cy")) {
         free_array(tokens);
         return (perror("Incorrect cylinder definition in .rt file"), false);
@@ -22,17 +25,16 @@ bool add_cylinder(composition *comp, char *line) {
     new_obj->data = parse_cylinder(tokens);
     new_obj->next = NULL;
     new_obj->prev = NULL;
+    free_array(tokens);
     
     // Check if parse_cylinder failed
     if (!new_obj->data) {
         free(new_obj);
-        free_array(tokens);
         return (perror("Failed to parse cylinder"), false);
     }
     
 
 	add_object_to_list(comp, new_obj);
-    free_array(tokens);
     return (true);
 }
 
@@ -49,7 +51,6 @@ cylinder *parse_cylinder(char **tokens) {
 	cyl->radius = atod(tokens[3]) / 2;
 	cyl->height = atod(tokens[4]);
 	cyl->color = fill_color(tokens[5]);
-	free_array(tokens);
 
 	if (!cyl->root || !cyl->direction || !cyl->radius || !cyl->height || !cyl->color) {
 		free_cylinder(cyl);

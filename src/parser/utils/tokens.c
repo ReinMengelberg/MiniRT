@@ -12,6 +12,23 @@ int token_count(char **tokens)
     return count;
 }
 
+bool check_token(char *token, char *expected)
+{
+    int i;
+    
+    if (!token || !expected)
+        return (false);
+    
+    i = 0;
+    while (token[i] && expected[i])
+    {
+        if (token[i] != expected[i])
+            return (false);
+        i++;
+    }
+    return (token[i] == '\0' && expected[i] == '\0');
+}
+
 // Free a 2D array (array of strings)
 void free_array(char **tokens)
 {
@@ -88,60 +105,4 @@ double	ft_atod(char *str)
 		}
 	}
 	return (result * sign);
-}
-
-vector	*fill_vector(char *token)
-{
-	char	**xyz;
-	int		i = 0;
-
-	xyz = ft_split(token, ',');
-	if (!xyz || token_count(xyz) != 3)
-	{
-		free_array(xyz);
-		return NULL;
-	}
-	while (i < 3)
-	{
-		if (!is_valid_number(xyz[i]))
-		{
-			free_array(xyz);
-			return NULL;
-		}
-		i++;
-	}
-}
-
-bool check_token(char *token, char *expected)
-{
-    int i;
-    
-    if (!token || !expected)
-        return (false);
-    
-    i = 0;
-    while (token[i] && expected[i])
-    {
-        if (token[i] != expected[i])
-            return (false);
-        i++;
-    }
-    return (token[i] == '\0' && expected[i] == '\0');
-}
-
-void add_object_to_list(composition *comp, object *new_obj)
-{
-    object *current;
-    
-    if (!comp->objects) {
-        // First object in the list
-        comp->objects = new_obj;
-    } else {
-        // Find the last object and append
-        current = comp->objects;
-        while (current->next)
-            current = current->next;
-        current->next = new_obj;
-        new_obj->prev = current;
-    }
 }

@@ -40,7 +40,8 @@ composition *create_composition(int fd) {
 	comp = malloc(sizeof(composition));
 
 	while ((line = get_next_lint(fd))) {
-		if (!add_to_composition(comp, line)){
+		if (!add_to_composition(comp, line)) {
+			// collect garbage
 			free(line);
 		}
 		free(line);

@@ -16,14 +16,16 @@ ambient *parse_ambient(char **tokens) {
 	}
 
 	amb->color = fill_color(tokens[1]);
-	amb->intensity = ft_atof(tokens[2]);
+	if (!amb->color) goto error;
 
-	if (!amb->color || amb->intensity > 1 || amb->intensity < 0) {
-		free_ambient(amb);
-		return (perror("Error: Incorrect ambient definition in .rt file"), NULL);
-	}	
+	amb->intensity = ft_atof(tokens[2]);
+	if (amb->intensity > 1 || amb->intensity < 0) goto error;
 
 	return amb;
+
+error:
+	free_ambient(amb);
+	return (perror("Error: Incorrect ambient definition in .rt file"), NULL);
 }
 
 bool add_ambient(composition *comp, char *line) {

@@ -16,15 +16,18 @@ plane	*parse_plane(char **tokens) {
 	}
 	
 	plane->root = fill_vector(tokens[1]);
-	plane->direction = fill_direction(tokens[2]);
-	plane->color = fill_color(tokens[3]);
+	if (!plane->root) goto error;
 
-	if (!plane->root || !plane->direction || !plane->color){
-		free_plane(plane);
-		return (perror("Incorrect plane definition in .rt file"), NULL);
-	}	
+	plane->direction = fill_direction(tokens[2]);
+	if (!plane->direction) goto error;
+
+	plane->color = fill_color(tokens[3]);
+	if (!plane->color) goto error;
 
 	return plane;
+error:
+	free_plane(plane);
+	return (perror("Error: Incorrect plane definition in .rt file"), NULL);
 }
 
 bool add_plane(composition *comp, char *line) {

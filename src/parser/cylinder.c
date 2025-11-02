@@ -16,17 +16,24 @@ cylinder *parse_cylinder(char **tokens) {
 	}
 
 	cyl->root = fill_vector(tokens[1]);
+	if (!cyl->root) goto error;
+
 	cyl->direction = fill_direction(tokens[2]);
+	if (!cyl->direction) goto error;
+
+	if (!is_valid_float(tokens[3])) goto error;
 	cyl->radius = ft_atod(tokens[3]) / 2;
+
+	if (!is_valid_float(tokens[4])) goto error;
 	cyl->height = ft_atod(tokens[4]);
+
 	cyl->color = fill_color(tokens[5]);
-
-	if (!cyl->root || !cyl->direction || !cyl->radius || !cyl->height || !cyl->color) {
-		free_cylinder(cyl);
-		return (perror("Incorrect cylinder definition in .rt file"), NULL);
-	}	
-
+	if (!cyl->color) goto error;
 	return cyl;
+
+error:
+	free_sphere(cyl);
+	return (perror("Error: Incorrect cylinder definition in .rt file"), NULL);
 }
 
 bool add_cylinder(composition *comp, char *line) {

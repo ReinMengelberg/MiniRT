@@ -52,16 +52,16 @@ cylinder *parse_cylinder(char **tokens) {
 	free_array(tokens);
 
 	if (!cyl->root || !cyl->direction || !cyl->radius || !cyl->height || !cyl->color) {
-		free_object(cyl);
+		free_cylinder(cyl);
 		return (perror("Incorrect cylinder definition in .rt file"), NULL);
 	}	
 
 	return cyl;
 }
 
-void free_cylinder(cylinder *object) {
-	if (object->root) free(object->root);
-	if (object->direction) free(object->direction);
-	if (object->color) free(object->color);
-	free(object);
+void free_cylinder(cylinder *cyl) {
+	if (cyl->root) free(cyl->root);
+	if (cyl->direction) free(cyl->direction);
+	if (cyl->color) free(cyl->color);
+	free(cyl);
 }

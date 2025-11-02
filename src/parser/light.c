@@ -1,7 +1,5 @@
 #include "renderclanker.h"
 
-
-
 bool add_light(composition *comp, char *line) {
 	char    **tokens;
 	light   *new_light;
@@ -41,7 +39,7 @@ bool add_light(composition *comp, char *line) {
 	return (true);
 }
 
-void add_light_to_linked_list(composition *comp, light *new_light {
+void add_light_to_linked_list(composition *comp, light *new_light) {
 	light *current;
 	
 	if (!comp->lights) {

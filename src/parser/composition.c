@@ -1,10 +1,5 @@
 #include "renderclanker.h"
 
-bool add_ambient(composition *comp, char *line)
-{
-
-}
-
 bool	add_to_composition(composition *comp, char *line)
 {
 	switch (line[0]) {
@@ -23,15 +18,6 @@ bool	add_to_composition(composition *comp, char *line)
 		default:
 			return (perror("Not a valid .rt file"), false);
 	}
-}
-
-bool	validate_composition(char *line)
-{
-	char *trimmed;
-
-	if (!line)
-		return (false);
-	
 }
 
 composition *create_composition(int fd) {

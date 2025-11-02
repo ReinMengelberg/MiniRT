@@ -57,37 +57,28 @@ vector	*fill_direction(char *token) {
 }
 
 color *fill_color(char *token) {
-	char    **rgb;
-	color   *col;
-	int     i;
-	int     val;
+    char    **rgb;
+    color   *col;
 
-	rgb = ft_split(token, ',');
-	if (!rgb || token_count(rgb) != 3) {
-		free_tokens(rgb);
-		return NULL;
-	}
-	for (i = 0; i < 3; i++) {
-		if (!is_valid_number(rgb[i])) {
-			free_tokens(rgb);
-			return NULL;
-		}
-		val = ft_atoi(rgb[i]);
-		if (val < 0 || val > 255) {
-			free_tokens(rgb);
-			return NULL;
-		}
-	}
-	col = malloc(sizeof(color));
-	if (!col) {
-		free_tokens(rgb);
-		return NULL;
-	}
-	col->r = (unsigned char)ft_atoi(rgb[0]);
-	col->g = (unsigned char)ft_atoi(rgb[1]);
-	col->b = (unsigned char)ft_atoi(rgb[2]);
-	free_tokens(rgb);
-	return col;
+    rgb = ft_split(token, ',');
+    if (!rgb || token_count(rgb) != 3) {
+        free_tokens(rgb);
+        return NULL;
+    }
+    col = malloc(sizeof(color));
+    if (!col) {
+        free_tokens(rgb);
+        return NULL;
+    }
+    col->r = (unsigned char)ft_atoi(rgb[0]);
+    col->g = (unsigned char)ft_atoi(rgb[1]);
+    col->b = (unsigned char)ft_atoi(rgb[2]);
+    free_tokens(rgb);
+    if (col->r < 0 || col->r > 255 || col->g < 0 || col->g > 255 || col->b < 0 || col->b > 255) {
+        free(col);
+        return (perror("Error: color values should be in range [0,255]"), NULL);
+    }
+    return col;
 }
 
 void add_object_to_list(composition *comp, object *new_obj) {

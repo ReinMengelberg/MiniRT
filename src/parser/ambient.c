@@ -11,43 +11,41 @@ bool add_ambient(composition *comp, char *line) {
 	if (!tokens) {
 		return (perror("Error: Failed to split tokens for ambient definition in .rt file"), false);
 	}
-	if (token_count(tokens) != 4 || !check_token(tokens[0], "C")) {
+	if (token_count(tokens) != 3 || !check_token(tokens[0], "A")) {
 		free_array(tokens);
-		return (perror("Error: Incorrect camera definition in .rt file"), false);
+		return (perror("Error: Incorrect ambient definition in .rt file"), false);
 	}
 	
-	comp->camera = parse_camera(tokens);
+	comp->ambient = parse_ambient(tokens);
 	free_array(tokens);
-	if (!comp->camera) {
+	if (!comp->ambient) {
 		return false;
 	}
 	return (true);
 }
 
-camera *parse_camera(char **tokens) {
-	camera *cam;
+ambient *parse_ambient(char **tokens) {
+	ambient *amb;
 
-	cam = malloc(sizeof(camera));
-	if (!cam) {
-		return (perror("Error: Failed to allocate memory for a camera"), NULL);
+	amb = malloc(sizeof(ambient));
+	if (!amb) {
+		return (perror("Error: Failed to allocate memory for a ambient"), NULL);
 	}
 
-	cam->root = fill_vector(tokens[1]);
-	cam->direction = fill_direction(tokens[2]);
-	cam->fov = ft_atoi(tokens[3]);
+	amb->color = fill_color(tokens[1]);
+	amb->intensity = ft_atof(tokens[2]);
 
-	if (!cam->root || !cam->direction || cam->fov > 180 || cam->fov < 0) {
-		free_camera(cam);
-		return (perror("Error: Incorrect camera definition in .rt file"), NULL);
+	if (!amb->color || amb->intensity > 1 || amb->intensity < 0) {
+		free_ambient(amb);
+		return (perror("Error: Incorrect ambient definition in .rt file"), NULL);
 	}	
 
-	return cam;
+	return amb;
 }
 
-void free_camera(camera *cam) {
-	if (!cam)
+void free_ambient(ambient *amb) {
+	if (!amb)
 		return;
-	if (cam->root) free(cam->root);
-	if (cam->direction) free(cam->direction);
-	free(cam);
+	if (amb->color) free(amb->color);
+	free(amb);
 }

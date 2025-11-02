@@ -38,7 +38,7 @@ int			token_count(char **tokens);
 bool		check_token(char *token, char *expected);
 void		free_tokens(char **tokens);
 double		ft_atod(char *str);
-double		ft_atof(char *str);
+float		ft_atof(char *str);
 
 
 

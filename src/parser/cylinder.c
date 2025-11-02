@@ -17,8 +17,8 @@ cylinder *parse_cylinder(char **tokens) {
 
 	cyl->root = fill_vector(tokens[1]);
 	cyl->direction = fill_direction(tokens[2]);
-	cyl->radius = atod(tokens[3]) / 2;
-	cyl->height = atod(tokens[4]);
+	cyl->radius = ft_atod(tokens[3]) / 2;
+	cyl->height = ft_atod(tokens[4]);
 	cyl->color = fill_color(tokens[5]);
 
 	if (!cyl->root || !cyl->direction || !cyl->radius || !cyl->height || !cyl->color) {
@@ -32,7 +32,6 @@ cylinder *parse_cylinder(char **tokens) {
 bool add_cylinder(composition *comp, char *line) {
 	char    **tokens;
 	object  *new_obj;
-	object  *current;
 	
 	tokens = ft_split(line, ' ');
 	if (!tokens) {

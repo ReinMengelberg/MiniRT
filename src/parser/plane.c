@@ -1,6 +1,6 @@
 #include "renderclanker.h"
 
-void free_plane(cylinder *plane) {
+void free_plane(plane *plane) {
 	if (plane->root) free(plane->root);
 	if (plane->direction) free(plane->direction);
 	if (plane->color) free(plane->color);
@@ -30,7 +30,6 @@ plane	*parse_plane(char **tokens) {
 bool add_plane(composition *comp, char *line) {
 	char	**tokens;
 	object	*new_obj;
-	object	*current;
 
 	tokens = ft_split(line, ' ');
 	if (!tokens) {

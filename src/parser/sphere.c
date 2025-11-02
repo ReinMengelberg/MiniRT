@@ -15,7 +15,7 @@ sphere *parse_sphere(char **tokens)
 		return (perror("Failed ot allocate memory for a sphere"), NULL);
 	}
 	sphere->root = fill_vector(tokens[1]);
-	sphere->radius = atod(tokens[2]) / 2;
+	sphere->radius = ft_atod(tokens[2]) / 2;
 	sphere->color = fill_color(tokens[5]);
 
 	if (!sphere->root || !sphere->radius || !sphere->color) {
@@ -29,7 +29,6 @@ bool add_sphere(composition *comp, char *line)
 {
 	char	**tokens;
 	object	*new_obj;
-	object	*current;
 
 	tokens = ft_split(line, ' ');
 	if (!tokens) {

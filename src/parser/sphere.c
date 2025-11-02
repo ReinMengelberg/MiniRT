@@ -1,5 +1,30 @@
 #include "renderclanker.h"
 
+void	free_sphere(sphere *sphere) {
+	if (sphere->root) free(sphere->root);
+	if (sphere->color) free(sphere->color);
+	free(sphere);
+}
+
+sphere *parse_sphere(char **tokens)
+{
+	sphere	*sphere;
+
+	sphere = malloc(sizeof(sphere));
+	if (!sphere) {
+		return (perror("Failed ot allocate memory for a sphere"), NULL);
+	}
+	sphere->root = fill_vector(tokens[1]);
+	sphere->radius = atod(tokens[2]) / 2;
+	sphere->color = fill_color(tokens[5]);
+
+	if (!sphere->root || !sphere->radius || !sphere->color) {
+		free_sphere(sphere);
+		return (perror("Incorrect sphere definition in .rt file"), NULL);
+	}
+	return sphere;
+}
+
 bool add_sphere(composition *comp, char *line)
 {
 	char	**tokens;
@@ -31,29 +56,4 @@ bool add_sphere(composition *comp, char *line)
 	}
 	add_object_to_list(comp, new_obj);
 	return (true);
-}
-
-sphere *parse_sphere(char **tokens)
-{
-	sphere	*sphere;
-
-	sphere = malloc(sizeof(sphere));
-	if (!sphere) {
-		return (perror("Failed ot allocate memory for a sphere"), NULL);
-	}
-	sphere->root = fill_vector(tokens[1]);
-	sphere->radius = atod(tokens[2]) / 2;
-	sphere->color = fill_color(tokens[5]);
-
-	if (!sphere->root || !sphere->radius || !sphere->color) {
-		free_sphere(sphere);
-		return (perror("Incorrect sphere definition in .rt file"), NULL);
-	}
-	return sphere;
-}
-
-void	free_sphere(sphere *sphere) {
-	if (sphere->root) free(sphere->root);
-	if (sphere->color) free(sphere->color);
-	free(sphere);
 }

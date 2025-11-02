@@ -1,5 +1,40 @@
 #include "renderclanker.h"
 
+void add_light_to_linked_list(composition *comp, light *new_light) {
+	light *current;
+	
+	if (!comp->lights) {
+		comp->lights = new_light;
+	} else {
+		current = comp->lights;
+		while (current->next) {
+			current = current->next;
+		}
+		current->next = new_light;
+		new_light->prev = current;
+	}
+}
+
+void free_light(light *light) {
+	if (!light)
+		return;
+	if (light->root) free(light->root);
+	if (light->color) free(light->color);
+	free(light);
+}
+
+void free_all_lights(light *lights) {
+	light *current;
+	light *next;
+	
+	current = lights;
+	while (current) {
+		next = current->next;
+		free_light(current);
+		current = next;
+	}
+}
+
 bool add_light(composition *comp, char *line) {
 	char    **tokens;
 	light   *new_light;
@@ -39,37 +74,3 @@ bool add_light(composition *comp, char *line) {
 	return (true);
 }
 
-void add_light_to_linked_list(composition *comp, light *new_light) {
-	light *current;
-	
-	if (!comp->lights) {
-		comp->lights = new_light;
-	} else {
-		current = comp->lights;
-		while (current->next) {
-			current = current->next;
-		}
-		current->next = new_light;
-		new_light->prev = current;
-	}
-}
-
-void free_light(light *light) {
-	if (!light)
-		return;
-	if (light->root) free(light->root);
-	if (light->color) free(light->color);
-	free(light);
-}
-
-void free_all_lights(light *lights) {
-	light *current;
-	light *next;
-	
-	current = lights;
-	while (current) {
-		next = current->next;
-		free_light(current);
-		current = next;
-	}
-}

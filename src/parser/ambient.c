@@ -1,5 +1,31 @@
 #include "renderclanker.h"
 
+void free_ambient(ambient *amb) {
+	if (!amb)
+		return;
+	if (amb->color) free(amb->color);
+	free(amb);
+}
+
+ambient *parse_ambient(char **tokens) {
+	ambient *amb;
+
+	amb = malloc(sizeof(ambient));
+	if (!amb) {
+		return (perror("Error: Failed to allocate memory for a ambient"), NULL);
+	}
+
+	amb->color = fill_color(tokens[1]);
+	amb->intensity = ft_atof(tokens[2]);
+
+	if (!amb->color || amb->intensity > 1 || amb->intensity < 0) {
+		free_ambient(amb);
+		return (perror("Error: Incorrect ambient definition in .rt file"), NULL);
+	}	
+
+	return amb;
+}
+
 bool add_ambient(composition *comp, char *line) {
 	char    **tokens;
 
@@ -22,30 +48,4 @@ bool add_ambient(composition *comp, char *line) {
 		return false;
 	}
 	return (true);
-}
-
-ambient *parse_ambient(char **tokens) {
-	ambient *amb;
-
-	amb = malloc(sizeof(ambient));
-	if (!amb) {
-		return (perror("Error: Failed to allocate memory for a ambient"), NULL);
-	}
-
-	amb->color = fill_color(tokens[1]);
-	amb->intensity = ft_atof(tokens[2]);
-
-	if (!amb->color || amb->intensity > 1 || amb->intensity < 0) {
-		free_ambient(amb);
-		return (perror("Error: Incorrect ambient definition in .rt file"), NULL);
-	}	
-
-	return amb;
-}
-
-void free_ambient(ambient *amb) {
-	if (!amb)
-		return;
-	if (amb->color) free(amb->color);
-	free(amb);
 }

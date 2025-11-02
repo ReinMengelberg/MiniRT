@@ -4,7 +4,7 @@ bool add_camera(composition *comp, char *line) {
 	char    **tokens;
 
 	if (comp->camera != NULL) {
-		(perror("Error: Multiple camera definitions in .rt file"), false);
+		return (perror("Error: Multiple camera definitions in .rt file"), false);
 	}
 	
 	tokens = ft_split(line, ' ');

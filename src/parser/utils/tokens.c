@@ -2,48 +2,48 @@
 
 int token_count(char **tokens)
 {
-    int count;
-    
-    if (!tokens)
-        return (false);
-    count = 0;
-    while (tokens[count])
-        count++;
-    return count;
+	int count;
+	
+	if (!tokens)
+		return (false);
+	count = 0;
+	while (tokens[count])
+		count++;
+	return count;
 }
 
 bool check_token(char *token, char *expected)
 {
-    int i;
-    
-    if (!token || !expected)
-        return (false);
-    
-    i = 0;
-    while (token[i] && expected[i])
-    {
-        if (token[i] != expected[i])
-            return (false);
-        i++;
-    }
-    return (token[i] == '\0' && expected[i] == '\0');
+	int i;
+	
+	if (!token || !expected)
+		return (false);
+	
+	i = 0;
+	while (token[i] && expected[i])
+	{
+		if (token[i] != expected[i])
+			return (false);
+		i++;
+	}
+	return (token[i] == '\0' && expected[i] == '\0');
 }
 
 // Free a 2D array (array of strings)
-void free_array(char **tokens)
+void free_tokens(char **tokens)
 {
-    int i;
-    
-    if (!tokens)
-        return;
-    
-    i = 0;
-    while (tokens[i])
-    {
-        free(tokens[i]);
-        i++;
-    }
-    free(tokens);
+	int i;
+	
+	if (!tokens)
+		return;
+	
+	i = 0;
+	while (tokens[i])
+	{
+		free(tokens[i]);
+		i++;
+	}
+	free(tokens);
 }
 
 bool	is_valid_number(char *str)

@@ -11,19 +11,19 @@ bool add_sphere(composition *comp, char *line)
 		return (perror("Error: Failed to split tokens for sphere definition in .rt file"), false);
 	}
 	if (token_count(tokens) != 4 || !check_token(tokens[0], "sp")) {
-		free_array(tokens);
+		free_tokens(tokens);
 		return (perror("Incorrect sphere definition in .rt file"), false);
 	}
 	new_obj = malloc(sizeof(object));
 	if (!new_obj) {
-		free_array(tokens);
+		free_tokens(tokens);
 		return (perror("Memory allocation failed"), false);
 	}
 	new_obj->type = SPHERE;
 	new_obj->data = parse_sphere(tokens);
 	new_obj->next = NULL;
 	new_obj->prev = NULL;
-	free_array(tokens);
+	free_tokens(tokens);
 
 	if (!new_obj->data) {
 		free(new_obj);

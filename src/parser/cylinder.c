@@ -10,14 +10,14 @@ bool add_cylinder(composition *comp, char *line) {
 		return (perror("Error: Failed to split tokens for cylinder definition in .rt file"), false);
 	}
 	if (token_count(tokens) != 6 || !check_token(tokens[0], "cy")) {
-		free_array(tokens);
+		free_tokens(tokens);
 		return (perror("Incorrect cylinder definition in .rt file"), false);
 	}
     
     // Create new object node
     new_obj = malloc(sizeof(object));
 	if (!new_obj) {
-		free_array(tokens);
+		free_tokens(tokens);
 		return (perror("Memory allocation failed"), false);
 	}
 
@@ -25,7 +25,7 @@ bool add_cylinder(composition *comp, char *line) {
 	new_obj->data = parse_cylinder(tokens);
 	new_obj->next = NULL;
 	new_obj->prev = NULL;
-	free_array(tokens);
+	free_tokens(tokens);
 
     // Check if parse_cylinder failed
 	if (!new_obj->data) {

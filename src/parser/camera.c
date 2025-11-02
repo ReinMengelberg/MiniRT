@@ -12,12 +12,12 @@ bool add_camera(composition *comp, char *line) {
 		return (perror("Error: Failed to split tokens for camera definition in .rt file"), false);
 	}
 	if (token_count(tokens) != 4 || !check_token(tokens[0], "C")) {
-		free_array(tokens);
+		free_tokens(tokens);
 		return (perror("Error: Incorrect camera definition in .rt file"), false);
 	}
 	
 	comp->camera = parse_camera(tokens);
-	free_array(tokens);
+	free_tokens(tokens);
 	if (!comp->camera) {
 		return false;
 	}

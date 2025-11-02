@@ -12,12 +12,12 @@ bool add_ambient(composition *comp, char *line) {
 		return (perror("Error: Failed to split tokens for ambient definition in .rt file"), false);
 	}
 	if (token_count(tokens) != 3 || !check_token(tokens[0], "A")) {
-		free_array(tokens);
+		free_tokens(tokens);
 		return (perror("Error: Incorrect ambient definition in .rt file"), false);
 	}
 	
 	comp->ambient = parse_ambient(tokens);
-	free_array(tokens);
+	free_tokens(tokens);
 	if (!comp->ambient) {
 		return false;
 	}

@@ -9,14 +9,14 @@ bool add_light(composition *comp, char *line) {
 		return (perror("Error: Failed to split tokens for light definition in .rt file"), false);
 	}
 	if (token_count(tokens) != 4 || !check_token(tokens[0], "L")) {
-		free_array(tokens);
+		free_tokens(tokens);
 		return (perror("Error: Incorrect light definition in .rt file"), false);
 	}
 	
 	// Create new light node
 	new_light = malloc(sizeof(light));
 	if (!new_light) {
-		free_array(tokens);
+		free_tokens(tokens);
 		return (perror("Error: Memory allocation failed for light"), false);
 	}
 	
@@ -25,7 +25,7 @@ bool add_light(composition *comp, char *line) {
 	new_light->color = fill_color(tokens[3]);
 	new_light->next = NULL;
 	new_light->prev = NULL;
-	free_array(tokens);
+	free_tokens(tokens);
 	
 	// Validate light data
 	if (!new_light->root || !new_light->color || new_light->brightness < 0 || new_light->brightness > 1) {

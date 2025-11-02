@@ -8,18 +8,18 @@ vector	*fill_vector(char *token)
 	xyz = ft_split(token, ',');
 	if (!xyz || token_count(xyz) != 3)
 	{
-		free_array(xyz);
+		free_tokens(xyz);
 		return NULL;
 	}
 	vec = malloc(sizeof(vector));
 	if (!vec) {
-		free_array(xyz);
+		free_tokens(xyz);
 		return NULL;
 	}
 	vec->x = ft_atof(xyz[0]);
 	vec->y = ft_atof(xyz[1]);
 	vec->z = ft_atof(xyz[2]);
-	free_array(xyz);
+	free_tokens(xyz);
 	if (!vec->x || !vec->y || !vec->z) {
 		free(vec);
 		return (perror("Error: Failed to parse root vector"), NULL);
@@ -33,18 +33,18 @@ vector	*fill_direction(char *token) {
 
 	xyz = ft_split(token, ',');
 	if (!xyz || token_count(xyz) != 3) {
-		free_array(xyz);
+		free_tokens(xyz);
 		return NULL;
 	}
 	vec = malloc(sizeof(vector));
 	if (!vec) {
-		free_array(xyz);
+		free_tokens(xyz);
 		return NULL;
 	}
 	vec->x = ft_atof(xyz[0]);
 	vec->y = ft_atof(xyz[1]);
 	vec->z = ft_atof(xyz[2]);
-	free_array(xyz);
+	free_tokens(xyz);
 	if (!vec->x || !vec->y || !vec->z) {
 		free(vec);
 		return (perror("Error: Failed to parse direction vector"), NULL);
@@ -64,29 +64,29 @@ color *fill_color(char *token) {
 
 	rgb = ft_split(token, ',');
 	if (!rgb || token_count(rgb) != 3) {
-		free_array(rgb);
+		free_tokens(rgb);
 		return NULL;
 	}
 	for (i = 0; i < 3; i++) {
 		if (!is_valid_number(rgb[i])) {
-			free_array(rgb);
+			free_tokens(rgb);
 			return NULL;
 		}
 		val = ft_atoi(rgb[i]);
 		if (val < 0 || val > 255) {
-			free_array(rgb);
+			free_tokens(rgb);
 			return NULL;
 		}
 	}
 	col = malloc(sizeof(color));
 	if (!col) {
-		free_array(rgb);
+		free_tokens(rgb);
 		return NULL;
 	}
 	col->r = (unsigned char)ft_atoi(rgb[0]);
 	col->g = (unsigned char)ft_atoi(rgb[1]);
 	col->b = (unsigned char)ft_atoi(rgb[2]);
-	free_array(rgb);
+	free_tokens(rgb);
 	return col;
 }
 

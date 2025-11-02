@@ -16,7 +16,6 @@ bool add_camera(composition *comp, char *line) {
 		return (perror("Error: Incorrect camera definition in .rt file"), false);
 	}
 	
-	// Create new object node
 	comp->camera = parse_camera(tokens);
 	free_array(tokens);
 	if (!comp->camera) {

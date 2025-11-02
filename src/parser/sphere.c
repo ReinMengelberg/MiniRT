@@ -42,5 +42,18 @@ sphere *parse_sphere(char **tokens)
 		return (perror("Failed ot allocate memory for a sphere"), NULL);
 	}
 	sphere->root = fill_vector(tokens[1]);
-	sphere->ra
+	sphere->radius = atod(tokens[2]) / 2;
+	sphere->color = fill_color(tokens[5]);
+
+	if (!sphere->root || !sphere->radius || !sphere->color) {
+		free_sphere(sphere);
+		return (perror("Incorrect sphere definition in .rt file"), NULL);
+	}
+	return sphere;
+}
+
+void	free_sphere(sphere *sphere) {
+	if (sphere->root) free(sphere->root);
+	if (sphere->color) free(sphere->color);
+	free(sphere);
 }

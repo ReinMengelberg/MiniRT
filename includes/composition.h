@@ -28,7 +28,7 @@ typedef struct color {
 // Define camera (used by composition)
 typedef struct camera {
     vector	*root;
-    vector	direction;
+    vector	*direction;
     int		fov;
 } camera;
 

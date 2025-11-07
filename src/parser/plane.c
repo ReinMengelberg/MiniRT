@@ -1,32 +1,32 @@
 #include "renderclanker.h"
 
-void free_plane(plane *plane) {
-	if (plane->root) free(plane->root);
-	if (plane->direction) free(plane->direction);
-	if (plane->color) free(plane->color);
-	free(plane);
+void free_plane(plane *pl) {
+	if (pl->root) free(pl->root);
+	if (pl->direction) free(pl->direction);
+	if (pl->color) free(pl->color);
+	free(pl);
 }
 
 plane	*parse_plane(char **tokens) {
-	plane	*plane;
+	plane	*pl;
 
-	plane = malloc(sizeof(plane));
-	if (!plane) {
+	pl = malloc(sizeof(plane));
+	if (!pl) {
 		return (perror("Failed to allocate memory for a plane"), NULL);
 	}
 	
-	plane->root = fill_vector(tokens[1]);
-	if (!plane->root) goto error;
+	pl->root = fill_vector(tokens[1]);
+	if (!pl->root) goto error;
 
-	plane->direction = fill_direction(tokens[2]);
-	if (!plane->direction) goto error;
+	pl->direction = fill_direction(tokens[2]);
+	if (!pl->direction) goto error;
 
-	plane->color = fill_color(tokens[3]);
-	if (!plane->color) goto error;
+	pl->color = fill_color(tokens[3]);
+	if (!pl->color) goto error;
 
-	return plane;
+	return pl;
 error:
-	free_plane(plane);
+	free_plane(pl);
 	return (perror("Error: Incorrect plane definition in .rt file"), NULL);
 }
 

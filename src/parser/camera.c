@@ -16,14 +16,24 @@ camera *parse_camera(char **tokens) {
 		return (perror("Error: Failed to allocate memory for a camera"), NULL);
 	}
 
-	if (!is_valid_int(tokens[3]) || ft_atoi(tokens[3]) > 180 || ft_atoi(tokens[3] < 0)) goto error;
-	cam->fov = ft_atoi(tokens[3]);
-
 	cam->root = fill_vector(tokens[1]);
 	if (!cam->root) goto error;
 
 	cam->direction = fill_direction(tokens[2]);
-	if (!cam->root) goto error;
+	if (!cam->direction) goto error;
+
+	if (!is_valid_int(tokens[3])) goto error;
+	cam->fov = ft_atoi(tokens[3]);
+	if (cam->fov > 180 || cam->fov < 0) goto error;
+	
+	// if (!is_valid_int(tokens[3]) || ft_atoi(tokens[3]) > 180 || ft_atoi(tokens[3]) < 0) goto error;
+	// cam->fov = ft_atoi(tokens[3]);
+
+	// cam->root = fill_vector(tokens[1]);
+	// if (!cam->root) goto error;
+
+	// cam->direction = fill_direction(tokens[2]);
+	// if (!cam->direction) goto error;
 
 	return cam;
 

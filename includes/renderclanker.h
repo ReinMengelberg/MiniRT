@@ -33,7 +33,9 @@ void		free_all_objects(object *objects);
 void		free_all_lights(light *lights);
 void		free_ambient(ambient *ambient);
 void		free_camera(camera *camera);
+void		free_composition(composition *comp);
 
+bool		is_valid_int(char *str);
 int			token_count(char **tokens);
 bool		check_token(char *token, char *expected);
 void		free_tokens(char **tokens);

@@ -1,6 +1,6 @@
 #include "renderclanker.h"
 
-void free_composition(composition *comp) {
+void	free_composition(composition *comp) {
 	if (!comp)
 		return;
 	if (comp->camera)
@@ -35,7 +35,7 @@ bool	add_to_composition(composition *comp, char *line)
 	}
 }
 
-composition *create_composition(int fd) {
+composition	*create_composition(int fd) {
 	composition	*comp;
 	char		*line;
 	

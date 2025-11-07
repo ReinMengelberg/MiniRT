@@ -1,33 +1,33 @@
 #include "renderclanker.h"
 
-void	free_sphere(sphere *sphere) {
-	if (sphere->root) free(sphere->root);
-	if (sphere->color) free(sphere->color);
-	free(sphere);
+void	free_sphere(sphere *sph) {
+	if (sph->root) free(sph->root);
+	if (sph->color) free(sph->color);
+	free(sph);
 }
 
 sphere *parse_sphere(char **tokens)
 {
-	sphere	*sphere;
+	sphere	*sph;
 
-	sphere = malloc(sizeof(sphere));
-	if (!sphere) {
+	sph = malloc(sizeof(sphere));
+	if (!sph) {
 		return (perror("Failed to allocate memory for a sphere"), NULL);
 	}
 
-	sphere->root = fill_vector(tokens[1]);
-	if (!sphere->root) goto error;
+	sph->root = fill_vector(tokens[1]);
+	if (!sph->root) goto error;
 
 	if (!is_valid_float(tokens[2])) goto error;
-	sphere->radius = ft_atod(tokens[2]) / 2;
+	sph->radius = ft_atod(tokens[2]) / 2;
 
-	sphere->color = fill_color(tokens[3]);
-	if (!sphere->color) goto error;
+	sph->color = fill_color(tokens[3]);
+	if (!sph->color) goto error;
 
-	return sphere;
+	return sph;
 
 error:
-	free_sphere(sphere);
+	free_sphere(sph);
 	return (perror("Error: Incorrect sphere definition in .rt file"), NULL);
 }
 

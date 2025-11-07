@@ -32,7 +32,7 @@ cylinder *parse_cylinder(char **tokens) {
 	return cyl;
 
 error:
-	free_sphere(cyl);
+	free_cylinder(cyl);
 	return (perror("Error: Incorrect cylinder definition in .rt file"), NULL);
 }
 

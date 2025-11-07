@@ -1,5 +1,24 @@
 #include "renderclanker.h"
 
+bool	is_valid_int(char *str)
+{
+	int	i = 0;
+
+	if (!str || !*str)
+		return (false);
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
+		return (false);
+	while (str[i])
+	{
+		if (!(str[i]) >= '0' && str[i] <= '9')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 vector	*fill_vector(char *token)
 {
 	char	**xyz;

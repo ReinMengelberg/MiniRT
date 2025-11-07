@@ -14,12 +14,14 @@ ambient *parse_ambient(char **tokens) {
 	if (!amb) {
 		return (perror("Error: Failed to allocate memory for a ambient"), NULL);
 	}
-
-	amb->color = fill_color(tokens[1]);
+	
+	if (!is_valid_float(tokens[1])) goto error;
+	amb->intensity = ft_atof(tokens[1]);
+	if (amb->intensity > 1 || amb->intensity < 0) goto error;
+	
+	amb->color = fill_color(tokens[2]);
 	if (!amb->color) goto error;
 
-	amb->intensity = ft_atof(tokens[2]);
-	if (amb->intensity > 1 || amb->intensity < 0) goto error;
 
 	return amb;
 

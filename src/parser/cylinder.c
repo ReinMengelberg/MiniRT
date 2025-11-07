@@ -33,7 +33,9 @@ cylinder *parse_cylinder(char **tokens) {
 
 error:
 	free_cylinder(cyl);
-	return (dprintf(2, "Error: Incorrect cylinder definition in .rt file\n"), NULL);
+	char *joined = ft_strjoin_array(tokens, 6, " ");
+	dprintf(2, "Error: Incorrect cylinder definition (%s) in .rt file\n", joined ? joined : "unknown");
+	return (free(joined), NULL);
 }
 
 bool add_cylinder(composition *comp, char *line) {

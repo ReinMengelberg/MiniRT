@@ -27,7 +27,9 @@ ambient *parse_ambient(char **tokens) {
 
 error:
 	free_ambient(amb);
-	return (dprintf(2, "Error: Incorrect ambient definition in .rt file\n"), NULL);
+	char *joined = ft_strjoin_array(tokens, 3, " ");
+	dprintf(2, "Error: Incorrect ambient definition (%s) in .rt file\n", joined ? joined : "unknown");
+	return (free(joined), NULL);
 }
 
 bool add_ambient(composition *comp, char *line) {

@@ -27,7 +27,9 @@ plane	*parse_plane(char **tokens) {
 	return pl;
 error:
 	free_plane(pl);
-	return (dprintf(2, "Error: Incorrect plane definition in .rt file\n"), NULL);
+	char *joined = ft_strjoin_array(tokens, 4, " ");
+	dprintf(2, "Error: Incorrect plane definition (%s) in .rt file\n", joined ? joined : "unknown");
+	return (free(joined), NULL);
 }
 
 bool add_plane(composition *comp, char *line) {

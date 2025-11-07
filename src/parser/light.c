@@ -75,7 +75,9 @@ bool add_light(composition *comp, char *line) {
 error:
 	free_tokens(tokens);
 	free_light(new_light);
-	return (dprintf(2, "Error: Incorrect light definition in .rt file\n"), false);
+	char *joined = ft_strjoin_array(tokens, 4, " ");
+	dprintf(2, "Error: Incorrect light definition (%s) in .rt file\n", joined ? joined : "unknown");
+	return (free(joined), NULL);
 }
 
 // bool add_light(composition *comp, char *line) {

@@ -6,7 +6,7 @@
 /*   By: rein <rein@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 20:10:52 by rein          #+#    #+#                 */
-/*   Updated: 2025/11/01 12:51:56 by rein          ########   odam.nl         */
+/*   Updated: 2025/11/07 16:14:14 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void		*ft_calloc(size_t count, size_t size);
 char		*ft_strdup(const char *s1);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin_array(char **strings, int count, const char *separator);
 char		*ft_strtrim(char const *s1, char const *set);
 char		**ft_split(char const *s, char c);
 char		*ft_itoa(int n);

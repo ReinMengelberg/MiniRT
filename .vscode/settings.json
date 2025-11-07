@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "renderclanker.h": "c"
+        "renderclanker.h": "c",
+        "stdint.h": "c"
     }
 }

@@ -12,7 +12,7 @@ cylinder *parse_cylinder(char **tokens) {
 
 	cyl = malloc(sizeof(cylinder));
 	if (!cyl) {
-		return (perror("Failed to allocate memory for a cylinder"), NULL);
+		return (dprintf(2, "Failed to allocate memory for a cylinder\n"), NULL);
 	}
 
 	cyl->root = fill_vector(tokens[1]);
@@ -33,7 +33,7 @@ cylinder *parse_cylinder(char **tokens) {
 
 error:
 	free_cylinder(cyl);
-	return (perror("Error: Incorrect cylinder definition in .rt file"), NULL);
+	return (dprintf(2, "Error: Incorrect cylinder definition in .rt file\n"), NULL);
 }
 
 bool add_cylinder(composition *comp, char *line) {
@@ -42,18 +42,18 @@ bool add_cylinder(composition *comp, char *line) {
 	
 	tokens = ft_split(line, ' ');
 	if (!tokens) {
-		return (perror("Error: Failed to split tokens for cylinder definition in .rt file"), false);
+		return (dprintf(2, "Error: Failed to split tokens for cylinder definition in .rt file\n"), false);
 	}
 	if (token_count(tokens) != 6 || !check_token(tokens[0], "cy")) {
 		free_tokens(tokens);
-		return (perror("Incorrect cylinder definition in .rt file"), false);
+		return (dprintf(2, "Incorrect cylinder definition in .rt file\n"), false);
 	}
 	
 	// Create new object node
 	new_obj = malloc(sizeof(object));
 	if (!new_obj) {
 		free_tokens(tokens);
-		return (perror("Memory allocation failed"), false);
+		return (dprintf(2, "Memory allocation failed\n"), false);
 	}
 
 	new_obj->type = CYLINDER;
@@ -65,7 +65,7 @@ bool add_cylinder(composition *comp, char *line) {
 	// Check if parse_cylinder failed
 	if (!new_obj->data) {
 		free(new_obj);
-		return (perror("Failed to parse cylinder"), false);
+		return (dprintf(2, "Failed to parse cylinder\n"), false);
 	}
 	
 	add_object_to_list(comp, new_obj);

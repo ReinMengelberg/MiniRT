@@ -12,7 +12,7 @@ bool	is_valid_int(char *str)
 		return (false);
 	while (str[i])
 	{
-		if (!(str[i]) >= '0' && str[i] <= '9')
+		if (!(str[i] >= '0' && str[i] <= '9'))
 			return (false);
 		i++;
 	}
@@ -21,58 +21,57 @@ bool	is_valid_int(char *str)
 
 vector	*fill_vector(char *token)
 {
-	char	**xyz;
-	vector	*vec;
+    char	**xyz;
+    vector	*vec;
 
-	xyz = ft_split(token, ',');
-	if (!xyz || token_count(xyz) != 3)
-	{
-		free_tokens(xyz);
-		return NULL;
-	}
-	vec = malloc(sizeof(vector));
-	if (!vec) {
-		free_tokens(xyz);
-		return NULL;
-	}
-	vec->x = ft_atof(xyz[0]);
-	vec->y = ft_atof(xyz[1]);
-	vec->z = ft_atof(xyz[2]);
-	free_tokens(xyz);
-	if (!vec->x || !vec->y || !vec->z) {
-		free(vec);
-		return (perror("Error: Failed to parse root vector"), NULL);
-	}
-	return vec;
+    xyz = ft_split(token, ',');
+    if (!xyz || token_count(xyz) != 3) {
+        free_tokens(xyz);
+        return NULL;
+    }
+    if (!is_valid_float(xyz[0]) || !is_valid_float(xyz[1]) || !is_valid_float(xyz[2])) {
+        free_tokens(xyz);
+        return (dprintf(2, "Error: Failed to parse vector from token %s\n", token), NULL);
+    }
+    vec = malloc(sizeof(vector));
+    if (!vec) {
+        free_tokens(xyz);
+        return NULL;
+    }
+    vec->x = ft_atof(xyz[0]);
+    vec->y = ft_atof(xyz[1]);
+    vec->z = ft_atof(xyz[2]);
+    free_tokens(xyz);
+    return vec;
 }
 
 vector	*fill_direction(char *token) {
-	char	**xyz;
-	vector	*vec;
+    char	**xyz;
+    vector	*vec;
 
-	xyz = ft_split(token, ',');
-	if (!xyz || token_count(xyz) != 3) {
-		free_tokens(xyz);
-		return NULL;
-	}
-	vec = malloc(sizeof(vector));
-	if (!vec) {
-		free_tokens(xyz);
-		return NULL;
-	}
-	vec->x = ft_atof(xyz[0]);
-	vec->y = ft_atof(xyz[1]);
-	vec->z = ft_atof(xyz[2]);
-	free_tokens(xyz);
-	if (!vec->x || !vec->y || !vec->z) {
-		free(vec);
-		return (perror("Error: Failed to parse direction vector"), NULL);
-	}
-	if (vec->x > 1 || vec->x < -1 ||vec->y > 1 || vec->y < -1 ||vec->z > 1 || vec->z < -1) {
-		free(vec);
-		return (perror("Error: direction vector values should be in range [-1.0,1.0]"), NULL);
-	}
-	return vec;
+    xyz = ft_split(token, ',');
+    if (!xyz || token_count(xyz) != 3) {
+        free_tokens(xyz);
+        return NULL;
+    }
+    if (!is_valid_float(xyz[0]) || !is_valid_float(xyz[1]) || !is_valid_float(xyz[2])) {
+        free_tokens(xyz);
+        return (dprintf(2, "Error: Failed to parse direction vector from token %s\n", token), NULL);
+    }
+    vec = malloc(sizeof(vector));
+    if (!vec) {
+        free_tokens(xyz);
+        return NULL;
+    }
+    vec->x = ft_atof(xyz[0]);
+    vec->y = ft_atof(xyz[1]);
+    vec->z = ft_atof(xyz[2]);
+    free_tokens(xyz);
+    if (vec->x > 1 || vec->x < -1 ||vec->y > 1 || vec->y < -1 ||vec->z > 1 || vec->z < -1) {
+        free(vec);
+        return (dprintf(2, "Error: direction vector values should be in range [-1.0,1.0]\n"), NULL);
+    }
+    return vec;
 }
 
 color *fill_color(char *token) {
@@ -95,7 +94,7 @@ color *fill_color(char *token) {
     free_tokens(rgb);
     if (col->r < 0 || col->r > 255 || col->g < 0 || col->g > 255 || col->b < 0 || col->b > 255) {
         free(col);
-        return (perror("Error: color values should be in range [0,255]"), NULL);
+        return (dprintf(2, "Error: color values should be in range [0,255]\n"), NULL);
     }
     return col;
 }

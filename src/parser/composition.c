@@ -31,7 +31,7 @@ bool	add_to_composition(composition *comp, char *line)
 		case 'c':
 			return (add_cylinder(comp, line));
 		default:
-			return (perror("Not a valid .rt file"), false);
+			return (dprintf(2, "Not a valid .rt file\n"), false);
 	}
 }
 
@@ -41,7 +41,7 @@ composition	*create_composition(int fd) {
 	
 	comp = malloc(sizeof(composition));
 	if (!comp)
-		return (perror("Error: Failed to allocate composition"), NULL);
+		return (dprintf(2, "Error: Failed to allocate composition\n"), NULL);
 	
 	comp->camera = NULL;
 	comp->ambient = NULL;
@@ -49,6 +49,9 @@ composition	*create_composition(int fd) {
 	comp->lights = NULL;
 
 	while ((line = get_next_line(fd))) {
+		if (line[ft_strlen(line) - 1] == '\n') { // Remove newline from next line
+			line[ft_strlen(line) - 1] = '\0';
+		}
 		if (!add_to_composition(comp, line)) {
 			free(line);
 			free_composition(comp);

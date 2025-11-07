@@ -12,7 +12,7 @@ sphere *parse_sphere(char **tokens)
 
 	sph = malloc(sizeof(sphere));
 	if (!sph) {
-		return (perror("Failed to allocate memory for a sphere"), NULL);
+		return (dprintf(2, "Failed to allocate memory for a sphere\n"), NULL);
 	}
 
 	sph->root = fill_vector(tokens[1]);
@@ -28,7 +28,10 @@ sphere *parse_sphere(char **tokens)
 
 error:
 	free_sphere(sph);
-	return (perror("Error: Incorrect sphere definition in .rt file"), NULL);
+	char *joined = ft_strjoin_array(tokens, 4, " ");
+	dprintf(2, "Error: Incorrect sphere definition (%s) in .rt file\n", joined ? joined : "unknown");
+	free(joined);
+	return (NULL);
 }
 
 bool add_sphere(composition *comp, char *line)
@@ -38,16 +41,19 @@ bool add_sphere(composition *comp, char *line)
 
 	tokens = ft_split(line, ' ');
 	if (!tokens) {
-		return (perror("Error: Failed to split tokens for sphere definition in .rt file"), false);
+		return (dprintf(2, "Error: Failed to split tokens for sphere definition in .rt file\n"), false);
 	}
 	if (token_count(tokens) != 4 || !check_token(tokens[0], "sp")) {
+		char *joined = ft_strjoin_array(tokens, token_count(tokens), " ");
+		dprintf(2, "Error: Incorrect sphere definition (%s) in .rt file\n", joined ? joined : "unknown");
+		free(joined);
 		free_tokens(tokens);
-		return (perror("Incorrect sphere definition in .rt file"), false);
+		return (false);
 	}
 	new_obj = malloc(sizeof(object));
 	if (!new_obj) {
 		free_tokens(tokens);
-		return (perror("Memory allocation failed"), false);
+		return (dprintf(2, "Memory allocation failed\n"), false);
 	}
 	new_obj->type = SPHERE;
 	new_obj->data = parse_sphere(tokens);
@@ -57,7 +63,7 @@ bool add_sphere(composition *comp, char *line)
 
 	if (!new_obj->data) {
 		free(new_obj);
-		return (perror("Failed to parse sphere"), false);
+		return (dprintf(2, "Failed to parse sphere\n"), false);
 	}
 	add_object_to_list(comp, new_obj);
 	return (true);

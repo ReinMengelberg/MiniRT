@@ -31,11 +31,11 @@ int	handle_close(mlx_data *data) {
 
 bool	validate_composition(composition *comp) {
 	if (!comp->camera)
-		return (perror("Error: No camera defined in .rt file"), false);
+		return (dprintf(2, "Error: No camera defined in .rt file\n"), false);
 	if (!comp->ambient)
-		return (perror("Error: No ambient defined in .rt file"), false);
+		return (dprintf(2, "Error: No ambient defined in .rt file\n"), false);
 	if (!comp->lights)
-		return (perror("Error: No lights defined in .rt file"), false);
+		return (dprintf(2, "Error: No lights defined in .rt file\n"), false);
 	return (true);
 }
 
@@ -43,33 +43,33 @@ bool	validate_composition(composition *comp) {
 int	main(int ac, char **av) {
 	int			fd;
 	composition	*comp;
-	mlx_data	data;
+	// mlx_data	data;
 
 	if (ac != 2)
-		return (perror("Error:Usage: ./miniRT <scene.rt>"), 1);
+		return (dprintf(2, "Error:Usage: ./miniRT <scene.rt>\n"), 1);
 	if (!ft_strnstr(av[1], ".rt", ft_strlen(av[1])))
-		return (perror("Error: File must have .rt extension"), 1);
+		return (dprintf(2, "Error: File must have .rt extension\n"), 1);
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
-		return (perror("Error: Can't open file"), 1);
+		return (dprintf(2, "Error: Can't open file\n"), 1);
 	comp = create_composition(fd);
 	close(fd);
 	if (!comp)
-		return (perror("Error: Failed to parse scene"), 1);
+		return (dprintf(2, "Error: Failed to parse scene\n"), 1);
 	if (!validate_composition(comp)) {
 		free_composition(comp); ///////////////////MAKE THIS FUNCTION
 		return (1);
 	}
 
-	data.comp = comp;
-	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "miniRT");
-	if (!data.win) {
-		free_composition(comp);
-		return (perror("Error: Failed to create window"), 1);
-	}
-	mlx_key_hook(data.win, handle_keypress, &data);
-	mlx_hook(data.win, 17, 0, handle_close, &data);
-	mlx_loop(data.mlx);
+	// data.comp = comp;
+	// data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "miniRT");
+	// if (!data.win) {
+	// 	free_composition(comp);
+	// 	return (dprintf(2, "Error: Failed to create window\n"), 1);
+	// }
+	// mlx_key_hook(data.win, handle_keypress, &data);
+	// mlx_hook(data.win, 17, 0, handle_close, &data);
+	// mlx_loop(data.mlx);
 	free_composition(comp);
 	return (0);
 }

@@ -13,7 +13,7 @@ camera *parse_camera(char **tokens) {
 
 	cam = malloc(sizeof(camera));
 	if (!cam) {
-		return (perror("Error: Failed to allocate memory for a camera"), NULL);
+		return (dprintf(2, "Error: Failed to allocate memory for a camera\n"), NULL);
 	}
 
 	cam->root = fill_vector(tokens[1]);
@@ -26,36 +26,28 @@ camera *parse_camera(char **tokens) {
 	cam->fov = ft_atoi(tokens[3]);
 	if (cam->fov > 180 || cam->fov < 0) goto error;
 	
-	// if (!is_valid_int(tokens[3]) || ft_atoi(tokens[3]) > 180 || ft_atoi(tokens[3]) < 0) goto error;
-	// cam->fov = ft_atoi(tokens[3]);
-
-	// cam->root = fill_vector(tokens[1]);
-	// if (!cam->root) goto error;
-
-	// cam->direction = fill_direction(tokens[2]);
-	// if (!cam->direction) goto error;
-
 	return cam;
 
 error:
 	free_camera(cam);
-	return (perror("Error: Incorrect sphere definition in .rt file"), NULL);
+	char *joined = ft_strjoin_array(tokens, 4, " ");
+	dprintf(2, "Error: Incorrect camera definition (%s) in .rt file\n", joined ? joined : "unknown");
+	return (free(joined), NULL);
 }
 
 bool add_camera(composition *comp, char *line) {
 	char    **tokens;
-
-	if (comp->camera != NULL) {
-		return (perror("Error: Multiple camera definitions in .rt file"), false);
-	}
 	
+	if (comp->camera != NULL) {
+		return (dprintf(2, "Error: Multiple camera definitions in .rt file\n"), false);
+	}
 	tokens = ft_split(line, ' ');
 	if (!tokens) {
-		return (perror("Error: Failed to split tokens for camera definition in .rt file"), false);
+		return (dprintf(2, "Error: Failed to split tokens for camera definition in .rt file\n"), false);
 	}
 	if (token_count(tokens) != 4 || !check_token(tokens[0], "C")) {
 		free_tokens(tokens);
-		return (perror("Error: Incorrect camera definition in .rt file"), false);
+		return (dprintf(2, "Error: Incorrect camera definition in .rt file\n"), false);
 	}
 	
 	comp->camera = parse_camera(tokens);

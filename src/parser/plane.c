@@ -12,7 +12,7 @@ plane	*parse_plane(char **tokens) {
 
 	pl = malloc(sizeof(plane));
 	if (!pl) {
-		return (perror("Failed to allocate memory for a plane"), NULL);
+		return (dprintf(2, "Failed to allocate memory for a plane\n"), NULL);
 	}
 	
 	pl->root = fill_vector(tokens[1]);
@@ -27,7 +27,7 @@ plane	*parse_plane(char **tokens) {
 	return pl;
 error:
 	free_plane(pl);
-	return (perror("Error: Incorrect plane definition in .rt file"), NULL);
+	return (dprintf(2, "Error: Incorrect plane definition in .rt file\n"), NULL);
 }
 
 bool add_plane(composition *comp, char *line) {
@@ -36,17 +36,17 @@ bool add_plane(composition *comp, char *line) {
 
 	tokens = ft_split(line, ' ');
 	if (!tokens) {
-		return (perror("Error: Failed to split tokens for plane definition in .rt file"), false);
+		return (dprintf(2, "Error: Failed to split tokens for plane definition in .rt file\n"), false);
 	}
 	if (token_count(tokens) != 4 || !check_token(tokens[0], "pl")) {
 		free_tokens(tokens);
-		return (perror("Incorrect cylinder definition in .rt file"), false);
+		return (dprintf(2, "Incorrect cylinder definition in .rt file\n"), false);
     }
 
 	new_obj = malloc(sizeof(object));
     if (!new_obj) {
         free_tokens(tokens);
-        return (perror("Memory allocation failed"), false);
+        return (dprintf(2, "Memory allocation failed\n"), false);
     }
 
 	new_obj->type = PLANE;
@@ -57,7 +57,7 @@ bool add_plane(composition *comp, char *line) {
 
 	if (!new_obj->data) {
 		free(new_obj);
-		return (perror("Failed to parse plane"), false);
+		return (dprintf(2, "Failed to parse plane\n"), false);
 	}
 
 	add_object_to_list(comp, new_obj);

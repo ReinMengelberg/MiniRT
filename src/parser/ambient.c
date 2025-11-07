@@ -12,7 +12,7 @@ ambient *parse_ambient(char **tokens) {
 
 	amb = malloc(sizeof(ambient));
 	if (!amb) {
-		return (perror("Error: Failed to allocate memory for a ambient"), NULL);
+		return (dprintf(2, "Error: Failed to allocate memory for a ambient\n"), NULL);
 	}
 	
 	if (!is_valid_float(tokens[1])) goto error;
@@ -27,23 +27,23 @@ ambient *parse_ambient(char **tokens) {
 
 error:
 	free_ambient(amb);
-	return (perror("Error: Incorrect ambient definition in .rt file"), NULL);
+	return (dprintf(2, "Error: Incorrect ambient definition in .rt file\n"), NULL);
 }
 
 bool add_ambient(composition *comp, char *line) {
 	char    **tokens;
 
 	if (comp->ambient != NULL) {
-		return (perror("Error: Multiple ambient definitions in .rt file"), false);
+		return (dprintf(2, "Error: Multiple ambient definitions in .rt file\n"), false);
 	}
 	
 	tokens = ft_split(line, ' ');
 	if (!tokens) {
-		return (perror("Error: Failed to split tokens for ambient definition in .rt file"), false);
+		return (dprintf(2, "Error: Failed to split tokens for ambient definition in .rt file\n"), false);
 	}
 	if (token_count(tokens) != 3 || !check_token(tokens[0], "A")) {
 		free_tokens(tokens);
-		return (perror("Error: Incorrect ambient definition in .rt file"), false);
+		return (dprintf(2, "Error: Incorrect ambient definition in .rt file\n"), false);
 	}
 	
 	comp->ambient = parse_ambient(tokens);

@@ -29,17 +29,6 @@ int	handle_close(mlx_data *data) {
 	return (0);
 }
 
-bool	validate_composition(composition *comp) {
-	if (!comp->camera)
-		return (dprintf(2, "Error: No camera defined in .rt file\n"), false);
-	if (!comp->ambient)
-		return (dprintf(2, "Error: No ambient defined in .rt file\n"), false);
-	if (!comp->lights)
-		return (dprintf(2, "Error: No lights defined in .rt file\n"), false);
-	return (true);
-}
-
-
 int	main(int ac, char **av) {
 	int			fd;
 	composition	*comp;
@@ -56,10 +45,6 @@ int	main(int ac, char **av) {
 	close(fd);
 	if (!comp)
 		return (dprintf(2, "Error: Failed to parse scene\n"), 1);
-	if (!validate_composition(comp)) {
-		free_composition(comp); ///////////////////MAKE THIS FUNCTION
-		return (1);
-	}
 
 	// data.comp = comp;
 	// data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "miniRT");

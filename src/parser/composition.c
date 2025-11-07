@@ -35,6 +35,16 @@ bool	add_to_composition(composition *comp, char *line)
 	}
 }
 
+bool	validate_composition(composition *comp) {
+	if (!comp->camera)
+		return (dprintf(2, "Error: No camera defined in .rt file\n"), false);
+	if (!comp->ambient)
+		return (dprintf(2, "Error: No ambient defined in .rt file\n"), false);
+	if (!comp->lights)
+		return (dprintf(2, "Error: No lights defined in .rt file\n"), false);
+	return (true);
+}
+
 composition	*create_composition(int fd) {
 	composition	*comp;
 	char		*line;
@@ -58,6 +68,9 @@ composition	*create_composition(int fd) {
 			return (NULL);
 		}
 		free(line);
+	}
+	if (!validate_composition(comp)) {
+		return (free_composition(comp), NULL);
 	}
 	return (comp);
 }

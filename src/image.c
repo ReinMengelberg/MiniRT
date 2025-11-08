@@ -6,17 +6,17 @@
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/08 12:22:20 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/08 12:43:51 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/08 12:52:29 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
-int	color_to_hex(color *c) {
-	return ((c->r << 16) | (c->g << 8) | c->b);
+int	color_to_hex(color c) {
+	return ((c.r << 16) | (c.g << 8) | c.b);
 }
 
-void	put_pixel(t_image *img, int x, int y, color *c) {
+void	put_pixel(t_image *img, int x, int y, color c) {
 	char	*dst;
 
 	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
@@ -29,8 +29,8 @@ t_image *create_image(void *mlx, composition *comp) {
 	t_image	*img;
 	int		x;
 	int		y;
-	color	*color;
-	t_ray	*ray;
+	color	color;
+	t_ray	ray;
 	
 	img = malloc(sizeof(t_image));
 	if (!img) {

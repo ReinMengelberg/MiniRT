@@ -6,13 +6,13 @@
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/08 12:45:02 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/08 12:49:01 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/08 12:52:31 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
-color	trace_ray(t_ray *ray, composition *comp)
+color	trace_ray(t_ray ray, composition *comp)
 {
     color	gray;
 

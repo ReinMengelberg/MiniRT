@@ -65,7 +65,7 @@ t_ray	create_ray(camera *cam, int x, int y);
  * TRACER
  */
 
-color	trace_ray(t_ray *ray, composition *comp);
+color	trace_ray(t_ray ray, composition *comp);
 
 
 

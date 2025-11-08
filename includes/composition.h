@@ -27,24 +27,24 @@ typedef struct color {
 
 // Define camera (used by composition)
 typedef struct camera {
-    vector	root;
-    vector	direction;
+    vector	*root;
+    vector	*direction;
     int		fov;
 } camera;
 
 // Define ambient (used by composition)
 typedef struct ambient {
     float	intensity;
-    color	color;
+    color	*color;
 } ambient;
 
 // Define light (used by composition)
 typedef struct light {
     light	*next;
     light	*prev;
-    vector	root;
+    vector	*root;
     float	brightness;
-    color	color;
+    color	*color;
 } light;
 
 // Define object (used by composition)
@@ -57,29 +57,29 @@ typedef struct object {
 
 // Define shape structs
 typedef struct sphere {
-    vector	root;
+    vector	*root;
     double	radius;
-    color	color;
+    color	*color;
 } sphere;
 
 typedef struct cylinder {
-    vector	root;
-    vector	direction;
+    vector	*root;
+    vector	*direction;
     double	radius;
     double	height;
-    color	color;
+    color	*color;
 } cylinder;
 
 typedef struct plane {
-    vector	root;
-    vector	direction;
-    color	color;
+    vector	*root;
+    vector	*direction;
+    color	*color;
 } plane;
 
 // Define composition last (depends on all above types)
 typedef struct composition {
-    camera  camera;
-    ambient ambient;
+    camera  *camera;
+    ambient *ambient;
     object  *objects;
     light   *lights;
 } composition;

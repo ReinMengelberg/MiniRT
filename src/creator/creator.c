@@ -6,7 +6,7 @@
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/08 12:44:59 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/08 12:49:12 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/08 13:56:58 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,4 @@ t_ray	create_ray(camera *cam, int x, int y)
     
     return (ray);
 }
+

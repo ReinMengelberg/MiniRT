@@ -1,16 +1,22 @@
 #ifndef RENDERCLANKER_H
 #   define RENDERCLANKER_H
 
-#include "libft.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "math.h"
 #include "fcntl.h"
+#include "libft.h"
+#include <mlx.h>
 
 // STRUCTS
 #include "vector.h"
 #include "composition.h"
 #include "image.h"
+
+#define WIDTH 800
+#define HEIGHT 600
+
+#define KEY_ESC 65307
 
 /**
  * PARSING
@@ -43,6 +49,23 @@ bool		is_valid_float(char *str);
 double		ft_atod(char *str);
 float		ft_atof(char *str);
 
+/**
+ * IMAGE
+ */
+
+t_image		*create_image(void *mlx, composition *comp);
+
+/**
+ * CREATOR
+ */
+
+t_ray	create_ray(camera *cam, int x, int y);
+
+/**
+ * TRACER
+ */
+
+color	trace_ray(t_ray *ray, composition *comp);
 
 
 

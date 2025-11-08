@@ -19,7 +19,7 @@ void		*mlx_int_xpm_f_image(t_xvar *xvar,int *width,int *height,
 {
   XImage	*img1;
   XImage	*img2;
-  t_img		*im2;
+  t_image		*im2;
   XpmAttributes	xpm_att;
 
   xpm_att.visual = xvar->visual;

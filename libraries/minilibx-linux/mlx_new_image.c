@@ -36,7 +36,7 @@ int	shm_att_pb(Display *d,XErrorEvent *ev)
 
 void	*mlx_int_new_xshm_image(t_xvar *xvar,int width,int height,int format)
 {
-  t_img	*img;
+  t_image	*img;
   int	(*save_handler)();
 
   if (!(img = malloc(sizeof(*img))))
@@ -106,7 +106,7 @@ void	*mlx_int_new_xshm_image(t_xvar *xvar,int width,int height,int format)
 
 void	*mlx_int_new_image(t_xvar *xvar,int width, int height,int format)
 {
-  t_img	*img;
+  t_image	*img;
 
   if (!(img = malloc(sizeof(*img))))
     return ((void *)0);
@@ -140,7 +140,7 @@ void	*mlx_int_new_image(t_xvar *xvar,int width, int height,int format)
 
 void	*mlx_new_image(t_xvar *xvar,int width, int height)
 {
-  t_img	*img;
+  t_image	*img;
 
   if (xvar->use_xshm)
     if (img = mlx_int_new_xshm_image(xvar,width,height,ZPixmap))
@@ -150,7 +150,7 @@ void	*mlx_new_image(t_xvar *xvar,int width, int height)
 
 void	*mlx_new_image2(t_xvar *xvar,int width, int height)
 {
-  t_img	*img;
+  t_image	*img;
 
   if (xvar->use_xshm)
     if (img = mlx_int_new_xshm_image(xvar,width,height,XYPixmap))

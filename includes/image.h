@@ -7,7 +7,7 @@ typedef struct s_img {
     int     bits_per_pixel;
     int     line_length;
     int     endian;
-}   t_img;
+}   t_image;
 
 typedef struct s_ray {
     vector root;

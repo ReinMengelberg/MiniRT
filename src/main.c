@@ -1,10 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/08 12:21:50 by rmengelb      #+#    #+#                 */
+/*   Updated: 2025/11/08 12:43:39 by rmengelb      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "renderclanker.h"
-#include <mlx.h>
-
-#define WIDTH 800
-#define HEIGHT 600
-
-#define KEY_ESC 65307
 
 typedef struct mlx_data {
 	void		*mlx;
@@ -29,25 +35,11 @@ int	handle_close(mlx_data *data) {
 	return (0);
 }
 
-void    put_pixel(t_img *img, int x, int y, int color) {
-    char    *dst;
-
-    if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-        return;
-    dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
-}
-
-
-t_img create_image(void *mlx, composition *comp) {
-	
-}
-
 int	main(int ac, char **av) {
 	int			fd;
 	composition	*comp;
-	void		*image;
-	void		*mlx;
+	t_image		*image;
+	mlx_data	data;
 
 	if (ac != 2)
 		return (dprintf(2, "Error:Usage: ./miniRT <scene.rt>\n"), 1);
@@ -62,12 +54,23 @@ int	main(int ac, char **av) {
 	if (!comp)
 		return (dprintf(2, "Error: Failed to parse scene\n"), 1);
 
-	mlx = mlx_init();
-	if (!mlx)
+	data.mlx = mlx_init();
+	if (!data.mlx)
 		return (dprintf(2, "Error: Failed to init MLX\n"), 1);
 
+	image = create_image(data.mlx, comp);
+	data.comp = comp;
 	
-
-	free_composition(comp);
+	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "MiniRT");
+	if (!data.win)
+		return (dprintf(2, "Error: Failed to create window\n"), 1);
+	
+	mlx_put_image_to_window(data.mlx, data.win, image->img_ptr, 0, 0);
+	
+	mlx_hook(data.win, 17, 0, handle_close, &data);
+	mlx_key_hook(data.win, handle_keypress, &data);
+	
+	mlx_loop(data.mlx);
+	
 	return (0);
 }

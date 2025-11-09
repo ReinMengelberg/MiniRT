@@ -65,7 +65,7 @@ t_image		*create_image(void *mlx, composition *comp);
  * CREATOR
  */
 
-t_ray	create_ray(camera *cam, int x, int y);
+t_ray	create_ray(camera *cam, t_viewport *vp, int x, int y);
 
 /**
  * TRACER

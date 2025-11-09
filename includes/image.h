@@ -13,14 +13,14 @@ typedef struct s_img {
 	int     endian;
 }   t_image;
 
-typedef struct s_hit_info
+typedef struct s_hit
 {
-	vector	*point;      // The 3D point where ray hit the object
+	vector	*loc;		 // The 3D point where ray hit the object
 	vector	*normal;     // Surface normal at hit point (for lighting)
 	double	t;           // Distance along ray to hit point
-	object	*obj;        // Pointer to the object that was hit
-	color	*obj_color;  // Color of the hit object (for convenience)
-}   t_hit_info;
+	otype	type;
+	void	*object;     // Pointer to the object that was hit
+}   t_hit;
 
 
 typedef struct s_ray {

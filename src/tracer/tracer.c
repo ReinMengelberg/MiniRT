@@ -6,7 +6,7 @@
 /*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:45:02 by rmengelb          #+#    #+#             */
-/*   Updated: 2025/11/09 12:39:27 by theyn            ###   ########.fr       */
+/*   Updated: 2025/11/09 13:18:49 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,60 +23,53 @@ color	return_grey()
 	return (gray);
 }
 
-double	intersect_sphere(t_ray ray, sphere *sp)
+color	return_red()
 {
+	color	gray;
 
+	gray.r = 255;
+	gray.g = 0;
+	gray.b = 0;
+	
+	return (gray);
 }
 
-double	intersect_plane(t_ray ray, plane *pl)
+color	return_green()
 {
+	color	gray;
 
+	gray.r = 0;
+	gray.g = 255;
+	gray.b = 0;
+	
+	return (gray);
 }
 
-double	intersect_cylinder(t_ray ray, cylinder *cyl)
+color	return_blue()
 {
+	color	gray;
 
-}
-
-color	calculate_lighting(t_hit_info hit, composition *comp)
-{
-
+	gray.r = 0;
+	gray.g = 0;
+	gray.b = 0;
+	
+	return (gray);
 }
 
 color	trace_ray(t_ray ray, composition *comp)
 {
-	t_hit_info	hit;
-
-	if (!find_closest_intersection(ray, comp, &hit))
+	t_hit	hit;
+	bool	found;
+	
+	found = find_intersect(ray, comp, &hit);
+	if (!found)
 		return (return_grey());
-	return (calculate_lighting(hit, comp));
-}
-
-
-object	*find_closest_intersection(t_ray ray, composition *comp, double *t)
-{
-	object	*current;
-	object	*closest;
-	double	closest_t;
-	double	temp_t;
-
-	closest = NULL;
-	closest_t = INFINITY;
-	current = comp->objects;
-	while (current)
-	{
-		if (current->type == SPHERE)
-			temp_t = intersect_sphere(ray, (sphere *)current->data);
-		else if (current->type == PLANE)
-			temp_t = intersect_plane(ray, (plane *)current->data);
-		else if (current->type == CYLINDER)
-			temp_t = intersect_cylinder(ray, (cylinder *)current->data);
-		if (temp_t > 0.001 && temp_t < *t)
-		{
-			*t = temp_t;
-			closest = current;
-		}
-		current = current->next;
-	}
-	return (closest);
+	
+	if (hit.type == SPHERE)
+		return (*((sphere *)hit.object)->color);
+	else if (hit.type == PLANE)
+		return (*((plane *)hit.object)->color);
+	else if (hit.type == CYLINDER)
+		return (*((cylinder *)hit.object)->color);
+	return (return_grey());
 }

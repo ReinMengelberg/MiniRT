@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   viewport.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/11/08 14:15:06 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/09 11:04:07 by rmengelb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   viewport.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/08 14:15:06 by rmengelb          #+#    #+#             */
+/*   Updated: 2025/11/09 13:23:09 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_viewport	*calculate_viewport(camera *cam, int width, int height)
 	
 	// Calculate viewport dimensions based on FOV
 	focal_length = 1.0;
+	cam->focal = focal_length;  // ← ADD THIS LINE to store it
 	vp->height = 2.0 * tan((cam->fov * M_PI / 180.0) / 2.0) * focal_length;
 	aspect_ratio = (double)width / (double)height;
 	vp->width = vp->height * aspect_ratio;

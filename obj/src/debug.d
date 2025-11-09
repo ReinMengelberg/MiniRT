@@ -1,4 +1,4 @@
-obj/src/parser/cylinder.o: src/parser/cylinder.c includes/renderclanker.h \
+obj/src/debug.o: src/debug.c includes/renderclanker.h \
   libraries/libft/libft.h libraries/minilibx-linux/mlx.h \
   includes/vector.h includes/composition.h includes/image.h
 

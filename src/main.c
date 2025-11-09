@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/11/08 12:21:50 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/08 12:43:39 by rmengelb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/08 12:21:50 by rmengelb          #+#    #+#             */
+/*   Updated: 2025/11/09 13:21:10 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(int ac, char **av) {
 	close(fd);
 	if (!comp)
 		return (dprintf(2, "Error: Failed to parse scene\n"), 1);
+	print_composition(comp);
 
 	data.mlx = mlx_init();
 	if (!data.mlx)

@@ -56,6 +56,12 @@ double		ft_atod(char *str);
 float		ft_atof(char *str);
 
 /**
+ * DEBUG
+ */
+
+void print_composition(composition *comp);
+
+/**
  * IMAGE
  */
 
@@ -72,6 +78,7 @@ t_ray	create_ray(camera *cam, t_viewport *vp, int x, int y);
  */
 
 color	trace_ray(t_ray ray, composition *comp);
+bool	find_intersect(t_ray ray, composition *comp, t_hit *hit);
 
 /**
  * MATH

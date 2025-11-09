@@ -34,4 +34,11 @@ typedef struct mlx_data {
 	t_image		*img;
 }	mlx_data;
 
+typedef struct s_thread_data{
+	t_image		*img;
+	composition	*comp;
+	int			start_y;
+	int			end_y;
+}	t_thread_data;
+
 #endif

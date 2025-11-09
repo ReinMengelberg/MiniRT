@@ -6,7 +6,7 @@
 /*   By: theyn <theyn@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/08 12:21:50 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/09 15:58:15 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/09 16:03:28 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 #define MOVE_STEP	1
 
 int	handle_keypress(int keycode, mlx_data *data) {
-	printf("GETTING KEYPRESS %d\n", keycode);
 	if (keycode == KEY_ESC) {
 		if (data->img)
 			mlx_destroy_image(data->mlx, data->img->img_ptr);

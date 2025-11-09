@@ -4,8 +4,7 @@
 #include "renderclanker.h"
 #include "vector.h"
 
-
-typedef struct s_img {
+typedef struct s_image {
 	void    *img_ptr;
 	char    *addr;
 	int     bits_per_pixel;
@@ -27,5 +26,12 @@ typedef struct s_ray {
 	vector root;
 	vector direction;
 } t_ray;
+
+typedef struct mlx_data {
+	void		*mlx;
+	void		*win;
+	composition	*comp;
+	t_image		*img;
+}	mlx_data;
 
 #endif

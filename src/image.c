@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   image.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/08 12:22:20 by rmengelb          #+#    #+#             */
-/*   Updated: 2025/11/09 13:11:12 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   image.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: theyn <theyn@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/08 12:22:20 by rmengelb      #+#    #+#                 */
+/*   Updated: 2025/11/09 15:05:32 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,33 @@ int	color_to_hex(color c) {
 
 void	put_pixel(t_image *img, int x, int y, color c) {
 	char	*dst;
-
 	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 		return;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int*)dst = color_to_hex(c);
 }
 
-t_image *create_image(void *mlx, composition *comp) {
+t_image *render_composition(void *mlx, composition *comp, t_image *existing_img) {
 	t_image	*img;
 	int		x;
 	int		y;
 	color	color;
 	t_ray	ray;
 	
-	img = malloc(sizeof(t_image));
-	if (!img) {
-		return (dprintf(2, "Failed to allocate memory for image"), NULL);
+	// If we have an existing image, reuse it; otherwise create new
+	if (existing_img) {
+		img = existing_img;
+	} else {
+		img = malloc(sizeof(t_image));
+		if (!img) {
+			return (dprintf(2, "Failed to allocate memory for image"), NULL);
+		}
+		img->img_ptr = mlx_new_image(mlx, WIDTH, HEIGHT);
+		img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel, 
+									   &img->line_length, &img->endian);
 	}
-	img->img_ptr = mlx_new_image(mlx, WIDTH, HEIGHT);
-	img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel, &img->line_length, &img->endian);
+	
+	// Render the scene
 	y = 0;
 	while (y < HEIGHT) {
 		x = 0;
@@ -50,4 +57,12 @@ t_image *create_image(void *mlx, composition *comp) {
 		y++;
 	}
 	return (img);
+}
+
+
+void	rerender_scene(mlx_data *data) {
+	// Reuse existing image buffer, just update the pixel data
+	data->img = render_composition(data->mlx, data->comp, data->img);
+	mlx_put_image_to_window(data->mlx, data->win, 
+							data->img->img_ptr, 0, 0);
 }

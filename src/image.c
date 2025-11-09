@@ -1,5 +1,6 @@
 /* ************************************************************************** */
 /*                                                                            */
+<<<<<<< HEAD
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -7,6 +8,15 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:22:20 by rmengelb          #+#    #+#             */
 /*   Updated: 2025/11/09 11:00:02 by theyn            ###   ########.fr       */
+=======
+/*                                                        ::::::::            */
+/*   image.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/08 12:22:20 by rmengelb      #+#    #+#                 */
+/*   Updated: 2025/11/09 11:10:35 by rmengelb      ########   odam.nl         */
+>>>>>>> origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +52,7 @@ t_image *create_image(void *mlx, composition *comp) {
 	while (y < HEIGHT) {
 		x = 0;
 		while (x < WIDTH) {
-			ray = create_ray(comp->camera, x, y);
+			ray = create_ray(comp->camera, comp->viewport, x, y);
 			color = trace_ray(ray, comp);
 			put_pixel(img, x, y, color);
 			x++;

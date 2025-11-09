@@ -18,6 +18,10 @@
 
 #define KEY_ESC 65307
 
+#ifndef M_PI
+#   define M_PI 3.14159265358979323846
+#endif
+
 /**
  * PARSING
  */
@@ -30,6 +34,7 @@ bool		add_cylinder(composition *comp, char *line);
 bool		add_plane(composition *comp, char *line);
 bool		add_sphere(composition *comp, char *line);
 
+t_viewport	*calculate_viewport(camera *cam, int width, int height);
 vector		*fill_vector(char *token);
 vector		*fill_direction(char *token);
 color		*fill_color(char *token);
@@ -40,6 +45,7 @@ void		free_all_lights(light *lights);
 void		free_ambient(ambient *ambient);
 void		free_camera(camera *camera);
 void		free_composition(composition *comp);
+void	    free_viewport(t_viewport *vp);
 
 bool		is_valid_int(char *str);
 int			token_count(char **tokens);
@@ -67,6 +73,18 @@ t_ray	create_ray(camera *cam, int x, int y);
 
 color	trace_ray(t_ray ray, composition *comp);
 
+/**
+ * MATH
+ */
+
+vector vadd(vector a, vector b);
+vector vsub(vector a, vector b);
+vector vscale(vector v, double scalar);
+double vdot(vector a, vector b);
+double vmagnitude(vector v);
+vector vnormalize(vector v);
+vector vcross(vector a, vector b);
+double vdistance(vector a, vector b);
 
 
 #endif

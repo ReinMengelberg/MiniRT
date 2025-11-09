@@ -6,7 +6,7 @@
 /*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:20:14 by theyn             #+#    #+#             */
-/*   Updated: 2025/11/09 13:20:24 by theyn            ###   ########.fr       */
+/*   Updated: 2025/11/09 13:23:26 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void print_vector(const char *label, vector *v)
         printf("%s: NULL\n", label);
         return;
     }
-    printf("%s: (%.2f, %.2f, %.2f)\n", label, v->x, v->y, v->z);
+    printf("%s: (%.6f, %.6f, %.6f)\n", label, v->x, v->y, v->z);  // Changed to %.6f
 }
 
 static void print_color(const char *label, color *c)

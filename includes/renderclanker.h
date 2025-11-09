@@ -65,7 +65,17 @@ void print_composition(composition *comp);
  * IMAGE
  */
 
-t_image		*create_image(void *mlx, composition *comp);
+t_image *render_composition(void *mlx, composition *comp, t_image *existing_img);
+
+
+/**
+ * MOVEMENT
+ */
+void	rotate_camera_y(composition *comp, float angle);
+void	rotate_camera_x(composition *comp, float angle);
+void	move_camera_forward(composition *comp, float distance);
+void	move_camera_strafe(composition *comp, float distance);
+void	rerender_scene(mlx_data *data);
 
 /**
  * CREATOR

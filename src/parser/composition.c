@@ -11,7 +11,8 @@ void	free_composition(composition *comp) {
 		free_all_objects(comp->objects);
 	if (comp->lights)
 		free_all_lights(comp->lights);
-	
+	if (comp->viewport)
+		free_viewport(comp->viewport);
 	free(comp);
 }
 
@@ -57,6 +58,7 @@ composition	*create_composition(int fd) {
 	comp->ambient = NULL;
 	comp->objects = NULL;
 	comp->lights = NULL;
+	comp->viewport = NULL;
 
 	while ((line = get_next_line(fd))) {
 		if (line[ft_strlen(line) - 1] == '\n') { // Remove newline from next line
@@ -72,5 +74,6 @@ composition	*create_composition(int fd) {
 	if (!validate_composition(comp)) {
 		return (free_composition(comp), NULL);
 	}
+	comp->viewport = calculate_viewport(comp->camera, WIDTH, HEIGHT);
 	return (comp);
 }

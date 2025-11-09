@@ -23,10 +23,10 @@ double	intersect_plane(t_ray ray, plane *pl)
 
 double	intersect_cylinder(t_ray ray, cylinder *cyl)
 {
-	
+
 }
 
-color	calculate_lighting(t_ray ray, object *hit_obj, double closest_t, composition *comp)
+color	calculate_lighting(t_hit_info hit, composition *comp)
 {
 
 }
@@ -37,21 +37,9 @@ color	trace_ray(t_ray ray, composition *comp)
 
 	if (!find_closest_intersection(ray, comp, &hit))
 		return (return_grey());
-	return (calculate_lighting(ray, &hit, comp));
+	return (calculate_lighting(hit, comp));
 }
 
-color	trace_ray(t_ray ray, composition *comp)
-{
-	double		closest_t;
-	object		*hit_obj;
-
-	closest_t = INFINITY;
-	hit_obj = NULL;
-	hit_obj = find_closest_intersection(ray, comp, &closest_t);
-	if (hit_obj == NULL)
-		return (return_grey());
-	return (calculate_lighting(ray, hit_obj, closest_t, comp));
-}
 
 object	*find_closest_intersection(t_ray ray, composition *comp, double *t)
 {
@@ -80,4 +68,3 @@ object	*find_closest_intersection(t_ray ray, composition *comp, double *t)
 	}
 	return (closest);
 }
-

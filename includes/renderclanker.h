@@ -1,6 +1,7 @@
 #ifndef RENDERCLANKER_H
 #   define RENDERCLANKER_H
 
+#include <pthread.h>
 #include "stdio.h"
 #include "stdlib.h"
 #include "math.h"
@@ -13,10 +14,10 @@
 #include "composition.h"
 #include "image.h"
 
-#define WIDTH 800
+#define WIDTH 1200
 #define HEIGHT 600
 
-#define KEY_ESC 65307
+#define NUM_THREADS 8
 
 #ifndef M_PI
 #   define M_PI 3.14159265358979323846

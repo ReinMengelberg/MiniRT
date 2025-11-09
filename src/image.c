@@ -6,11 +6,18 @@
 /*   By: theyn <theyn@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/08 12:22:20 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/09 15:05:32 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/09 15:57:55 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
+
+typedef struct {
+	t_image		*img;
+	composition	*comp;
+	int			start_y;
+	int			end_y;
+}	render_thread_data;
 
 int	color_to_hex(color c) {
 	return ((c.r << 16) | (c.g << 8) | c.b);
@@ -24,41 +31,69 @@ void	put_pixel(t_image *img, int x, int y, color c) {
 	*(unsigned int*)dst = color_to_hex(c);
 }
 
+void	*render_thread(void *arg) {
+	render_thread_data	*data;
+	int					x;
+	int					y;
+	color				color;
+	t_ray				ray;
+	
+	data = (render_thread_data *)arg;
+	y = data->start_y;
+	while (y < data->end_y) {
+		x = 0;
+		while (x < WIDTH) {
+			ray = create_ray(data->comp->camera, data->comp->viewport, x, y);
+			color = trace_ray(ray, data->comp);
+			put_pixel(data->img, x, y, color);
+			x++;
+		}
+		y++;
+	}
+	return (NULL);
+}
+
 t_image *render_composition(void *mlx, composition *comp, t_image *existing_img) {
-	t_image	*img;
-	int		x;
-	int		y;
-	color	color;
-	t_ray	ray;
+	t_image				*img;
+	pthread_t			threads[8];
+	render_thread_data	thread_data[8];
+	int					rows_per_thread;
+	int					i;
+	
 	
 	// If we have an existing image, reuse it; otherwise create new
 	if (existing_img) {
 		img = existing_img;
 	} else {
 		img = malloc(sizeof(t_image));
-		if (!img) {
+		if (!img)
 			return (dprintf(2, "Failed to allocate memory for image"), NULL);
-		}
 		img->img_ptr = mlx_new_image(mlx, WIDTH, HEIGHT);
 		img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel, 
 									   &img->line_length, &img->endian);
 	}
 	
-	// Render the scene
-	y = 0;
-	while (y < HEIGHT) {
-		x = 0;
-		while (x < WIDTH) {
-			ray = create_ray(comp->camera, comp->viewport, x, y);
-			color = trace_ray(ray, comp);
-			put_pixel(img, x, y, color);
-			x++;
-		}
-		y++;
+	// Split work across threads
+	rows_per_thread = HEIGHT / NUM_THREADS;
+	i = 0;
+	while (i < NUM_THREADS) {
+		thread_data[i].img = img;
+		thread_data[i].comp = comp;
+		thread_data[i].start_y = i * rows_per_thread;
+		thread_data[i].end_y = (i == NUM_THREADS - 1) ? HEIGHT : (i + 1) * rows_per_thread;
+		pthread_create(&threads[i], NULL, render_thread, &thread_data[i]);
+		i++;
 	}
+	
+	// Wait for all threads to finish
+	i = 0;
+	while (i < NUM_THREADS) {
+		pthread_join(threads[i], NULL);
+		i++;
+	}
+	
 	return (img);
 }
-
 
 void	rerender_scene(mlx_data *data) {
 	// Reuse existing image buffer, just update the pixel data

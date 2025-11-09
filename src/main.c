@@ -6,12 +6,13 @@
 /*   By: theyn <theyn@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/08 12:21:50 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/09 15:12:47 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/09 15:58:15 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
+#define KEY_ESC		65307
 #define KEY_LEFT	65363
 #define KEY_RIGHT	65361
 #define KEY_UP		65362
@@ -42,11 +43,11 @@ int	handle_keypress(int keycode, mlx_data *data) {
 		rerender_scene(data);
 	}
 	else if (keycode == KEY_UP) {
-		rotate_camera_x(data->comp, ROTATE_STEP);
+		rotate_camera_x(data->comp, -ROTATE_STEP);
 		rerender_scene(data);
 	}
 	else if (keycode == KEY_DOWN) {
-		rotate_camera_x(data->comp, -ROTATE_STEP);
+		rotate_camera_x(data->comp, ROTATE_STEP);
 		rerender_scene(data);
 	}
 	else if (keycode == KEY_W) {
@@ -98,7 +99,7 @@ int	main(int ac, char **av) {
 	if (!data.mlx)
 		return (dprintf(2, "Error: Failed to init MLX\n"), 1);
 	
-	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "MiniRT");
+	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "RenderClanker");
 	if (!data.win)
 		return (dprintf(2, "Error: Failed to create window\n"), 1);
 	

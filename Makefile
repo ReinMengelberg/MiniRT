@@ -2,7 +2,7 @@
 
 NAME	= RenderClanker
 CC		= cc
-CFLAGS	= -Wall -Werror -Wextra -g
+CFLAGS	= -Wall -Werror -Wextra -g -pthread
 RM		= rm -f
 OBJ_DIR	= obj
 INC_DIR = includes
@@ -26,7 +26,7 @@ MLX			= $(MLX_DIR)/libmlx.a
 
 # Includes
 INCLUDES	= -Iincludes -I$(INC_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
-LDFLAGS		= -lm -lX11 -lXext
+LDFLAGS		= -lm -lX11 -lXext -pthread
 
 all: $(OBJ_DIR) $(LIBFT) $(MLX) $(NAME)
 	@cat $(CLANKER) 2>/dev/null || true

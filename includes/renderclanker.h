@@ -94,6 +94,13 @@ bool	intersect_cylinder(t_ray ray, cylinder *cyl, t_hit *hit);
 bool	intersect_sphere(t_ray ray, sphere *s, t_hit *hit);
 bool	intersect_plane(t_ray ray, plane *p, t_hit *hit);
 bool	try_intersection(t_ray ray, double t, cylinder *cyl, vector axis, t_hit *hit);
+bool	is_in_shadow(vector *hit_point, vector *light_pos, composition *comp);
+void	free_hit_data(t_hit *hit);
+void	clamp_color_values(color *final_color);
+color	init_ambient_color(color *obj_color, double ambient_intensity);
+color	*get_object_color(t_hit *hit);
+color	return_grey(void);
+color	calculate_lighting(t_hit *hit, composition *comp);
 
 /**
  * MATH

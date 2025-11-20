@@ -6,7 +6,7 @@
 /*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:09:52 by theyn             #+#    #+#             */
-/*   Updated: 2025/11/14 14:52:17 by theyn            ###   ########.fr       */
+/*   Updated: 2025/11/20 17:47:30 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,6 @@ static void	init_hit(t_hit *hit)
 	hit->loc = NULL;
 	hit->normal = NULL;
 	hit->t = INFINITY;
-}
-
-static void	free_hit_data(t_hit *hit)
-{
-	if (hit->loc)
-		free(hit->loc);
-	if (hit->normal)
-		free(hit->normal);
 }
 
 static void	check_object_intersection(t_ray ray, object *obj, t_hit *temp_hit)

@@ -6,7 +6,7 @@
 /*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 14:55:27 by theyn             #+#    #+#             */
-/*   Updated: 2025/11/14 14:59:45 by theyn            ###   ########.fr       */
+/*   Updated: 2025/11/20 16:17:31 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void	setup_cylinder_projections(t_ray ray, cylinder *cyl,\
 	vector	oc;
 
 	oc = vsub(ray.root, *cyl->root);
-	calc->dir_proj = vsub(ray.direction, vscale(axis, vdot(ray.direction, axis)));
+	calc->dir_proj = vsub(ray.direction,
+			vscale(axis, vdot(ray.direction, axis)));
 	calc->oc_proj = vsub(oc, vscale(axis, vdot(oc, axis)));
 }
 

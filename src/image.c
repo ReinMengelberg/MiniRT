@@ -1,5 +1,6 @@
 /* ************************************************************************** */
 /*                                                                            */
+<<<<<<< HEAD
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -7,17 +8,19 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:22:20 by rmengelb          #+#    #+#             */
 /*   Updated: 2025/11/13 16:09:11 by theyn            ###   ########.fr       */
+=======
+/*                                                        ::::::::            */
+/*   image.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: theyn <theyn@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/08 12:22:20 by rmengelb      #+#    #+#                 */
+/*   Updated: 2025/11/09 16:03:18 by rmengelb      ########   odam.nl         */
+>>>>>>> origin
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
-
-typedef struct {
-	t_image		*img;
-	composition	*comp;
-	int			start_y;
-	int			end_y;
-}	render_thread_data;
 
 int	color_to_hex(color c) {
 	return ((c.r << 16) | (c.g << 8) | c.b);
@@ -32,13 +35,13 @@ void	put_pixel(t_image *img, int x, int y, color c) {
 }
 
 void	*render_thread(void *arg) {
-	render_thread_data	*data;
+	t_thread_data	*data;
 	int					x;
 	int					y;
 	color				color;
 	t_ray				ray;
 	
-	data = (render_thread_data *)arg;
+	data = (t_thread_data *)arg;
 	y = data->start_y;
 	while (y < data->end_y) {
 		x = 0;
@@ -56,7 +59,7 @@ void	*render_thread(void *arg) {
 t_image	*render_composition(void *mlx, composition *comp, t_image *existing_img) {
 	t_image				*img;
 	pthread_t			threads[8];
-	render_thread_data	thread_data[8];
+	t_thread_data		thread_data[8];
 	int					rows_per_thread;
 	int					i;
 	

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   image.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: theyn <theyn@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/11/08 12:22:20 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/09 15:57:55 by rmengelb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   image.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/08 12:22:20 by rmengelb          #+#    #+#             */
+/*   Updated: 2025/11/13 16:09:11 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	*render_thread(void *arg) {
 	return (NULL);
 }
 
-t_image *render_composition(void *mlx, composition *comp, t_image *existing_img) {
+t_image	*render_composition(void *mlx, composition *comp, t_image *existing_img) {
 	t_image				*img;
 	pthread_t			threads[8];
 	render_thread_data	thread_data[8];

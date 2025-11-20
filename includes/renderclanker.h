@@ -14,7 +14,7 @@
 #include "composition.h"
 #include "image.h"
 
-#define WIDTH 1200
+#define WIDTH 800
 #define HEIGHT 600
 
 #define NUM_THREADS 8
@@ -90,6 +90,10 @@ t_ray	create_ray(camera *cam, t_viewport *vp, int x, int y);
 
 color	trace_ray(t_ray ray, composition *comp);
 bool	find_intersect(t_ray ray, composition *comp, t_hit *hit);
+bool	intersect_cylinder(t_ray ray, cylinder *cyl, t_hit *hit);
+bool	intersect_sphere(t_ray ray, sphere *s, t_hit *hit);
+bool	intersect_plane(t_ray ray, plane *p, t_hit *hit);
+bool	try_intersection(t_ray ray, double t, cylinder *cyl, vector axis, t_hit *hit);
 
 /**
  * MATH

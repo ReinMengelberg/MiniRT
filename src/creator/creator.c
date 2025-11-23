@@ -6,16 +6,16 @@
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/08 12:44:59 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/09 11:09:52 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/23 12:31:25 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
-t_ray	create_ray(camera *cam, t_viewport *vp, int x, int y)
+t_ray	create_ray(t_camera *cam, t_viewport *vp, int x, int y)
 {
     t_ray	ray;
-    vector	pixel_center;
+    t_vector	pixel_center;
     
     // Calculate the center of the pixel at (x, y)
     // Start at p00 (center of pixel 0,0)

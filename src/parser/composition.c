@@ -1,6 +1,6 @@
 #include "renderclanker.h"
 
-void	free_composition(composition *comp) {
+void	free_composition(t_composition *comp) {
 	if (!comp)
 		return;
 	if (comp->camera)
@@ -16,7 +16,7 @@ void	free_composition(composition *comp) {
 	free(comp);
 }
 
-bool	add_to_composition(composition *comp, char *line)
+bool	add_to_composition(t_composition *comp, char *line)
 {
 	switch (line[0]) {
 		case 'A':
@@ -36,7 +36,7 @@ bool	add_to_composition(composition *comp, char *line)
 	}
 }
 
-bool	validate_composition(composition *comp) {
+bool	validate_composition(t_composition *comp) {
 	if (!comp->camera)
 		return (dprintf(2, "Error: No camera defined in .rt file\n"), false);
 	if (!comp->ambient)
@@ -46,11 +46,11 @@ bool	validate_composition(composition *comp) {
 	return (true);
 }
 
-composition	*create_composition(int fd) {
-	composition	*comp;
+t_composition	*create_composition(int fd) {
+	t_composition	*comp;
 	char		*line;
 	
-	comp = malloc(sizeof(composition));
+	comp = malloc(sizeof(t_composition));
 	if (!comp)
 		return (dprintf(2, "Error: Failed to allocate composition\n"), NULL);
 	

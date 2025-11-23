@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   intersect_sphere.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/13 21:13:56 by theyn             #+#    #+#             */
-/*   Updated: 2025/11/13 21:28:01 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   intersect_sphere.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: theyn <theyn@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/13 21:13:56 by theyn         #+#    #+#                 */
+/*   Updated: 2025/11/23 12:36:09 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
-static double	calc_discriminant(t_ray ray, sphere *s, double *a, double *b)
+static double	calc_discriminant(t_ray ray, t_sphere *s, double *a, double *b)
 {
-	vector	oc;
+	t_vector	oc;
 	double	c;
 
 	oc = vsub(ray.root, *s->root);
@@ -34,26 +34,26 @@ static double	find_valid_t(double a, double b, double discriminant)
 	return (t);
 }
 
-static bool	populate_hit_data(t_ray ray, sphere *s, double t, t_hit *hit)
+static bool	populate_hit_data(t_ray ray, t_sphere *s, double t, t_hit *hit)
 {
-	vector	hit_point;
+	t_vector	hit_point;
 
 	if (t < 0.001)
 		return (false);
 	hit->t = t;
 	hit_point = vadd(ray.root, vscale(ray.direction, t));
-	hit->loc = malloc(sizeof(vector));
+	hit->loc = malloc(sizeof(t_vector));
 	if (!hit->loc)
 		return (false);
 	*hit->loc = hit_point;
-	hit->normal = malloc(sizeof(vector));
+	hit->normal = malloc(sizeof(t_vector));
 	if (!hit->normal)
 		return (free(hit->loc), false);
 	*hit->normal = vnormalize(vsub(hit_point, *s->root));
 	return (true);
 }
 
-bool	intersect_sphere(t_ray ray, sphere *s, t_hit *hit)
+bool	intersect_sphere(t_ray ray, t_sphere *s, t_hit *hit)
 {
 	double	a;
 	double	b;

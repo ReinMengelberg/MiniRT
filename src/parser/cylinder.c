@@ -1,16 +1,16 @@
 #include "renderclanker.h"
 
-void free_cylinder(cylinder *cyl) {
+void free_cylinder(t_cylinder *cyl) {
 	if (cyl->root) free(cyl->root);
 	if (cyl->direction) free(cyl->direction);
 	if (cyl->color) free(cyl->color);
 	free(cyl);
 }
 
-cylinder *parse_cylinder(char **tokens) {
-	cylinder *cyl;
+t_cylinder *parse_cylinder(char **tokens) {
+	t_cylinder *cyl;
 
-	cyl = malloc(sizeof(cylinder));
+	cyl = malloc(sizeof(t_cylinder));
 	if (!cyl) {
 		return (dprintf(2, "Failed to allocate memory for a cylinder\n"), NULL);
 	}
@@ -38,9 +38,9 @@ error:
 	return (free(joined), NULL);
 }
 
-bool add_cylinder(composition *comp, char *line) {
+bool add_cylinder(t_composition *comp, char *line) {
 	char    **tokens;
-	object  *new_obj;
+	t_object  *new_obj;
 	
 	tokens = ft_split(line, ' ');
 	if (!tokens) {
@@ -52,7 +52,7 @@ bool add_cylinder(composition *comp, char *line) {
 	}
 	
 	// Create new object node
-	new_obj = malloc(sizeof(object));
+	new_obj = malloc(sizeof(t_object));
 	if (!new_obj) {
 		free_tokens(tokens);
 		return (dprintf(2, "Memory allocation failed\n"), false);

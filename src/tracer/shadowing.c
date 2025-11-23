@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   shadow.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 17:35:30 by theyn             #+#    #+#             */
-/*   Updated: 2025/11/20 17:36:01 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   shadowing.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: theyn <theyn@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/20 17:35:30 by theyn         #+#    #+#                 */
+/*   Updated: 2025/11/23 12:36:59 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_shadow_hit(t_hit *shadow_hit)
 		free(shadow_hit->normal);
 }
 
-bool	check_shadow_blocking(t_ray shadow_ray, composition *comp, double dist)
+bool	check_shadow_blocking(t_ray shadow_ray, t_composition *comp, double dist)
 {
 	t_hit	shadow_hit;
 	bool	blocked;
@@ -36,7 +36,7 @@ bool	check_shadow_blocking(t_ray shadow_ray, composition *comp, double dist)
 	return (false);
 }
 
-bool	is_in_shadow(vector *hit_point, vector *light_pos, composition *comp)
+bool	is_in_shadow(t_vector *hit_point, t_vector *light_pos, t_composition *comp)
 {
 	t_ray	shadow_ray;
 	double	light_distance;

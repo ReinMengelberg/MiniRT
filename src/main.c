@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 16:13:58 by theyn             #+#    #+#             */
-/*   Updated: 2025/11/20 16:14:01 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: theyn <theyn@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/20 16:13:58 by theyn         #+#    #+#                 */
+/*   Updated: 2025/11/23 12:33:11 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #define ROTATE_STEP	0.1
 #define MOVE_STEP	1
 
-int	handle_keypress(int keycode, mlx_data *data)
+int	handle_keypress(int keycode, t_mlx_data *data)
 {
 	if (keycode == KEY_ESC) {
 		if (data->img)
@@ -70,7 +70,7 @@ int	handle_keypress(int keycode, mlx_data *data)
 	return (0);
 }
 
-int	handle_close(mlx_data *data) {
+int	handle_close(t_mlx_data *data) {
 	mlx_destroy_window(data->mlx, data->win);
 	free_composition(data->comp);
 	exit(0);
@@ -79,8 +79,8 @@ int	handle_close(mlx_data *data) {
 
 int	main(int ac, char **av) {
 	int			fd;
-	composition	*comp;
-	mlx_data	data;
+	t_composition	*comp;
+	t_mlx_data	data;
 	
 	if (ac != 2)
 		return (dprintf(2, "Error:Usage: ./miniRT <scene.rt>\n"), 1);

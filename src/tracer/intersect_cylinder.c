@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   intersect_cylinder.c                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 14:55:27 by theyn             #+#    #+#             */
-/*   Updated: 2025/11/20 16:17:31 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   intersect_cylinder.c                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: theyn <theyn@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/14 14:55:27 by theyn         #+#    #+#                 */
+/*   Updated: 2025/11/23 12:34:33 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
-static void	setup_cylinder_projections(t_ray ray, cylinder *cyl,\
-	vector axis, t_cylinder_calc *calc)
+static void	setup_cylinder_projections(t_ray ray, t_cylinder *cyl,\
+	t_vector axis, t_cylinder_calc *calc)
 {
-	vector	oc;
+	t_vector	oc;
 
 	oc = vsub(ray.root, *cyl->root);
 	calc->dir_proj = vsub(ray.direction,
@@ -42,10 +42,10 @@ static void	calculate_t_values(t_cylinder_calc *calc,\
 	*t2 = (-calc->b + sqrt(discriminant)) / (2.0 * calc->a);
 }
 
-bool	intersect_cylinder(t_ray ray, cylinder *cyl, t_hit *hit)
+bool	intersect_cylinder(t_ray ray, t_cylinder *cyl, t_hit *hit)
 {
 	t_cylinder_calc	calc;
-	vector			axis;
+	t_vector			axis;
 	double			discriminant;
 	double			t1;
 	double			t2;

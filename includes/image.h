@@ -14,29 +14,29 @@ typedef struct s_image {
 
 typedef struct s_hit
 {
-	vector	*loc;		 // The 3D point where ray hit the object
-	vector	*normal;     // Surface normal at hit point (for lighting)
+	t_vector	*loc;		 // The 3D point where ray hit the object
+	t_vector	*normal;     // Surface normal at hit point (for lighting)
 	double	t;           // Distance along ray to hit point
-	otype	type;
+	t_otype	type;
 	void	*object;     // Pointer to the object that was hit
 }   t_hit;
 
 
 typedef struct s_ray {
-	vector root;
-	vector direction;
+	t_vector root;
+	t_vector direction;
 } t_ray;
 
-typedef struct mlx_data {
+typedef struct s_mlx_data {
 	void		*mlx;
 	void		*win;
-	composition	*comp;
+	t_composition	*comp;
 	t_image		*img;
-}	mlx_data;
+}	t_mlx_data;
 
 typedef struct s_thread_data{
 	t_image		*img;
-	composition	*comp;
+	t_composition	*comp;
 	int			start_y;
 	int			end_y;
 }	t_thread_data;

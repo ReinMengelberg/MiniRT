@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   viewport.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/08 14:15:06 by rmengelb          #+#    #+#             */
-/*   Updated: 2025/11/09 13:23:09 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   viewport.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: theyn <theyn@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/08 14:15:06 by rmengelb      #+#    #+#                 */
+/*   Updated: 2025/11/23 12:31:25 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	free_viewport(t_viewport *vp)
 		free(vp);
 }
 
-t_viewport	*calculate_viewport(camera *cam, int width, int height)
+t_viewport	*calculate_viewport(t_camera *cam, int width, int height)
 {
 	t_viewport	*vp;
-	vector		world_up;
-	vector		right;
-	vector		up;
+	t_vector		world_up;
+	t_vector		right;
+	t_vector		up;
 	double		focal_length;
 	double		aspect_ratio;
 
@@ -39,7 +39,7 @@ t_viewport	*calculate_viewport(camera *cam, int width, int height)
 	vp->width = vp->height * aspect_ratio;
 	
 	// Calculate camera basis vectors
-	world_up = (vector){0, 1, 0};
+	world_up = (t_vector){0, 1, 0};
 	right = vnormalize(vcross(*cam->direction, world_up));
 	up = vnormalize(vcross(right, *cam->direction));
 	

@@ -1,16 +1,16 @@
 #include "renderclanker.h"
 
-void free_plane(plane *pl) {
+void free_plane(t_plane *pl) {
 	if (pl->root) free(pl->root);
 	if (pl->direction) free(pl->direction);
 	if (pl->color) free(pl->color);
 	free(pl);
 }
 
-plane	*parse_plane(char **tokens) {
-	plane	*pl;
+t_plane	*parse_plane(char **tokens) {
+	t_plane	*pl;
 
-	pl = malloc(sizeof(plane));
+	pl = malloc(sizeof(t_plane));
 	if (!pl) {
 		return (dprintf(2, "Failed to allocate memory for a plane\n"), NULL);
 	}
@@ -32,9 +32,9 @@ error:
 	return (free(joined), NULL);
 }
 
-bool add_plane(composition *comp, char *line) {
+bool add_plane(t_composition *comp, char *line) {
 	char	**tokens;
-	object	*new_obj;
+	t_object	*new_obj;
 
 	tokens = ft_split(line, ' ');
 	if (!tokens) {
@@ -45,7 +45,7 @@ bool add_plane(composition *comp, char *line) {
 		return (dprintf(2, "Incorrect cylinder definition in .rt file\n"), false);
     }
 
-	new_obj = malloc(sizeof(object));
+	new_obj = malloc(sizeof(t_object));
     if (!new_obj) {
         free_tokens(tokens);
         return (dprintf(2, "Memory allocation failed\n"), false);

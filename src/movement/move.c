@@ -6,15 +6,15 @@
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/09 15:01:35 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/09 15:10:09 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/23 12:32:56 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
-void	move_camera_forward(composition *comp, float distance) {
-	vector	*pos = comp->camera->root;
-	vector	*dir = comp->camera->direction;
+void	move_camera_forward(t_composition *comp, float distance) {
+	t_vector	*pos = comp->camera->root;
+	t_vector	*dir = comp->camera->direction;
 	
 	// Move along the camera's direction vector
 	pos->x += dir->x * distance;
@@ -27,11 +27,11 @@ void	move_camera_forward(composition *comp, float distance) {
 	comp->viewport = calculate_viewport(comp->camera, WIDTH, HEIGHT);
 }
 
-void	move_camera_strafe(composition *comp, float distance) {
-	vector	*pos = comp->camera->root;
-	vector	*dir = comp->camera->direction;
-	vector	world_up = {0, 1, 0};
-	vector	right;
+void	move_camera_strafe(t_composition *comp, float distance) {
+	t_vector	*pos = comp->camera->root;
+	t_vector	*dir = comp->camera->direction;
+	t_vector	world_up = {0, 1, 0};
+	t_vector	right;
 	
 	// Calculate right vector (perpendicular to direction and world up)
 	right = vnormalize(vcross(*dir, world_up));

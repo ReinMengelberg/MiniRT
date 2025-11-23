@@ -19,10 +19,10 @@ bool	is_valid_int(char *str)
 	return (true);
 }
 
-vector	*fill_vector(char *token)
+t_vector	*fill_vector(char *token)
 {
     char	**xyz;
-    vector	*vec;
+    t_vector	*vec;
 
     xyz = ft_split(token, ',');
     if (!xyz || token_count(xyz) != 3) {
@@ -33,7 +33,7 @@ vector	*fill_vector(char *token)
         free_tokens(xyz);
         return (dprintf(2, "Error: Failed to parse vector from token %s\n", token), NULL);
     }
-    vec = malloc(sizeof(vector));
+    vec = malloc(sizeof(t_vector));
     if (!vec) {
         free_tokens(xyz);
         return NULL;
@@ -45,9 +45,9 @@ vector	*fill_vector(char *token)
     return vec;
 }
 
-vector	*fill_direction(char *token) {
+t_vector	*fill_direction(char *token) {
     char	**xyz;
-    vector	*vec;
+    t_vector	*vec;
 
     xyz = ft_split(token, ',');
     if (!xyz || token_count(xyz) != 3) {
@@ -58,7 +58,7 @@ vector	*fill_direction(char *token) {
         free_tokens(xyz);
         return (dprintf(2, "Error: Failed to parse direction vector from token %s\n", token), NULL);
     }
-    vec = malloc(sizeof(vector));
+    vec = malloc(sizeof(t_vector));
     if (!vec) {
         free_tokens(xyz);
         return NULL;
@@ -74,16 +74,16 @@ vector	*fill_direction(char *token) {
     return vec;
 }
 
-color *fill_color(char *token) {
+t_color *fill_color(char *token) {
     char    **rgb;
-    color   *col;
+    t_color   *col;
 
     rgb = ft_split(token, ',');
     if (!rgb || token_count(rgb) != 3) {
         free_tokens(rgb);
         return NULL;
     }
-    col = malloc(sizeof(color));
+    col = malloc(sizeof(t_color));
     if (!col) {
         free_tokens(rgb);
         return NULL;
@@ -99,8 +99,8 @@ color *fill_color(char *token) {
     return col;
 }
 
-void add_object_to_list(composition *comp, object *new_obj) {
-	object *current;
+void add_object_to_list(t_composition *comp, t_object *new_obj) {
+	t_object *current;
 
 	if (!comp->objects) {
 		// First object in the list
@@ -115,23 +115,23 @@ void add_object_to_list(composition *comp, object *new_obj) {
 	}
 }
 
-void free_object_data(object *obj) {
+void free_object_data(t_object *obj) {
 	if (!obj || !obj->data)
 		return;
 
 	if (obj->type == SPHERE) {
-		sphere *s = (sphere *)obj->data;
+		t_sphere *s = (t_sphere *)obj->data;
 		if (s->root) free(s->root);
 		if (s->color) free(s->color);
 		free(s);
 	} else if (obj->type == CYLINDER) {
-		cylinder *c = (cylinder *)obj->data;
+		t_cylinder *c = (t_cylinder *)obj->data;
 		if (c->root) free(c->root);
 		if (c->direction) free(c->direction);
 		if (c->color) free(c->color);
 		free(c);
 	} else if (obj->type == PLANE) {
-		plane *p = (plane *)obj->data;
+		t_plane *p = (t_plane *)obj->data;
 		if (p->root) free(p->root);
 		if (p->direction) free(p->direction);
 		if (p->color) free(p->color);
@@ -139,9 +139,9 @@ void free_object_data(object *obj) {
 	}
 }
 
-void free_all_objects(object *objects) {
-	object *current;
-	object *next;
+void free_all_objects(t_object *objects) {
+	t_object *current;
+	t_object *next;
 	
 	current = objects;
 	while (current) {

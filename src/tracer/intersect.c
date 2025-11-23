@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   intersect.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/09 13:09:52 by theyn             #+#    #+#             */
-/*   Updated: 2025/11/20 17:47:30 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   intersect.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: theyn <theyn@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/09 13:09:52 by theyn         #+#    #+#                 */
+/*   Updated: 2025/11/23 12:32:56 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ static void	init_hit(t_hit *hit)
 	hit->t = INFINITY;
 }
 
-static void	check_object_intersection(t_ray ray, object *obj, t_hit *temp_hit)
+static void	check_object_intersection(t_ray ray, t_object *obj, t_hit *temp_hit)
 {
 	if (obj->type == SPHERE)
-		intersect_sphere(ray, (sphere *)obj->data, temp_hit);
+		intersect_sphere(ray, (t_sphere *)obj->data, temp_hit);
 	else if (obj->type == PLANE)
-		intersect_plane(ray, (plane *)obj->data, temp_hit);
+		intersect_plane(ray, (t_plane *)obj->data, temp_hit);
 	else if (obj->type == CYLINDER)
-		intersect_cylinder(ray, (cylinder *)obj->data, temp_hit);
+		intersect_cylinder(ray, (t_cylinder *)obj->data, temp_hit);
 }
 
-static bool	update_if_closer(t_hit *hit, t_hit *temp_hit, object\
+static bool	update_if_closer(t_hit *hit, t_hit *temp_hit, t_object\
 	*current, double *closest_t)
 {
 	if (temp_hit->t > 0.001 && temp_hit->t < *closest_t)
@@ -45,9 +45,9 @@ static bool	update_if_closer(t_hit *hit, t_hit *temp_hit, object\
 	return (false);
 }
 
-bool	find_intersect(t_ray ray, composition *comp, t_hit *hit)
+bool	find_intersect(t_ray ray, t_composition *comp, t_hit *hit)
 {
-	object	*current;
+	t_object	*current;
 	t_hit	temp_hit;
 	double	closest_t;
 	bool	found;

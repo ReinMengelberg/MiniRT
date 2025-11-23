@@ -6,17 +6,17 @@
 /*   By: theyn <theyn@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/08 12:22:20 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/23 11:45:35 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/23 12:33:11 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
-int	color_to_hex(color c) {
+int	color_to_hex(t_color c) {
 	return ((c.r << 16) | (c.g << 8) | c.b);
 }
 
-void	put_pixel(t_image *img, int x, int y, color c) {
+void	put_pixel(t_image *img, int x, int y, t_color c) {
 	char	*dst;
 	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 		return;
@@ -28,7 +28,7 @@ void	*render_thread(void *arg) {
 	t_thread_data	*data;
 	int					x;
 	int					y;
-	color				color;
+	t_color				color;
 	t_ray				ray;
 	
 	data = (t_thread_data *)arg;
@@ -46,7 +46,7 @@ void	*render_thread(void *arg) {
 	return (NULL);
 }
 
-t_image	*render_composition(void *mlx, composition *comp, t_image *existing_img) {
+t_image	*render_composition(void *mlx, t_composition *comp, t_image *existing_img) {
 	t_image				*img;
 	pthread_t			threads[NUM_THREADS];
 	t_thread_data		thread_data[NUM_THREADS];
@@ -88,7 +88,7 @@ t_image	*render_composition(void *mlx, composition *comp, t_image *existing_img)
 	return (img);
 }
 
-void	rerender_scene(mlx_data *data) {
+void	rerender_scene(t_mlx_data *data) {
 	// Reuse existing image buffer, just update the pixel data
 	data->img = render_composition(data->mlx, data->comp, data->img);
 	mlx_put_image_to_window(data->mlx, data->win, 

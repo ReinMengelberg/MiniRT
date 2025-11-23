@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   color_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 17:45:07 by theyn             #+#    #+#             */
-/*   Updated: 2025/11/20 17:50:24 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   color_utils.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: theyn <theyn@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/20 17:45:07 by theyn         #+#    #+#                 */
+/*   Updated: 2025/11/23 12:35:37 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
-color	return_grey(void)
+t_color	return_grey(void)
 {
-	color	gray;
+	t_color	gray;
 
 	gray.r = 128;
 	gray.g = 128;
@@ -22,20 +22,20 @@ color	return_grey(void)
 	return (gray);
 }
 
-color	*get_object_color(t_hit *hit)
+t_color	*get_object_color(t_hit *hit)
 {
 	if (hit->type == SPHERE)
-		return (((sphere *)hit->object)->color);
+		return (((t_sphere *)hit->object)->color);
 	else if (hit->type == PLANE)
-		return (((plane *)hit->object)->color);
+		return (((t_plane *)hit->object)->color);
 	else if (hit->type == CYLINDER)
-		return (((cylinder *)hit->object)->color);
+		return (((t_cylinder *)hit->object)->color);
 	return (NULL);
 }
 
-color	init_ambient_color(color *obj_color, double ambient_intensity)
+t_color	init_ambient_color(t_color *obj_color, double ambient_intensity)
 {
-	color	final_color;
+	t_color	final_color;
 
 	final_color.r = obj_color->r * ambient_intensity;
 	final_color.g = obj_color->g * ambient_intensity;
@@ -43,7 +43,7 @@ color	init_ambient_color(color *obj_color, double ambient_intensity)
 	return (final_color);
 }
 
-void	clamp_color_values(color *final_color)
+void	clamp_color_values(t_color *final_color)
 {
 	if (final_color->r > 255)
 		final_color->r = 255;

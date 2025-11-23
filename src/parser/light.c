@@ -1,7 +1,7 @@
 #include "renderclanker.h"
 
-void add_light_to_linked_list(composition *comp, light *new_light) {
-	light *current;
+void add_light_to_linked_list(t_composition *comp, t_light *new_light) {
+	t_light *current;
 	
 	if (!comp->lights) {
 		comp->lights = new_light;
@@ -15,7 +15,7 @@ void add_light_to_linked_list(composition *comp, light *new_light) {
 	}
 }
 
-void free_light(light *light) {
+void free_light(t_light *light) {
 	if (!light)
 		return;
 	if (light->root) free(light->root);
@@ -23,9 +23,9 @@ void free_light(light *light) {
 	free(light);
 }
 
-void free_all_lights(light *lights) {
-	light *current;
-	light *next;
+void free_all_lights(t_light *lights) {
+	t_light *current;
+	t_light *next;
 	
 	current = lights;
 	while (current) {
@@ -35,9 +35,9 @@ void free_all_lights(light *lights) {
 	}
 }
 
-bool add_light(composition *comp, char *line) {
+bool add_light(t_composition *comp, char *line) {
 	char    **tokens;
-	light   *new_light;
+	t_light   *new_light;
 	
 	tokens = ft_split(line, ' ');
 	if (!tokens) {
@@ -48,7 +48,7 @@ bool add_light(composition *comp, char *line) {
 		return (dprintf(2, "Error: Incorrect light definition in .rt file\n"), false);
 	}
 	
-	new_light = malloc(sizeof(light));
+	new_light = malloc(sizeof(t_light));
 	if (!new_light) {
 		free_tokens(tokens);
 		return (dprintf(2, "Error: Memory allocation failed for light\n"), false);

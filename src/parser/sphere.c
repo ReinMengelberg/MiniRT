@@ -1,16 +1,16 @@
 #include "renderclanker.h"
 
-void	free_sphere(sphere *sph) {
+void	free_sphere(t_sphere *sph) {
 	if (sph->root) free(sph->root);
 	if (sph->color) free(sph->color);
 	free(sph);
 }
 
-sphere *parse_sphere(char **tokens)
+t_sphere *parse_sphere(char **tokens)
 {
-	sphere	*sph;
+	t_sphere	*sph;
 
-	sph = malloc(sizeof(sphere));
+	sph = malloc(sizeof(t_sphere));
 	if (!sph) {
 		return (dprintf(2, "Failed to allocate memory for a sphere\n"), NULL);
 	}
@@ -34,10 +34,10 @@ error:
 	return (NULL);
 }
 
-bool add_sphere(composition *comp, char *line)
+bool add_sphere(t_composition *comp, char *line)
 {
 	char	**tokens;
-	object	*new_obj;
+	t_object	*new_obj;
 
 	tokens = ft_split(line, ' ');
 	if (!tokens) {
@@ -50,7 +50,7 @@ bool add_sphere(composition *comp, char *line)
 		free_tokens(tokens);
 		return (false);
 	}
-	new_obj = malloc(sizeof(object));
+	new_obj = malloc(sizeof(t_object));
 	if (!new_obj) {
 		free_tokens(tokens);
 		return (dprintf(2, "Memory allocation failed\n"), false);

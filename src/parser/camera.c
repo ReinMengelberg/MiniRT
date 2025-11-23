@@ -1,6 +1,6 @@
 #include "renderclanker.h"
 
-void free_camera(camera *cam) {
+void free_camera(t_camera *cam) {
 	if (!cam)
 		return;
 	if (cam->root) free(cam->root);
@@ -8,10 +8,10 @@ void free_camera(camera *cam) {
 	free(cam);
 }
 
-camera *parse_camera(char **tokens) {
-	camera *cam;
+t_camera *parse_camera(char **tokens) {
+	t_camera *cam;
 
-	cam = malloc(sizeof(camera));
+	cam = malloc(sizeof(t_camera));
 	if (!cam) {
 		return (dprintf(2, "Error: Failed to allocate memory for a camera\n"), NULL);
 	}
@@ -35,7 +35,7 @@ error:
 	return (free(joined), NULL);
 }
 
-bool add_camera(composition *comp, char *line) {
+bool add_camera(t_composition *comp, char *line) {
 	char    **tokens;
 	
 	if (comp->camera != NULL) {

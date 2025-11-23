@@ -1,19 +1,19 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-typedef struct vector {
+typedef struct s_vector {
 	double	x;
 	double	y;
 	double	z;
-} vector;
+} t_vector;
 
-vector vadd(vector a, vector b);
-vector vsub(vector a, vector b);
-vector vscale(vector v, double scalar);
-double vdot(vector a, vector b);
-double vmagnitude(vector v);
-vector vnormalize(vector v);
-vector vcross(vector a, vector b);
-double vdistance(vector a, vector b);
+t_vector vadd(t_vector a, t_vector b);
+t_vector vsub(t_vector a, t_vector b);
+t_vector vscale(t_vector v, double scalar);
+double vdot(t_vector a, t_vector b);
+double vmagnitude(t_vector v);
+t_vector vnormalize(t_vector v);
+t_vector vcross(t_vector a, t_vector b);
+double vdistance(t_vector a, t_vector b);
 
 #endif

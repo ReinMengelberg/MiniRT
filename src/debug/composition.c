@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   composition.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/09 13:20:14 by theyn             #+#    #+#             */
-/*   Updated: 2025/11/09 13:32:32 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   composition.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: theyn <theyn@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/09 13:20:14 by theyn         #+#    #+#                 */
+/*   Updated: 2025/11/23 12:32:56 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
-static void print_vector(const char *label, vector *v)
+static void print_vector(const char *label, t_vector *v)
 {
     if (!v)
     {
@@ -22,7 +22,7 @@ static void print_vector(const char *label, vector *v)
     printf("%s: (%.6f, %.6f, %.6f)\n", label, v->x, v->y, v->z);  // Changed to %.6f
 }
 
-static void print_color(const char *label, color *c)
+static void print_color(const char *label, t_color *c)
 {
     if (!c)
     {
@@ -32,7 +32,7 @@ static void print_color(const char *label, color *c)
     printf("%s: RGB(%d, %d, %d)\n", label, c->r, c->g, c->b);
 }
 
-static void print_camera(camera *cam)
+static void print_camera(t_camera *cam)
 {
     if (!cam)
     {
@@ -46,7 +46,7 @@ static void print_camera(camera *cam)
     printf("  Focal length: %.2f\n", cam->focal);
 }
 
-static void print_ambient(ambient *amb)
+static void print_ambient(t_ambient *amb)
 {
     if (!amb)
     {
@@ -58,7 +58,7 @@ static void print_ambient(ambient *amb)
     print_color("  Color", amb->color);
 }
 
-static void print_lights(light *lights)
+static void print_lights(t_light *lights)
 {
     int count = 0;
     
@@ -69,7 +69,7 @@ static void print_lights(light *lights)
         return;
     }
     
-    light *curr = lights;
+    t_light *curr = lights;
     while (curr)
     {
         printf("  Light #%d:\n", ++count);
@@ -80,14 +80,14 @@ static void print_lights(light *lights)
     }
 }
 
-static void print_sphere(sphere *sp)
+static void print_sphere(t_sphere *sp)
 {
     print_vector("    Center", sp->root);
     printf("    Radius: %.2f\n", sp->radius);
     print_color("    Color", sp->color);
 }
 
-static void print_cylinder(cylinder *cyl)
+static void print_cylinder(t_cylinder *cyl)
 {
     print_vector("    Center", cyl->root);
     print_vector("    Direction", cyl->direction);
@@ -96,14 +96,14 @@ static void print_cylinder(cylinder *cyl)
     print_color("    Color", cyl->color);
 }
 
-static void print_plane(plane *pl)
+static void print_plane(t_plane *pl)
 {
     print_vector("    Point", pl->root);
     print_vector("    Normal", pl->direction);
     print_color("    Color", pl->color);
 }
 
-static void print_objects(object *objects)
+static void print_objects(t_object *objects)
 {
     int count = 0;
     
@@ -114,7 +114,7 @@ static void print_objects(object *objects)
         return;
     }
     
-    object *curr = objects;
+    t_object *curr = objects;
     while (curr)
     {
         printf("  Object #%d:\n", ++count);
@@ -123,19 +123,19 @@ static void print_objects(object *objects)
         {
             printf("    Type: SPHERE\n");
             if (curr->data)
-                print_sphere((sphere *)curr->data);
+                print_sphere((t_sphere *)curr->data);
         }
         else if (curr->type == CYLINDER)
         {
             printf("    Type: CYLINDER\n");
             if (curr->data)
-                print_cylinder((cylinder *)curr->data);
+                print_cylinder((t_cylinder *)curr->data);
         }
         else if (curr->type == PLANE)
         {
             printf("    Type: PLANE\n");
             if (curr->data)
-                print_plane((plane *)curr->data);
+                print_plane((t_plane *)curr->data);
         }
         
         curr = curr->next;
@@ -159,7 +159,7 @@ static void print_viewport(t_viewport *vp)
     print_vector("  Pixel (0,0)", &vp->p00);
 }
 
-void print_composition(composition *comp)
+void print_composition(t_composition *comp)
 {
     if (!comp)
     {

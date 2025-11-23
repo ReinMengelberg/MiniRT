@@ -1,16 +1,16 @@
 #include "renderclanker.h"
 
-void free_ambient(ambient *amb) {
+void free_ambient(t_ambient *amb) {
 	if (!amb)
 		return;
 	if (amb->color) free(amb->color);
 	free(amb);
 }
 
-ambient *parse_ambient(char **tokens) {
-	ambient *amb;
+t_ambient *parse_ambient(char **tokens) {
+	t_ambient *amb;
 
-	amb = malloc(sizeof(ambient));
+	amb = malloc(sizeof(t_ambient));
 	if (!amb) {
 		return (dprintf(2, "Error: Failed to allocate memory for a ambient\n"), NULL);
 	}
@@ -32,7 +32,7 @@ error:
 	return (free(joined), NULL);
 }
 
-bool add_ambient(composition *comp, char *line) {
+bool add_ambient(t_composition *comp, char *line) {
 	char    **tokens;
 
 	if (comp->ambient != NULL) {

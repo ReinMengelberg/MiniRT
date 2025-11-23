@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   light.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 17:41:49 by theyn             #+#    #+#             */
-/*   Updated: 2025/11/20 17:45:03 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   lighting.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: theyn <theyn@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/20 17:41:49 by theyn         #+#    #+#                 */
+/*   Updated: 2025/11/23 12:36:49 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
-void	add_diffuse_light(color *final_color, color *obj_color,
-	vector *light_dir, t_hit *hit)
+void	add_diffuse_light(t_color *final_color, t_color *obj_color,
+	t_vector *light_dir, t_hit *hit)
 {
 	double	diffuse;
 
@@ -26,10 +26,10 @@ void	add_diffuse_light(color *final_color, color *obj_color,
 	}
 }
 
-void	apply_light_contribution(color *final_color, light *current_light,
-		t_hit *hit, color *obj_color)
+void	apply_light_contribution(t_color *final_color, t_light *current_light,
+		t_hit *hit, t_color *obj_color)
 {
-	vector	light_dir;
+	t_vector	light_dir;
 	double	diffuse;
 	double	contribution;
 
@@ -44,10 +44,10 @@ void	apply_light_contribution(color *final_color, light *current_light,
 	}
 }
 
-color	process_lights(t_hit *hit, composition *comp, color *obj_color,
-		color final_color)
+t_color	process_lights(t_hit *hit, t_composition *comp, t_color *obj_color,
+		t_color final_color)
 {
-	light	*current_light;
+	t_light	*current_light;
 
 	current_light = comp->lights;
 	while (current_light)
@@ -61,10 +61,10 @@ color	process_lights(t_hit *hit, composition *comp, color *obj_color,
 	return (final_color);
 }
 
-color	calculate_lighting(t_hit *hit, composition *comp)
+t_color	calculate_lighting(t_hit *hit, t_composition *comp)
 {
-	color	final_color;
-	color	*obj_color;
+	t_color	final_color;
+	t_color	*obj_color;
 	double	ambient_intensity;
 
 	obj_color = get_object_color(hit);

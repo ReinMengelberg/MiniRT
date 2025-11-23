@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   look.c                                             :+:    :+:            */
+/*   rotate.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/09 15:01:39 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/09 15:05:48 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/23 12:32:56 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
-void	rotate_camera_y(composition *comp, float angle) {
-	vector	*dir = comp->camera->direction;
+void	rotate_camera_y(t_composition *comp, float angle) {
+	t_vector	*dir = comp->camera->direction;
 	float	cos_a = cos(angle);
 	float	sin_a = sin(angle);
 	float	new_x, new_z;
@@ -36,8 +36,8 @@ void	rotate_camera_y(composition *comp, float angle) {
 	comp->viewport = calculate_viewport(comp->camera, WIDTH, HEIGHT);  // Removed &
 }
 
-void	rotate_camera_x(composition *comp, float angle) {
-	vector	*dir = comp->camera->direction;
+void	rotate_camera_x(t_composition *comp, float angle) {
+	t_vector	*dir = comp->camera->direction;
 	float	cos_a = cos(angle);
 	float	sin_a = sin(angle);
 	float	new_y, new_z;

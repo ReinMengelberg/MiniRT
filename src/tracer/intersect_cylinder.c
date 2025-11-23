@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   intersect_cylinder.c                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: theyn <theyn@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/11/14 14:55:27 by theyn         #+#    #+#                 */
-/*   Updated: 2025/11/23 12:34:33 by rmengelb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   intersect_cylinder.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/14 14:55:27 by theyn             #+#    #+#             */
+/*   Updated: 2025/11/23 13:20:32 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
-static void	setup_cylinder_projections(t_ray ray, t_cylinder *cyl,\
+static void	setup_cylinder_projections(t_ray ray, t_cylinder *cyl,
 	t_vector axis, t_cylinder_calc *calc)
 {
 	t_vector	oc;
@@ -35,7 +35,7 @@ static double	get_discriminant(t_cylinder_calc *calc)
 	return (calc->b * calc->b - 4 * calc->a * calc->c);
 }
 
-static void	calculate_t_values(t_cylinder_calc *calc,\
+static void	calculate_t_values(t_cylinder_calc *calc,
 	double discriminant, double *t1, double *t2)
 {
 	*t1 = (-calc->b - sqrt(discriminant)) / (2.0 * calc->a);
@@ -45,7 +45,7 @@ static void	calculate_t_values(t_cylinder_calc *calc,\
 bool	intersect_cylinder(t_ray ray, t_cylinder *cyl, t_hit *hit)
 {
 	t_cylinder_calc	calc;
-	t_vector			axis;
+	t_vector		axis;
 	double			discriminant;
 	double			t1;
 	double			t2;
@@ -57,9 +57,12 @@ bool	intersect_cylinder(t_ray ray, t_cylinder *cyl, t_hit *hit)
 	if (discriminant < 0)
 		return (false);
 	calculate_t_values(&calc, discriminant, &t1, &t2);
-	if (try_intersection(ray, t1, cyl, axis, hit))
+	hit->ray = ray;
+	hit->t = t1;
+	if (try_intersection(hit, cyl, axis))
 		return (true);
-	if (try_intersection(ray, t2, cyl, axis, hit))
+	hit->t = t2;
+	if (try_intersection(hit, cyl, axis))
 		return (true);
 	return (false);
 }

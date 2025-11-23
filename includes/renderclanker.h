@@ -93,7 +93,7 @@ bool	find_intersect(t_ray ray, t_composition *comp, t_hit *hit);
 bool	intersect_cylinder(t_ray ray, t_cylinder *cyl, t_hit *hit);
 bool	intersect_sphere(t_ray ray, t_sphere *s, t_hit *hit);
 bool	intersect_plane(t_ray ray, t_plane *p, t_hit *hit);
-bool	try_intersection(t_ray ray, double t, t_cylinder *cyl, t_vector axis, t_hit *hit);
+bool	try_intersection(t_hit *hit, t_cylinder *cyl, t_vector axis);
 bool	is_in_shadow(t_vector *hit_point, t_vector *light_pos, t_composition *comp);
 void	free_hit_data(t_hit *hit);
 void	clamp_color_values(t_color *final_color);

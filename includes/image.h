@@ -12,20 +12,20 @@ typedef struct s_image {
 	int     endian;
 }   t_image;
 
+typedef struct s_ray {
+	t_vector 	root;
+	t_vector 	direction;
+}	t_ray;
+
 typedef struct s_hit
 {
-	t_vector	*loc;		 // The 3D point where ray hit the object
-	t_vector	*normal;     // Surface normal at hit point (for lighting)
-	double	t;           // Distance along ray to hit point
-	t_otype	type;
-	void	*object;     // Pointer to the object that was hit
+	t_ray		ray;	
+	t_vector	*loc;		// The 3D point where ray hit the object
+	t_vector	*normal;	// Surface normal at hit point (for lighting)
+	double		t;			// Distance along ray to hit point
+	t_otype		type;
+	void		*object;	// Pointer to the object that was hit
 }   t_hit;
-
-
-typedef struct s_ray {
-	t_vector root;
-	t_vector direction;
-} t_ray;
 
 typedef struct s_mlx_data {
 	void		*mlx;

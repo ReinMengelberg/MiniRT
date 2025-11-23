@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: theyn <theyn@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/11/08 12:21:50 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/09 16:03:28 by rmengelb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/20 16:13:58 by theyn             #+#    #+#             */
+/*   Updated: 2025/11/20 16:14:01 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 #define ROTATE_STEP	0.1
 #define MOVE_STEP	1
 
-int	handle_keypress(int keycode, mlx_data *data) {
+int	handle_keypress(int keycode, mlx_data *data)
+{
 	if (keycode == KEY_ESC) {
 		if (data->img)
 			mlx_destroy_image(data->mlx, data->img->img_ptr);
@@ -104,7 +105,7 @@ int	main(int ac, char **av) {
 	
 	data.comp = comp;
 	data.img = NULL;  // Initialize to NULL for first render
-	data.img = render_composition(data.mlx, comp, data.img);
+	data.img = render_composition(data.mlx, comp, data.img); // When do we FREE data.img??
 	mlx_put_image_to_window(data.mlx, data.win, data.img->img_ptr, 0, 0);
 	
 	mlx_hook(data.win, 17, 0, handle_close, &data);

@@ -82,13 +82,20 @@ typedef struct cylinder {
 	color	*color;
 } cylinder;
 
+typedef struct s_cylinder_calc
+{
+	vector	dir_proj;
+	vector	oc_proj;
+	double	a;
+	double	b;
+	double	c;
+}				t_cylinder_calc;
+
 typedef struct plane {
 	vector	*root;
 	vector	*direction;
 	color	*color;
 } plane;
-
-
 
 // Define composition last (depends on all above types)
 typedef struct composition {

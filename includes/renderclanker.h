@@ -13,6 +13,7 @@
 #include "vector.h"
 #include "composition.h"
 #include "image.h"
+#include "debug.h"
 
 #define WIDTH 800
 #define HEIGHT 600

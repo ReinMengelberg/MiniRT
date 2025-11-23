@@ -17,7 +17,7 @@
 #define WIDTH 1200
 #define HEIGHT 600
 
-#define NUM_THREADS 8
+#define NUM_THREADS 16
 
 #ifndef M_PI
 #   define M_PI 3.14159265358979323846

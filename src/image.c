@@ -6,7 +6,7 @@
 /*   By: theyn <theyn@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/08 12:22:20 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/09 16:03:18 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/23 11:41:10 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	*render_thread(void *arg) {
 
 t_image *render_composition(void *mlx, composition *comp, t_image *existing_img) {
 	t_image				*img;
-	pthread_t			threads[8];
-	t_thread_data		thread_data[8];
+	pthread_t			threads[NUM_THREADS];
+	t_thread_data		thread_data[NUM_THREADS];
 	int					rows_per_thread;
 	int					i;
 	

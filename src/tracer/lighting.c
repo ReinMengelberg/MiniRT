@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   lighting.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: theyn <theyn@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/11/20 17:41:49 by theyn         #+#    #+#                 */
-/*   Updated: 2025/11/23 12:36:49 by rmengelb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   lighting.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/20 17:41:49 by theyn             #+#    #+#             */
+/*   Updated: 2025/11/23 13:25:20 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	apply_light_contribution(t_color *final_color, t_light *current_light,
 		t_hit *hit, t_color *obj_color)
 {
 	t_vector	light_dir;
-	double	diffuse;
-	double	contribution;
+	double		diffuse;
+	double		contribution;
 
 	light_dir = vnormalize(vsub(*current_light->root, *hit->loc));
 	diffuse = vdot(*hit->normal, light_dir);

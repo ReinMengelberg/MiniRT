@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   intersect.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: theyn <theyn@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/11/09 13:09:52 by theyn         #+#    #+#                 */
-/*   Updated: 2025/11/23 12:32:56 by rmengelb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   intersect.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/09 13:09:52 by theyn             #+#    #+#             */
+/*   Updated: 2025/11/23 13:26:00 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	check_object_intersection(t_ray ray, t_object *obj, t_hit *temp_hit)
 		intersect_cylinder(ray, (t_cylinder *)obj->data, temp_hit);
 }
 
-static bool	update_if_closer(t_hit *hit, t_hit *temp_hit, t_object\
-	*current, double *closest_t)
+static bool	update_if_closer(t_hit *hit, t_hit *temp_hit,
+	t_object *current, double *closest_t)
 {
 	if (temp_hit->t > 0.001 && temp_hit->t < *closest_t)
 	{
@@ -48,9 +48,9 @@ static bool	update_if_closer(t_hit *hit, t_hit *temp_hit, t_object\
 bool	find_intersect(t_ray ray, t_composition *comp, t_hit *hit)
 {
 	t_object	*current;
-	t_hit	temp_hit;
-	double	closest_t;
-	bool	found;
+	t_hit		temp_hit;
+	double		closest_t;
+	bool		found;
 
 	init_hit(hit);
 	closest_t = INFINITY;

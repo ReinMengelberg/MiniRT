@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   intersect_sphere.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: theyn <theyn@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/11/13 21:13:56 by theyn         #+#    #+#                 */
-/*   Updated: 2025/11/23 12:36:09 by rmengelb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   intersect_sphere.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/13 21:13:56 by theyn             #+#    #+#             */
+/*   Updated: 2025/11/23 13:25:13 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static double	calc_discriminant(t_ray ray, t_sphere *s, double *a, double *b)
 {
 	t_vector	oc;
-	double	c;
+	double		c;
 
 	oc = vsub(ray.root, *s->root);
 	*a = vdot(ray.direction, ray.direction);

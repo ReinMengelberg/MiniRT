@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   intersect_plane.c                                  :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: theyn <theyn@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/11/13 21:24:34 by theyn         #+#    #+#                 */
-/*   Updated: 2025/11/23 12:37:29 by rmengelb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   intersect_plane.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/13 21:24:34 by theyn             #+#    #+#             */
+/*   Updated: 2025/11/23 13:24:07 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 bool	intersect_plane(t_ray ray, t_plane *p, t_hit *hit)
 {
-	double	denom;
-	double	t;
+	double		denom;
+	double		t;
 	t_vector	hit_point;
 
 	denom = vdot(ray.direction, *p->direction);

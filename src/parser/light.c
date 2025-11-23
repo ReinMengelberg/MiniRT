@@ -1,121 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   light.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/23 14:53:33 by theyn             #+#    #+#             */
+/*   Updated: 2025/11/23 16:25:29 by theyn            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "renderclanker.h"
 
-void add_light_to_linked_list(t_composition *comp, t_light *new_light) {
-	t_light *current;
-	
-	if (!comp->lights) {
-		comp->lights = new_light;
-	} else {
-		current = comp->lights;
-		while (current->next) {
-			current = current->next;
-		}
-		current->next = new_light;
-		new_light->prev = current;
+bool	light_error(char **tokens, t_light *light)
+{
+	char	*joined;
+
+	joined = ft_strjoin_array(tokens, 4, " ");
+	if (joined)
+	{
+		printf("Error: Incorrect light definition (%s) in .rt file\n", joined);
+		free(joined);
 	}
+	else
+		printf("Error: Incorrect light definition (unknown) in .rt file\n");
+	free_tokens(tokens);
+	free_light(light);
+	return (false);
 }
 
-void free_light(t_light *light) {
+t_light	*parse_light(char **tokens)
+{
+	t_light	*light;
+
+	light = malloc(sizeof(t_light));
 	if (!light)
-		return;
-	if (light->root) free(light->root);
-	if (light->color) free(light->color);
-	free(light);
+		return (NULL);
+	light->next = NULL;
+	light->prev = NULL;
+	light->root = NULL;
+	light->color = NULL;
+	if (!validate_light_values(light, tokens))
+		return (NULL);
+	return (light);
 }
 
-void free_all_lights(t_light *lights) {
-	t_light *current;
-	t_light *next;
-	
-	current = lights;
-	while (current) {
-		next = current->next;
-		free_light(current);
-		current = next;
-	}
-}
+bool	add_light(t_composition *comp, char *line)
+{
+	char	**tokens;
+	t_light	*light;
 
-bool add_light(t_composition *comp, char *line) {
-	char    **tokens;
-	t_light   *new_light;
-	
 	tokens = ft_split(line, ' ');
-	if (!tokens) {
-		return (dprintf(2, "Error: Failed to split tokens for light definition in .rt file\n"), false);
-	}
-	if (token_count(tokens) != 4 || !check_token(tokens[0], "L")) {
+	if (!tokens)
+		return (printf("Error: Failed to split tokens\
+			for light definition\n"), false);
+	if (token_count(tokens) != 4 || !check_token(tokens[0], "L"))
+	{
 		free_tokens(tokens);
-		return (dprintf(2, "Error: Incorrect light definition in .rt file\n"), false);
+		return (printf("Error: Incorrect light\
+			definition in .rt file\n"), false);
 	}
-	
-	new_light = malloc(sizeof(t_light));
-	if (!new_light) {
-		free_tokens(tokens);
-		return (dprintf(2, "Error: Memory allocation failed for light\n"), false);
-	}
-	
-	new_light->root = fill_vector(tokens[1]);
-	if (!new_light->root) goto error;
-
-	if (!is_valid_float(tokens[2])) goto error;
-	new_light->brightness = ft_atof(tokens[2]);
-	if (new_light->brightness < 0 || new_light->brightness > 1) goto error;
-
-	new_light->color = fill_color(tokens[3]);
-	if (!new_light->color) goto error;
-
-	new_light->next = NULL;
-	new_light->prev = NULL;
-	
-	add_light_to_linked_list(comp, new_light);
+	light = parse_light(tokens);
+	if (!light)
+		return (light_error(tokens, NULL));
+	add_light_to_linked_list(comp, light);
 	free_tokens(tokens);
-	
 	return (true);
-
-error:
-	free_tokens(tokens);
-	free_light(new_light);
-	char *joined = ft_strjoin_array(tokens, 4, " ");
-	dprintf(2, "Error: Incorrect light definition (%s) in .rt file\n", joined ? joined : "unknown");
-	return (free(joined), NULL);
 }
-
-// bool add_light(composition *comp, char *line) {
-// 	char    **tokens;
-// 	light   *new_light;
-	
-// 	tokens = ft_split(line, ' ');
-// 	if (!tokens) {
-// 		return (dprintf(2, "Error: Failed to split tokens for light definition in .rt file\n"), false);
-// 	}
-// 	if (token_count(tokens) != 4 || !check_token(tokens[0], "L")) {
-// 		free_tokens(tokens);
-// 		return (dprintf(2, "Error: Incorrect light definition in .rt file\n"), false);
-// 	}
-	
-// 	// Create new light node
-// 	new_light = malloc(sizeof(light));
-// 	if (!new_light) {
-// 		free_tokens(tokens);
-// 		return (dprintf(2, "Error: Memory allocation failed for light\n"), false);
-// 	}
-	
-// 	new_light->root = fill_vector(tokens[1]);
-// 	new_light->brightness = ft_atof(tokens[2]);
-// 	new_light->color = fill_color(tokens[3]);
-// 	new_light->next = NULL;
-// 	new_light->prev = NULL;
-// 	free_tokens(tokens);
-	
-// 	// Validate light data
-// 	if (!new_light->root || !new_light->color || new_light->brightness < 0 || new_light->brightness > 1) {
-// 		free_light(new_light);
-// 		return (dprintf(2, "Error: Incorrect light definition in .rt file\n"), false);
-// 	}
-	
-// 	// Add to linked list
-// 	add_light_to_linked_list(comp, new_light);
-	
-// 	return (true);
-// }
-

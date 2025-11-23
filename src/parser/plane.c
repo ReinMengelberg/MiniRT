@@ -1,19 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   plane.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/23 16:28:17 by theyn             #+#    #+#             */
+/*   Updated: 2025/11/23 16:28:18 by theyn            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "renderclanker.h"
 
-void free_plane(t_plane *pl) {
-	if (pl->root) free(pl->root);
-	if (pl->direction) free(pl->direction);
-	if (pl->color) free(pl->color);
+void	free_plane(t_plane *pl)
+{
+	if (pl->root)
+		free(pl->root);
+	if (pl->direction)
+		free(pl->direction);
+	if (pl->color)
+		free(pl->color);
 	free(pl);
 }
 
-t_plane	*parse_plane(char **tokens) {
+t_plane	*parse_plane(char **tokens)
+{
 	t_plane	*pl;
 
 	pl = malloc(sizeof(t_plane));
-	if (!pl) {
+	if (!pl)
 		return (dprintf(2, "Failed to allocate memory for a plane\n"), NULL);
-	}
 	
 	pl->root = fill_vector(tokens[1]);
 	if (!pl->root) goto error;
@@ -32,8 +48,9 @@ error:
 	return (free(joined), NULL);
 }
 
-bool add_plane(t_composition *comp, char *line) {
-	char	**tokens;
+bool	add_plane(t_composition *comp, char *line)
+{
+	char		**tokens;
 	t_object	*new_obj;
 
 	tokens = ft_split(line, ' ');

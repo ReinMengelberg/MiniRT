@@ -21,7 +21,7 @@ bool	is_valid_int(char *str)
 
 t_vector	*fill_vector(char *token)
 {
-    char	**xyz;
+    char		**xyz;
     t_vector	*vec;
 
     xyz = ft_split(token, ',');
@@ -46,7 +46,7 @@ t_vector	*fill_vector(char *token)
 }
 
 t_vector	*fill_direction(char *token) {
-    char	**xyz;
+    char		**xyz;
     t_vector	*vec;
 
     xyz = ft_split(token, ',');
@@ -75,8 +75,8 @@ t_vector	*fill_direction(char *token) {
 }
 
 t_color *fill_color(char *token) {
-    char    **rgb;
-    t_color   *col;
+    char	**rgb;
+    t_color	*col;
 
     rgb = ft_split(token, ',');
     if (!rgb || token_count(rgb) != 3) {

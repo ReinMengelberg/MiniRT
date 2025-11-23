@@ -57,6 +57,11 @@ bool		is_valid_float(char *str);
 double		ft_atod(char *str);
 float		ft_atof(char *str);
 
+void	free_all_lights(t_light *lights);
+void	free_light(t_light *light);
+void	add_light_to_linked_list(t_composition *comp, t_light *new_light);
+bool	validate_light_values(t_light *light, char **tokens);
+
 /**
  * DEBUG
  */

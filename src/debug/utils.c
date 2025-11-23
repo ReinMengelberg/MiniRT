@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   creator.c                                          :+:    :+:            */
+/*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/11/08 12:44:59 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/23 14:01:14 by rmengelb      ########   odam.nl         */
+/*   Created: 2025/11/23 14:05:15 by rmengelb      #+#    #+#                 */
+/*   Updated: 2025/11/23 14:05:26 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
-t_ray	create_ray(t_camera *cam, t_viewport *vp, int x, int y)
+void	print_vector(const char *label, t_vector *v)
 {
-	t_ray		ray;
-	t_vector	pixel_center;
+	if (!v)
+	{
+		printf("%s: NULL\n", label);
+		return ;
+	}
+	printf("%s: (%.6f, %.6f, %.6f)\n", label, v->x, v->y, v->z);
+}
 
-	pixel_center = vp->p00;
-	pixel_center = vadd(pixel_center, vscale(vp->hpdelta, (double)x));
-	pixel_center = vadd(pixel_center, vscale(vp->vpdelta, (double)y));
-	ray.root = *cam->root;
-	ray.direction = vnormalize(vsub(pixel_center, *cam->root));
-	return (ray);
+void	print_color(const char *label, t_color *c)
+{
+	if (!c)
+	{
+		printf("%s: NULL\n", label);
+		return ;
+	}
+	printf("%s: RGB(%d, %d, %d)\n", label, c->r, c->g, c->b);
 }

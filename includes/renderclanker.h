@@ -13,6 +13,7 @@
 #include "vector.h"
 #include "composition.h"
 #include "image.h"
+#include "debug.h"
 
 #define WIDTH 800
 #define HEIGHT 600
@@ -66,6 +67,8 @@ void print_composition(t_composition *comp);
  * IMAGE
  */
 
+void	put_pixel(t_image *img, int x, int y, t_color c);
+t_image	*init_image(void *mlx, t_image *existing_img);
 t_image *render_composition(void *mlx, t_composition *comp, t_image *existing_img);
 
 
@@ -114,6 +117,5 @@ double vmagnitude(t_vector v);
 t_vector vnormalize(t_vector v);
 t_vector vcross(t_vector a, t_vector b);
 double vdistance(t_vector a, t_vector b);
-
 
 #endif

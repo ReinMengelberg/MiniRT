@@ -6,7 +6,7 @@
 /*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 14:55:27 by theyn             #+#    #+#             */
-/*   Updated: 2025/11/23 13:20:32 by theyn            ###   ########.fr       */
+/*   Updated: 2025/11/29 13:02:44 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ bool	intersect_cylinder(t_ray ray, t_cylinder *cyl, t_hit *hit)
 	hit->t = t2;
 	if (try_intersection(hit, cyl, axis))
 		return (true);
+	hit->t = INFINITY;
 	return (false);
 }

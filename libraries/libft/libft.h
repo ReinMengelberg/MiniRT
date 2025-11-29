@@ -6,7 +6,7 @@
 /*   By: rein <rein@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 20:10:52 by rein          #+#    #+#                 */
-/*   Updated: 2025/11/29 14:17:53 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/29 14:24:51 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void		ft_putnbr_fd(int n, int fd);
 // ft_printf
 int			ft_printf(const char *format, ...);
 int			ft_dprintf(int fd, const char *format, ...);
+int			ft_ft_dprintf(int fd, const char *format, ...);
 int			ft_which_dprint(int fd, char specifier, va_list args);
 int			ft_dprint_c(int fd, int c);
 int			ft_dprint_s(int fd, char *s);

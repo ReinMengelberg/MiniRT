@@ -6,7 +6,7 @@
 /*   By: theyn <theyn@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/20 16:13:58 by theyn         #+#    #+#                 */
-/*   Updated: 2025/11/29 12:15:29 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/29 14:24:09 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ static int	init_mlx(t_mlx_data *data, t_composition *comp)
 {
 	data->mlx = mlx_init();
 	if (!data->mlx)
-		return (dprintf(2, "Error: Failed to init MLX\n"), 1);
+		return (ft_dprintf(2, "Error: Failed to init MLX\n"), 1);
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "RenderClanker");
 	if (!data->win)
-		return (dprintf(2, "Error: Failed to create window\n"), 1);
+		return (ft_dprintf(2, "Error: Failed to create window\n"), 1);
 	data->comp = comp;
 	data->img = NULL;
 	return (0);

@@ -1,132 +1,147 @@
-#ifndef RENDERCLANKER_H
-#   define RENDERCLANKER_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   renderclanker.h                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/29 12:21:28 by rmengelb      #+#    #+#                 */
+/*   Updated: 2025/11/29 12:21:30 by rmengelb      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <pthread.h>
-#include "stdio.h"
-#include "stdlib.h"
-#include "math.h"
-#include "fcntl.h"
-#include "libft.h"
-#include <mlx.h>
+#ifndef RENDERCLANKER_H
+# define RENDERCLANKER_H
+
+# include "fcntl.h"
+# include "libft.h"
+# include "math.h"
+# include "stdio.h"
+# include "stdlib.h"
+# include <mlx.h>
+# include <pthread.h>
 
 // STRUCTS
-#include "vector.h"
-#include "composition.h"
-#include "image.h"
-#include "debug.h"
+# include "composition.h"
+# include "debug.h"
+# include "image.h"
+# include "vector.h"
 
-#define WIDTH 800
-#define HEIGHT 600
+# define WIDTH 800
+# define HEIGHT 600
 
-#define NUM_THREADS 16
+# define NUM_THREADS 16
 
-#ifndef M_PI
-#   define M_PI 3.14159265358979323846
-#endif
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
+
+/**
+ * ROOT
+ */
+
+int				validate_args(int ac, char **av);
 
 /**
  * PARSING
  */
-
 t_composition	*create_composition(int fd);
-bool		add_ambient(t_composition *comp, char *line);
-bool		add_camera(t_composition *comp, char *line);
-bool		add_light(t_composition *comp, char *line);
-bool		add_cylinder(t_composition *comp, char *line);
-bool		add_plane(t_composition *comp, char *line);
-bool		add_sphere(t_composition *comp, char *line);
-
-t_viewport	*calculate_viewport(t_camera *cam, int width, int height);
+bool			add_ambient(t_composition *comp, char *line);
+bool			add_camera(t_composition *comp, char *line);
+bool			add_light(t_composition *comp, char *line);
+bool			add_cylinder(t_composition *comp, char *line);
+bool			add_plane(t_composition *comp, char *line);
+bool			add_sphere(t_composition *comp, char *line);
+t_composition	*load_scene(char *filename);
+t_viewport		*calculate_viewport(t_camera *cam, int width, int height);
 t_vector		*fill_vector(char *token);
 t_vector		*fill_direction(char *token);
-t_color		*fill_color(char *token);
-void		add_object_to_list(t_composition *comp, t_object *new_obj);
-void		free_object_data(t_object *obj);
-void		free_all_objects(t_object *objects);
-void		free_all_lights(t_light *lights);
-void		free_ambient(t_ambient *ambient);
-void		free_camera(t_camera *camera);
-void		free_composition(t_composition *comp);
-void	    free_viewport(t_viewport *vp);
-
-bool		is_valid_int(char *str);
-int			token_count(char **tokens);
-bool		check_token(char *token, char *expected);
-void		free_tokens(char **tokens);
-bool		is_valid_float(char *str);
-double		ft_atod(char *str);
-float		ft_atof(char *str);
-
-void	free_all_lights(t_light *lights);
-void	free_light(t_light *light);
-void	add_light_to_linked_list(t_composition *comp, t_light *new_light);
-bool	validate_light_values(t_light *light, char **tokens);
-void	free_plane(t_plane *pl);
-void	free_sphere(t_sphere *sph);
-float	ft_atof(char *str);
-double	ft_atod(char *str);
-void	free_all_objects(t_object *objects);
-void	free_cylinder(t_cylinder *cyl);
-
-/**
- * DEBUG
- */
-
-void print_composition(t_composition *comp);
+t_color			*fill_color(char *token);
+void			add_object_to_list(t_composition *comp, t_object *new_obj);
+void			free_object_data(t_object *obj);
+void			free_all_objects(t_object *objects);
+void			free_all_lights(t_light *lights);
+void			free_ambient(t_ambient *ambient);
+void			free_camera(t_camera *camera);
+void			free_composition(t_composition *comp);
+void			free_viewport(t_viewport *vp);
+bool			is_valid_int(char *str);
+int				token_count(char **tokens);
+bool			check_token(char *token, char *expected);
+void			free_tokens(char **tokens);
+bool			is_valid_float(char *str);
+double			ft_atod(char *str);
+float			ft_atof(char *str);
+void			free_all_lights(t_light *lights);
+void			free_light(t_light *light);
+void			add_light_to_linked_list(t_composition *comp,
+					t_light *new_light);
+bool			validate_light_values(t_light *light, char **tokens);
+void			free_plane(t_plane *pl);
+void			free_sphere(t_sphere *sph);
+float			ft_atof(char *str);
+double			ft_atod(char *str);
+void			free_all_objects(t_object *objects);
+void			free_cylinder(t_cylinder *cyl);
 
 /**
  * IMAGE
  */
 
-void	put_pixel(t_image *img, int x, int y, t_color c);
-t_image	*init_image(void *mlx, t_image *existing_img);
-t_image *render_composition(void *mlx, t_composition *comp, t_image *existing_img);
-
+void			put_pixel(t_image *img, int x, int y, t_color c);
+void			rerender_scene(t_mlx_data *data);
+t_image			*init_image(void *mlx, t_image *existing_img);
+t_image			*render_composition(void *mlx, t_composition *comp,
+					t_image *existing_img);
 
 /**
  * MOVEMENT
  */
-void	rotate_camera_y(t_composition *comp, float angle);
-void	rotate_camera_x(t_composition *comp, float angle);
-void	move_camera_forward(t_composition *comp, float distance);
-void	move_camera_strafe(t_composition *comp, float distance);
-void	rerender_scene(t_mlx_data *data);
+
+void			handle_rotation_keys(int keycode, t_mlx_data *data);
+void			rotate_camera_y(t_composition *comp, float angle);
+void			rotate_camera_x(t_composition *comp, float angle);
+void			handle_movement_keys(int keycode, t_mlx_data *data);
+void			move_camera_forward(t_composition *comp, float distance);
+void			move_camera_strafe(t_composition *comp, float distance);
 
 /**
  * CREATOR
  */
 
-t_ray	create_ray(t_camera *cam, t_viewport *vp, int x, int y);
+t_ray			create_ray(t_camera *cam, t_viewport *vp, int x, int y);
 
 /**
  * TRACER
  */
 
-t_color	trace_ray(t_ray ray, t_composition *comp);
-bool	find_intersect(t_ray ray, t_composition *comp, t_hit *hit);
-bool	intersect_cylinder(t_ray ray, t_cylinder *cyl, t_hit *hit);
-bool	intersect_sphere(t_ray ray, t_sphere *s, t_hit *hit);
-bool	intersect_plane(t_ray ray, t_plane *p, t_hit *hit);
-bool	try_intersection(t_hit *hit, t_cylinder *cyl, t_vector axis);
-bool	is_in_shadow(t_vector *hit_point, t_vector *light_pos, t_composition *comp);
-void	free_hit_data(t_hit *hit);
-void	clamp_color_values(t_color *final_color);
-t_color	init_ambient_color(t_color *obj_color, double ambient_intensity);
-t_color	*get_object_color(t_hit *hit);
-t_color	return_grey(void);
-t_color	calculate_lighting(t_hit *hit, t_composition *comp);
+t_color			trace_ray(t_ray ray, t_composition *comp);
+bool			find_intersect(t_ray ray, t_composition *comp, t_hit *hit);
+bool			intersect_cylinder(t_ray ray, t_cylinder *cyl, t_hit *hit);
+bool			intersect_sphere(t_ray ray, t_sphere *s, t_hit *hit);
+bool			intersect_plane(t_ray ray, t_plane *p, t_hit *hit);
+bool			try_intersection(t_hit *hit, t_cylinder *cyl, t_vector axis);
+bool			is_in_shadow(t_vector *hit_point, t_vector *light_pos,
+					t_composition *comp);
+void			free_hit_data(t_hit *hit);
+void			clamp_color_values(t_color *final_color);
+t_color			init_ambient_color(t_color *obj_color,
+					double ambient_intensity);
+t_color			*get_object_color(t_hit *hit);
+t_color			return_grey(void);
+t_color			calculate_lighting(t_hit *hit, t_composition *comp);
 
 /**
  * MATH
  */
 
-t_vector vadd(t_vector a, t_vector b);
-t_vector vsub(t_vector a, t_vector b);
-t_vector vscale(t_vector v, double scalar);
-double vdot(t_vector a, t_vector b);
-double vmagnitude(t_vector v);
-t_vector vnormalize(t_vector v);
-t_vector vcross(t_vector a, t_vector b);
-double vdistance(t_vector a, t_vector b);
+t_vector		vadd(t_vector a, t_vector b);
+t_vector		vsub(t_vector a, t_vector b);
+t_vector		vscale(t_vector v, double scalar);
+double			vdot(t_vector a, t_vector b);
+double			vmagnitude(t_vector v);
+t_vector		vnormalize(t_vector v);
+t_vector		vcross(t_vector a, t_vector b);
+double			vdistance(t_vector a, t_vector b);
 
 #endif

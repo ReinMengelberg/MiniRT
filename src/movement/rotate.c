@@ -6,11 +6,17 @@
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/09 15:01:39 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/23 14:00:31 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/29 12:15:58 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
+
+#define KEY_LEFT	65363
+#define KEY_RIGHT	65361
+#define KEY_UP		65362
+#define KEY_DOWN	65364
+#define ROTATE_STEP	0.1
 
 void	rotate_camera_y(t_composition *comp, float angle)
 {
@@ -52,4 +58,28 @@ void	rotate_camera_x(t_composition *comp, float angle)
 	if (comp->viewport)
 		free(comp->viewport);
 	comp->viewport = calculate_viewport(comp->camera, WIDTH, HEIGHT);
+}
+
+void	handle_rotation_keys(int keycode, t_mlx_data *data)
+{
+	if (keycode == KEY_LEFT)
+	{
+		rotate_camera_y(data->comp, ROTATE_STEP);
+		rerender_scene(data);
+	}
+	else if (keycode == KEY_RIGHT)
+	{
+		rotate_camera_y(data->comp, -ROTATE_STEP);
+		rerender_scene(data);
+	}
+	else if (keycode == KEY_UP)
+	{
+		rotate_camera_x(data->comp, -ROTATE_STEP);
+		rerender_scene(data);
+	}
+	else if (keycode == KEY_DOWN)
+	{
+		rotate_camera_x(data->comp, ROTATE_STEP);
+		rerender_scene(data);
+	}
 }

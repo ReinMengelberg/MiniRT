@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 16:13:58 by theyn             #+#    #+#             */
-/*   Updated: 2025/11/29 16:04:08 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: theyn <theyn@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/20 16:13:58 by theyn         #+#    #+#                 */
+/*   Updated: 2025/11/29 16:18:14 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
 
-#define KEY_ESC		65307
+#define KEY_ESC 65307
 
 static void	cleanup_and_exit(t_mlx_data *data)
 {
 	if (data->img)
+	{
 		mlx_destroy_image(data->mlx, data->img->img_ptr);
+		free(data->img);
+	}
 	mlx_destroy_window(data->mlx, data->win);
 	if (data->comp)
 		free_composition(data->comp);

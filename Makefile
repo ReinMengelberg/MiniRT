@@ -10,6 +10,8 @@ CLANKER = includes/bigmoneyclanker.txt
 
 SRCS	= \
 		src/main.c \
+		src/validate.c \
+		src/parser/scene.c \
 		src/creator/creator.c \
 		src/debug/composition.c \
 		src/debug/scene.c \

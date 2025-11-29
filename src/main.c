@@ -6,7 +6,7 @@
 /*   By: theyn <theyn@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/20 16:13:58 by theyn         #+#    #+#                 */
-/*   Updated: 2025/11/29 14:24:09 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/29 15:22:53 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	cleanup_and_exit(t_mlx_data *data)
 	if (data->img)
 		mlx_destroy_image(data->mlx, data->img->img_ptr);
 	mlx_destroy_window(data->mlx, data->win);
-	free_composition(data->comp);
+	if (data->comp)
+		free_composition(data->comp);
 	exit(0);
 }
 

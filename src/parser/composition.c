@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   composition.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/28 12:53:33 by theyn             #+#    #+#             */
-/*   Updated: 2025/11/28 13:25:44 by theyn            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   composition.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: theyn <theyn@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/11/28 12:53:33 by theyn         #+#    #+#                 */
+/*   Updated: 2025/11/29 15:28:05 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ bool	add_to_composition(t_composition *comp, char *line)
 		return (add_camera(comp, line));
 	else if (line[0] == 'L')
 		return (add_light(comp, line));
-	else if (line[0] == 'p')
+	else if (line[0] == 'p' && line[1] == 'l')
 		return (add_plane(comp, line));
-	else if (line[0] == 's')
+	else if (line[0] == 's' && line[1] == 'p')
 		return (add_sphere(comp, line));
-	else if (line[0] == 'c')
+	else if (line[0] == 'c' && line[1] == 'y')
 		return (add_cylinder(comp, line));
 	else
-		return (printf("Error: Not a valid .rt file\n"), false);
+		return (printf("Error: Invalid object definition in .rt file: %s\n", line), false);
 }
 
 bool	validate_composition(t_composition *comp)
@@ -67,7 +67,6 @@ static bool	process_line(t_composition *comp, char *line)
 		line[len - 1] = '\0';
 	if (!add_to_composition(comp, line))
 	{
-		free(line);
 		free_composition(comp);
 		return (false);
 	}
@@ -93,7 +92,10 @@ t_composition	*create_composition(int fd)
 		if (!line)
 			break ;
 		if (!process_line(comp, line))
-			return (free(line), NULL);
+		{
+			free(line);
+			return (NULL);
+		}
 		free(line);
 	}
 	if (!validate_composition(comp))

@@ -38,4 +38,3 @@ int	ft_dprint_rev(int fd, char *str)
 	free(result);
 	return ((int)i);
 }
-

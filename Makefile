@@ -40,15 +40,15 @@ SRCS	= \
 		src/parser/utils/plane_utils.c \
 		src/parser/utils/sphere_utils.c \
 		src/parser/utils/tokens.c \
-		src/tracer/color_utils.c \
-		src/tracer/intersect.c \
-		src/tracer/intersect_cylinder.c \
-		src/tracer/intersect_plane.c \
-		src/tracer/intersect_sphere.c \
-		src/tracer/lighting.c \
-		src/tracer/shadowing.c \
-		src/tracer/tracer.c \
-		src/tracer/try_intersection.c
+		src/parser/tracer/color_utils.c \
+		src/parser/tracer/intersect.c \
+		src/parser/tracer/intersect_cylinder.c \
+		src/parser/tracer/intersect_plane.c \
+		src/parser/tracer/intersect_sphere.c \
+		src/parser/tracer/lighting.c \
+		src/parser/tracer/shadowing.c \
+		src/parser/tracer/tracer.c \
+		src/parser/tracer/try_intersection.c
 
 OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o)
 

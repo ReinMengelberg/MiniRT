@@ -6,7 +6,7 @@
 /*   By: theyn <theyn@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/20 16:13:58 by theyn         #+#    #+#                 */
-/*   Updated: 2025/11/29 16:18:14 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/29 16:29:58 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ int	handle_keypress(int keycode, t_mlx_data *data)
 
 int	handle_close(t_mlx_data *data)
 {
-	mlx_destroy_window(data->mlx, data->win);
-	free_composition(data->comp);
-	exit(0);
+	cleanup_and_exit(data);
 	return (0);
 }
 

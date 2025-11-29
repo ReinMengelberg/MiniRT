@@ -6,7 +6,7 @@
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/09 15:01:35 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/29 12:05:23 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/29 12:15:54 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	move_camera_strafe(t_composition *comp, float distance)
 		free(comp->viewport);
 	comp->viewport = calculate_viewport(comp->camera, WIDTH, HEIGHT);
 }
-
-
 
 void	handle_movement_keys(int keycode, t_mlx_data *data)
 {

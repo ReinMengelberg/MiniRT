@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_print_d.c                                       :+:    :+:            */
+/*   ft_print_x.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/11/02 15:00:19 by rmengelb      #+#    #+#                 */
-/*   Updated: 2024/11/03 12:25:44 by rmengelb      ########   odam.nl         */
+/*   Created: 2024/11/02 18:07:48 by rmengelb      #+#    #+#                 */
+/*   Updated: 2025/11/29 14:18:13 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_print_d(int d)
+int	ft_dprint_x(int fd, unsigned int x)
 {
-	char	*temp;
-	int		i;
+	const char	*hex_digits;
+	char		temp[19];
+	int			i;
 
+	hex_digits = "0123456789abcdef";
 	i = 0;
-	temp = ft_itoa(d);
-	if (temp == NULL)
-		return (0);
-	while (temp[i] != '\0')
+	if (x == 0)
+		temp[i++] = '0';
+	while (x > 0)
 	{
-		write (1, &temp[i], 1);
-		i++;
+		temp[i++] = hex_digits[x % 16];
+		x /= 16;
 	}
-	free(temp);
-	return (i);
+	temp[i] = '\0';
+	return (ft_dprint_rev(fd, temp));
 }

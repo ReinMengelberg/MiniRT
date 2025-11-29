@@ -6,7 +6,7 @@
 /*   By: rein <rein@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 20:10:52 by rein          #+#    #+#                 */
-/*   Updated: 2025/11/29 12:42:15 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/29 14:17:53 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,18 @@ void		ft_putnbr_fd(int n, int fd);
 
 // ft_printf
 int			ft_printf(const char *format, ...);
-int			ft_which_print(char specifier, va_list args);
-int			ft_print_c(int c);
-int			ft_print_s(char *s);
-int			ft_print_p(void *p);
-int			ft_print_d(int d);
-int			ft_print_i(int i);
-int			ft_print_u(unsigned int u);
-int			ft_print_x(unsigned int x);
-int			ft_print_xupper(unsigned int x);
-int			ft_print_procent(void);
-int			ft_rev_and_write(char *str);
+int			ft_dprintf(int fd, const char *format, ...);
+int			ft_which_dprint(int fd, char specifier, va_list args);
+int			ft_dprint_c(int fd, int c);
+int			ft_dprint_s(int fd, char *s);
+int			ft_dprint_p(int fd, void *p);
+int			ft_dprint_d(int fd, int d);
+int			ft_dprint_i(int fd, int i);
+int			ft_dprint_u(int fd, unsigned int u);
+int			ft_dprint_x(int fd, unsigned int x);
+int			ft_dprint_xupper(int fd, unsigned int x);
+int			ft_dprint_procent(int fd);
+int			ft_dprint_rev(int fd, char *str);
 
 // get_next_line
 char		*get_next_line(int fd);

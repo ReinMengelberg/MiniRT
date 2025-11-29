@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-int	ft_print_c(int c)
+int	ft_dprint_c(int fd, int c)
 {
 	char	x;
 
 	x = c;
-	write (1, &x, 1);
+	write(fd, &x, 1);
 	return (1);
 }

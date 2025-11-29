@@ -1,40 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_rev_and_write.c                                 :+:    :+:            */
+/*   ft_print_u.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/11/03 11:29:50 by rmengelb      #+#    #+#                 */
-/*   Updated: 2024/11/03 12:26:21 by rmengelb      ########   odam.nl         */
+/*   Created: 2024/11/02 18:07:12 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/11/03 12:26:01 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_rev_and_write(char *str)
+char	*ft_utoa(unsigned int n)
 {
-	size_t	i;
-	size_t	len;
-	char	*result;
+	char	buffer[11];
+	int		i;
+
+	i = 10;
+	buffer[i--] = '\0';
+	if (n == 0)
+		return (ft_strdup("0"));
+	while (n > 0)
+	{
+		buffer[i--] = (n % 10) + '0';
+		n /= 10;
+	}
+	return (ft_strdup(&buffer[i + 1]));
+}
+
+int	ft_dprint_u(int fd, unsigned int u)
+{
+	char	*temp;
+	int		i;
 
 	i = 0;
-	len = ft_strlen(str);
-	result = malloc(len + 1);
-	if (!result)
+	temp = ft_utoa(u);
+	if (temp == NULL)
 		return (0);
-	while (i < len)
+	while (temp[i] != '\0')
 	{
-		result[i] = str[len - i - 1];
+		write(fd, &temp[i], 1);
 		i++;
 	}
-	result[len] = '\0';
-	i = 0;
-	while (result[i] != '\0')
-	{
-		write(1, &result[i], 1);
-		i++;
-	}
-	free(result);
-	return ((int)i);
+	free(temp);
+	return (i);
 }

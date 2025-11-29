@@ -29,7 +29,30 @@ int	ft_printf(const char *format, ...)
 			pc++;
 		}
 		else
-			pc += ft_which_print(format[++i], args);
+			pc += ft_which_dprint(1, format[++i], args);
+		i++;
+	}
+	return (pc);
+}
+
+int	ft_dprintf(int fd, const char *format, ...)
+{
+	size_t		i;
+	va_list		args;
+	long int	pc;
+
+	i = 0;
+	pc = 0;
+	va_start(args, format);
+	while (format[i] != '\0')
+	{
+		if (format[i] != '%')
+		{
+			write(fd, &format[i], 1);
+			pc++;
+		}
+		else
+			pc += ft_which_dprint(fd, format[++i], args);
 		i++;
 	}
 	return (pc);

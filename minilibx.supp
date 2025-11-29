@@ -1,0 +1,76 @@
+{
+   mlx_init_leak
+   Memcheck:Leak
+   ...
+   fun:mlx_init
+}
+
+{
+   mlx_new_window_leak
+   Memcheck:Leak
+   ...
+   fun:mlx_new_window
+}
+
+{
+   mlx_new_image_leak
+   Memcheck:Leak
+   ...
+   fun:mlx_new_image
+}
+
+{
+   x11_leak
+   Memcheck:Leak
+   ...
+   obj:*/libX11.so.*
+}
+
+{
+   x11_xcb_leak
+   Memcheck:Leak
+   ...
+   obj:*/libxcb.so.*
+}
+
+{
+   xext_leak
+   Memcheck:Leak
+   ...
+   obj:*/libXext.so.*
+}
+
+{
+   xcb_util_leak
+   Memcheck:Leak
+   ...
+   obj:*/libxcb-util.so.*
+}
+
+{
+   fontconfig_leak
+   Memcheck:Leak
+   ...
+   obj:*/libfontconfig.so.*
+}
+
+{
+   freetype_leak
+   Memcheck:Leak
+   ...
+   obj:*/libfreetype.so.*
+}
+
+{
+   pthread_leak
+   Memcheck:Leak
+   ...
+   fun:pthread_create*
+}
+
+{
+   dl_leak
+   Memcheck:Leak
+   ...
+   fun:_dl_*
+}

@@ -6,7 +6,7 @@
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/23 13:00:53 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/23 13:21:18 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/29 16:06:41 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ t_image	*render_composition(void *mlx, t_composition *comp, t_image *ex_img)
 
 void	rerender_scene(t_mlx_data *data)
 {
+	t_image	*old_img;
+
+	old_img = data->img;
 	data->img = render_composition(data->mlx, data->comp, data->img);
+	if (old_img && old_img->img_ptr)
+		mlx_destroy_image(data->mlx, old_img->img_ptr);
+	if (old_img)
+		free(old_img);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img_ptr, 0, 0);
 }

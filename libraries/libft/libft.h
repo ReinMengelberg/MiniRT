@@ -6,19 +6,19 @@
 /*   By: rein <rein@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 20:10:52 by rein          #+#    #+#                 */
-/*   Updated: 2025/11/07 16:14:14 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/29 12:42:15 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <stddef.h>
-# include <stdlib.h>
-# include <stdint.h>
-# include <unistd.h>
 # include <stdarg.h>
 # include <stdbool.h>
+# include <stddef.h>
+# include <stdint.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 // Libft
 int			ft_isalpha(int i);
@@ -51,13 +51,13 @@ char		*ft_strtrim(char const *s1, char const *set);
 char		**ft_split(char const *s, char c);
 char		*ft_itoa(int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-void		ft_striteri(char *s, void (*f)(unsigned int, char*));
+void		ft_striteri(char *s, void (*f)(unsigned int, char *));
 void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
 
-//ft_printf
+// ft_printf
 int			ft_printf(const char *format, ...);
 int			ft_which_print(char specifier, va_list args);
 int			ft_print_c(int c);
@@ -71,7 +71,10 @@ int			ft_print_xupper(unsigned int x);
 int			ft_print_procent(void);
 int			ft_rev_and_write(char *str);
 
-//get_next_line
+// get_next_line
 char		*get_next_line(int fd);
+int			contains_nl(char *str);
+int			strlen_nl(char *str);
+char		*allocate_result(char *line, char *buffer);
 
 #endif

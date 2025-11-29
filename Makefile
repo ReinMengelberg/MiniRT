@@ -1,22 +1,56 @@
 #this is the makefile
 
-NAME	= RenderClanker
+NAME	= miniRT
 CC		= cc
 CFLAGS	= -Wall -Werror -Wextra -g -pthread
 RM		= rm -f
 OBJ_DIR	= obj
 INC_DIR = includes
-DEP_DIR	= $(OBJ_DIR)
 CLANKER = includes/bigmoneyclanker.txt
 
 SRCS	= \
-$(wildcard *.c) \
-$(wildcard src/*.c) \
-$(wildcard src/*/*.c) \
-$(wildcard src/*/*/*.c)
+		src/main.c \
+		src/validate.c \
+		src/parser/scene.c \
+		src/creator/creator.c \
+		src/debug/composition.c \
+		src/debug/scene.c \
+		src/debug/shapes.c \
+		src/debug/utils.c \
+		src/image/fast.c \
+		src/image/utils.c \
+		src/math/vector_complex.c \
+		src/math/vector_simple.c \
+		src/movement/move.c \
+		src/movement/rotate.c \
+		src/parser/ambient.c \
+		src/parser/camera.c \
+		src/parser/composition.c \
+		src/parser/cylinder.c \
+		src/parser/light.c \
+		src/parser/plane.c \
+		src/parser/sphere.c \
+		src/parser/viewport.c \
+		src/parser/utils/ft_atod.c \
+		src/parser/utils/ft_atof.c \
+		src/parser/utils/light_utils.c \
+		src/parser/utils/objecs_utils.c \
+		src/parser/utils/objects.c \
+		src/parser/utils/objects_free.c \
+		src/parser/utils/plane_utils.c \
+		src/parser/utils/sphere_utils.c \
+		src/parser/utils/tokens.c \
+		src/tracer/color_utils.c \
+		src/tracer/intersect.c \
+		src/tracer/intersect_cylinder.c \
+		src/tracer/intersect_plane.c \
+		src/tracer/intersect_sphere.c \
+		src/tracer/lighting.c \
+		src/tracer/shadowing.c \
+		src/tracer/tracer.c \
+		src/tracer/try_intersection.c
 
-OBJS	= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
-DEPS	= $(addprefix $(DEP_DIR)/, $(SRCS:.c=.d))
+OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 # Libraries
 LIBFT_DIR	= libraries/libft
@@ -36,7 +70,7 @@ $(OBJ_DIR):
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -MF $(DEP_DIR)/$*.d -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
@@ -60,7 +94,5 @@ fclean: clean
 re: fclean all
 
 bonus: all
-
--include $(DEPS)
 
 .PHONY: all clean fclean re bonus

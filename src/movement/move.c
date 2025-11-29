@@ -6,11 +6,17 @@
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/09 15:01:35 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/23 13:56:12 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/29 12:05:23 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderclanker.h"
+
+#define KEY_W		119
+#define KEY_D		100
+#define KEY_S		115
+#define KEY_A		97
+#define MOVE_STEP	1
 
 void	move_camera_forward(t_composition *comp, float distance)
 {
@@ -46,4 +52,30 @@ void	move_camera_strafe(t_composition *comp, float distance)
 	if (comp->viewport)
 		free(comp->viewport);
 	comp->viewport = calculate_viewport(comp->camera, WIDTH, HEIGHT);
+}
+
+
+
+void	handle_movement_keys(int keycode, t_mlx_data *data)
+{
+	if (keycode == KEY_W)
+	{
+		move_camera_forward(data->comp, MOVE_STEP);
+		rerender_scene(data);
+	}
+	else if (keycode == KEY_S)
+	{
+		move_camera_forward(data->comp, -MOVE_STEP);
+		rerender_scene(data);
+	}
+	else if (keycode == KEY_A)
+	{
+		move_camera_strafe(data->comp, -MOVE_STEP);
+		rerender_scene(data);
+	}
+	else if (keycode == KEY_D)
+	{
+		move_camera_strafe(data->comp, MOVE_STEP);
+		rerender_scene(data);
+	}
 }

@@ -36,6 +36,7 @@ bool		add_cylinder(t_composition *comp, char *line);
 bool		add_plane(t_composition *comp, char *line);
 bool		add_sphere(t_composition *comp, char *line);
 
+t_composition	*load_scene(char *filename);
 t_viewport	*calculate_viewport(t_camera *cam, int width, int height);
 t_vector		*fill_vector(char *token);
 t_vector		*fill_direction(char *token);
@@ -73,12 +74,14 @@ void	free_cylinder(t_cylinder *cyl);
  */
 
 void print_composition(t_composition *comp);
+int	validate_args(int ac, char **av);
 
 /**
  * IMAGE
  */
 
 void	put_pixel(t_image *img, int x, int y, t_color c);
+void	rerender_scene(t_mlx_data *data);
 t_image	*init_image(void *mlx, t_image *existing_img);
 t_image *render_composition(void *mlx, t_composition *comp, t_image *existing_img);
 
@@ -86,11 +89,13 @@ t_image *render_composition(void *mlx, t_composition *comp, t_image *existing_im
 /**
  * MOVEMENT
  */
+
+void	handle_rotation_keys(int keycode, t_mlx_data *data);
 void	rotate_camera_y(t_composition *comp, float angle);
 void	rotate_camera_x(t_composition *comp, float angle);
+void	handle_movement_keys(int keycode, t_mlx_data *data);
 void	move_camera_forward(t_composition *comp, float distance);
 void	move_camera_strafe(t_composition *comp, float distance);
-void	rerender_scene(t_mlx_data *data);
 
 /**
  * CREATOR

@@ -1,36 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_printf.c                                        :+:    :+:            */
+/*   ft_print_u.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/11/01 17:58:09 by rmengelb      #+#    #+#                 */
-/*   Updated: 2024/11/03 12:26:15 by rmengelb      ########   odam.nl         */
+/*   Created: 2024/11/02 18:07:12 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/11/03 12:26:01 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_printf(const char *format, ...)
+char	*ft_utoa(unsigned int n)
 {
-	size_t		i;
-	va_list		args;
-	long int	pc;
+	char	buffer[11];
+	int		i;
+
+	i = 10;
+	buffer[i--] = '\0';
+	if (n == 0)
+		return (ft_strdup("0"));
+	while (n > 0)
+	{
+		buffer[i--] = (n % 10) + '0';
+		n /= 10;
+	}
+	return (ft_strdup(&buffer[i + 1]));
+}
+
+int	ft_dprint_u(int fd, unsigned int u)
+{
+	char	*temp;
+	int		i;
 
 	i = 0;
-	pc = 0;
-	va_start(args, format);
-	while (format[i] != '\0')
+	temp = ft_utoa(u);
+	if (temp == NULL)
+		return (0);
+	while (temp[i] != '\0')
 	{
-		if (format[i] != '%')
-		{
-			write(1, &format[i], 1);
-			pc++;
-		}
-		else
-			pc += ft_which_print(format[++i], args);
+		write(fd, &temp[i], 1);
 		i++;
 	}
-	return (pc);
+	free(temp);
+	return (i);
 }

@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_print_c.c                                       :+:    :+:            */
+/*   scene.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/11/02 14:56:17 by rmengelb      #+#    #+#                 */
-/*   Updated: 2024/11/03 12:25:43 by rmengelb      ########   odam.nl         */
+/*   Created: 2025/11/29 12:14:00 by rmengelb      #+#    #+#                 */
+/*   Updated: 2025/11/29 14:24:09 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "renderclanker.h"
 
-int	ft_print_c(int c)
+t_composition	*load_scene(char *filename)
 {
-	char	x;
+	int				fd;
+	t_composition	*comp;
 
-	x = c;
-	write (1, &x, 1);
-	return (1);
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+	{
+		ft_dprintf(2, "Error: Can't open file\n");
+		return (NULL);
+	}
+	comp = create_composition(fd);
+	close(fd);
+	if (!comp)
+	{
+		ft_dprintf(2, "Error: Failed to parse scene\n");
+		return (NULL);
+	}
+	return (comp);
 }

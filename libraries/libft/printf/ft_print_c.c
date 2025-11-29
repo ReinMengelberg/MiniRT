@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_print_procent.c                                 :+:    :+:            */
+/*   ft_print_c.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/11/02 14:54:56 by rmengelb      #+#    #+#                 */
-/*   Updated: 2024/11/03 12:25:52 by rmengelb      ########   odam.nl         */
+/*   Created: 2024/11/02 14:56:17 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/11/03 12:25:43 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_print_procent(void)
+int	ft_dprint_c(int fd, int c)
 {
-	write(1, "%", 1);
+	char	x;
+
+	x = c;
+	write(fd, &x, 1);
 	return (1);
 }

@@ -6,15 +6,16 @@
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/23 14:02:55 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/23 14:07:48 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/29 12:22:26 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_DEBUG_H
-# define PRINT_DEBUG_H
+#ifndef DEBUG_H
+# define DEBUG_H
 
 # include "renderclanker.h"
 
+void	print_composition(t_composition *comp);
 void	print_vector(const char *label, t_vector *v);
 void	print_color(const char *label, t_color *c);
 void	print_composition(t_composition *comp);

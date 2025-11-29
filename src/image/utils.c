@@ -6,7 +6,7 @@
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/23 13:09:49 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/23 13:13:29 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/29 14:24:09 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_image	*init_image(void *mlx, t_image *existing_img)
 		return (existing_img);
 	img = malloc(sizeof(t_image));
 	if (!img)
-		return (dprintf(2, "Failed to allocate memory for image"), NULL);
+		return (ft_dprintf(2, "Failed to allocate memory for image"), NULL);
 	img->img_ptr = mlx_new_image(mlx, WIDTH, HEIGHT);
 	img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel,
 			&img->line_length, &img->endian);

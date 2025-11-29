@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_rev_and_write.c                                 :+:    :+:            */
+/*   ft_print_i.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/11/03 11:29:50 by rmengelb      #+#    #+#                 */
-/*   Updated: 2024/11/03 12:26:21 by rmengelb      ########   odam.nl         */
+/*   Created: 2024/11/02 15:42:30 by rmengelb      #+#    #+#                 */
+/*   Updated: 2024/11/03 12:25:44 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_rev_and_write(char *str)
+int	ft_dprint_i(int fd, int integer)
 {
-	size_t	i;
-	size_t	len;
-	char	*result;
+	char	*temp;
+	int		i;
 
 	i = 0;
-	len = ft_strlen(str);
-	result = malloc(len + 1);
-	if (!result)
+	temp = ft_itoa(integer);
+	if (temp == NULL)
 		return (0);
-	while (i < len)
+	while (temp[i] != '\0')
 	{
-		result[i] = str[len - i - 1];
+		write(fd, &temp[i], 1);
 		i++;
 	}
-	result[len] = '\0';
-	i = 0;
-	while (result[i] != '\0')
-	{
-		write(1, &result[i], 1);
-		i++;
-	}
-	free(result);
-	return ((int)i);
+	free(temp);
+	return (i);
 }

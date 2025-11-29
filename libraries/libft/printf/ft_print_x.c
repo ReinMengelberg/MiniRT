@@ -1,48 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_print_u.c                                       :+:    :+:            */
+/*   ft_print_x.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/11/02 18:07:12 by rmengelb      #+#    #+#                 */
-/*   Updated: 2024/11/03 12:26:01 by rmengelb      ########   odam.nl         */
+/*   Created: 2024/11/02 18:07:48 by rmengelb      #+#    #+#                 */
+/*   Updated: 2025/11/29 14:23:33 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_utoa(unsigned int n)
+int	ft_dprint_x(int fd, unsigned int x)
 {
-	char	buffer[11];
-	int		i;
+	const char	*hex_digits;
+	char		temp[19];
+	int			i;
 
-	i = 10;
-	buffer[i--] = '\0';
-	if (n == 0)
-		return (ft_strdup("0"));
-	while (n > 0)
-	{
-		buffer[i--] = (n % 10) + '0';
-		n /= 10;
-	}
-	return (ft_strdup(&buffer[i + 1]));
-}
-
-int	ft_print_u(unsigned int u)
-{
-	char	*temp;
-	int		i;
-
+	hex_digits = "0123456789abcdef";
 	i = 0;
-	temp = ft_utoa(u);
-	if (temp == NULL)
-		return (0);
-	while (temp[i] != '\0')
+	if (x == 0)
+		temp[i++] = '0';
+	while (x > 0)
 	{
-		write(1, &temp[i], 1);
-		i++;
+		temp[i++] = hex_digits[x % 16];
+		x /= 16;
 	}
-	free(temp);
-	return (i);
+	temp[i] = '\0';
+	return (ft_dprint_rev(fd, temp));
 }

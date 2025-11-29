@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -I. # Compilation flags
 # Source files
 SRC = $(wildcard *.c)              # All .c files in the current directory
 SRC += $(wildcard gnl/*.c)         # All .c files in the gnl directory
-SRC += $(wildcard print/*.c)       # All .c files in the print directory
+SRC += $(wildcard printf/*.c)       # All .c files in the print directory
 
 OBJ = $(SRC:.c=.o)                 # Convert all .c files to their respective .o files
 

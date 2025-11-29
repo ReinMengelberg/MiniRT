@@ -6,7 +6,7 @@
 /*   By: theyn <theyn@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/28 12:53:33 by theyn         #+#    #+#                 */
-/*   Updated: 2025/11/29 15:28:05 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/29 16:11:17 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ bool	add_to_composition(t_composition *comp, char *line)
 	else if (line[0] == 'c' && line[1] == 'y')
 		return (add_cylinder(comp, line));
 	else
-		return (printf("Error: Invalid object definition in .rt file: %s\n", line), false);
+		return (printf("Error: Invalid object definition in .rt file: %s\n",
+				line), false);
 }
 
 bool	validate_composition(t_composition *comp)
@@ -92,10 +93,7 @@ t_composition	*create_composition(int fd)
 		if (!line)
 			break ;
 		if (!process_line(comp, line))
-		{
-			free(line);
-			return (NULL);
-		}
+			return (free(line), NULL);
 		free(line);
 	}
 	if (!validate_composition(comp))

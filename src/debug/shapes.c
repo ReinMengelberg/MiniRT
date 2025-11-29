@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   shapes.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/11/23 14:04:27 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/23 14:14:07 by rmengelb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   shapes.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/23 14:04:27 by rmengelb          #+#    #+#             */
+/*   Updated: 2025/11/28 14:45:03 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,18 @@ static void	print_plane(t_plane *pl)
 
 static void	print_object_data(t_object *curr)
 {
-	if (curr->type == SPHERE && curr->data) {
+	if (curr->type == SPHERE && curr->data)
+	{
 		printf("    Type: SPHERE\n");
 		print_sphere((t_sphere *)curr->data);
 	}
-	else if (curr->type == CYLINDER && curr->data) {
+	else if (curr->type == CYLINDER && curr->data)
+	{
 		printf("    Type: CYLINDER\n");
 		print_cylinder((t_cylinder *)curr->data);
 	}
-	else if (curr->type == PLANE && curr->data) {
+	else if (curr->type == PLANE && curr->data)
+	{
 		printf("    Type: PLANE\n");
 		print_plane((t_plane *)curr->data);
 	}

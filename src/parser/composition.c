@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   composition.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/28 12:53:33 by theyn             #+#    #+#             */
+/*   Updated: 2025/11/28 13:25:44 by theyn            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "renderclanker.h"
 
-void	free_composition(t_composition *comp) {
+void	free_composition(t_composition *comp)
+{
 	if (!comp)
-		return;
+		return ;
 	if (comp->camera)
 		free_camera(comp->camera);
 	if (comp->ambient)
@@ -18,62 +31,73 @@ void	free_composition(t_composition *comp) {
 
 bool	add_to_composition(t_composition *comp, char *line)
 {
-	switch (line[0]) {
-		case 'A':
-			return (add_ambient(comp, line));
-		case 'C':
-			return (add_camera(comp, line));
-		case 'L':
-			return (add_light(comp, line));
-		case 'p':
-			return (add_plane(comp, line));
-		case 's':
-			return (add_sphere(comp, line));
-		case 'c':
-			return (add_cylinder(comp, line));
-		default:
-			return (dprintf(2, "Not a valid .rt file\n"), false);
-	}
+	if (line[0] == 'A')
+		return (add_ambient(comp, line));
+	else if (line[0] == 'C')
+		return (add_camera(comp, line));
+	else if (line[0] == 'L')
+		return (add_light(comp, line));
+	else if (line[0] == 'p')
+		return (add_plane(comp, line));
+	else if (line[0] == 's')
+		return (add_sphere(comp, line));
+	else if (line[0] == 'c')
+		return (add_cylinder(comp, line));
+	else
+		return (printf("Error: Not a valid .rt file\n"), false);
 }
 
-bool	validate_composition(t_composition *comp) {
+bool	validate_composition(t_composition *comp)
+{
 	if (!comp->camera)
-		return (dprintf(2, "Error: No camera defined in .rt file\n"), false);
+		return (printf("Error: No camera defined in .rt file\n"), false);
 	if (!comp->ambient)
-		return (dprintf(2, "Error: No ambient defined in .rt file\n"), false);
+		return (printf("Error: No ambient defined in .rt file\n"), false);
 	if (!comp->lights)
-		return (dprintf(2, "Error: No lights defined in .rt file\n"), false);
+		return (printf("Error: No lights defined in .rt file\n"), false);
 	return (true);
 }
 
-t_composition	*create_composition(int fd) {
+static bool	process_line(t_composition *comp, char *line)
+{
+	size_t	len;
+
+	len = ft_strlen(line);
+	if (len > 0 && line[len - 1] == '\n')
+		line[len - 1] = '\0';
+	if (!add_to_composition(comp, line))
+	{
+		free(line);
+		free_composition(comp);
+		return (false);
+	}
+	return (true);
+}
+
+t_composition	*create_composition(int fd)
+{
 	t_composition	*comp;
-	char		*line;
-	
+	char			*line;
+
 	comp = malloc(sizeof(t_composition));
 	if (!comp)
-		return (dprintf(2, "Error: Failed to allocate composition\n"), NULL);
-	
+		return (printf("Error: Failed to allocate composition\n"), NULL);
 	comp->camera = NULL;
 	comp->ambient = NULL;
-	comp->objects = NULL;
 	comp->lights = NULL;
+	comp->objects = NULL;
 	comp->viewport = NULL;
-
-	while ((line = get_next_line(fd))) {
-		if (line[ft_strlen(line) - 1] == '\n') { // Remove newline from next line
-			line[ft_strlen(line) - 1] = '\0';
-		}
-		if (!add_to_composition(comp, line)) {
-			free(line);
-			free_composition(comp);
-			return (NULL);
-		}
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if (!process_line(comp, line))
+			return (free(line), NULL);
 		free(line);
 	}
-	if (!validate_composition(comp)) {
+	if (!validate_composition(comp))
 		return (free_composition(comp), NULL);
-	}
 	comp->viewport = calculate_viewport(comp->camera, WIDTH, HEIGHT);
 	return (comp);
 }

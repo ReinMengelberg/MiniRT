@@ -63,6 +63,10 @@ void	add_light_to_linked_list(t_composition *comp, t_light *new_light);
 bool	validate_light_values(t_light *light, char **tokens);
 void	free_plane(t_plane *pl);
 void	free_sphere(t_sphere *sph);
+float	ft_atof(char *str);
+double	ft_atod(char *str);
+void	free_all_objects(t_object *objects);
+void	free_cylinder(t_cylinder *cyl);
 
 /**
  * DEBUG

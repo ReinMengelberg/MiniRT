@@ -17,7 +17,7 @@ SRCS	= \
 		src/debug/scene.c \
 		src/debug/shapes.c \
 		src/debug/utils.c \
-		src/image/fast.c \
+		src/image/slow.c \
 		src/image/utils.c \
 		src/math/vector_complex.c \
 		src/math/vector_simple.c \

@@ -6,7 +6,7 @@
 /*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/29 12:21:28 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/29 12:21:30 by rmengelb      ########   odam.nl         */
+/*   Updated: 2025/11/30 12:41:44 by rmengelb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
 # include "image.h"
 # include "vector.h"
 
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1600
+# define HEIGHT 900
 
-# define NUM_THREADS 16
+# define NUM_THREADS 32
 
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846

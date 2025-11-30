@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   renderclanker.h                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmengelb <rmengelb@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/11/29 12:21:28 by rmengelb      #+#    #+#                 */
-/*   Updated: 2025/11/29 12:21:30 by rmengelb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   renderclanker.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theyn <theyn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 12:21:28 by rmengelb          #+#    #+#             */
+/*   Updated: 2025/11/30 12:17:02 by theyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include "vector.h"
 
 # define WIDTH 800
-# define HEIGHT 600
+# define HEIGHT 800
 
 # define NUM_THREADS 16
 
